@@ -7,8 +7,12 @@ let
   };
 
   config = extra_configs."${configuration}";
-in
-  ''
+  text = ''
 ${builtins.readFile ./base}
 ${config}
-  ''
+  '';
+in
+  {
+    target = ".config/i3/config";
+    inherit text;
+  }
