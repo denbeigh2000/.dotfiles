@@ -18,8 +18,21 @@
 
   targets.genericLinux.enable = true;
 
+  home.packages = with pkgs; [
+    glibcLocales
+  ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.aria2.enable = true;
+  programs.jq.enable = true;
+
+  programs.keychain = {
+    enable = true;
+    keys = ["id_ed25519"];
+    enableZshIntegration = true;
+  };
 
   programs.git = {
     enable = true;
@@ -34,12 +47,20 @@
 
   programs.gh.enable = true;
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     oh-my-zsh = {
       enable = true;
       plugins = ["git" "rust"];
       theme = "steeef";
+    };
+    shellAliases = {
+      vim = "nvim";
     };
     initExtra = (builtins.readFile ./zsh/zshrc);
   };
