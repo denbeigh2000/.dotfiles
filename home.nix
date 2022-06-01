@@ -33,6 +33,11 @@ let
   files = (if (hostPlatform.isLinux && host.graphical != "none")
            then { inherit i3-config; }
            else {});
+
+  platformSpecific = (if hostPlatform.isLinux
+                      then import ./linux.nix { inherit pkgs; }
+                      else import ./darwin.nix { inherit pkgs; });
+
 in
   {
     # Home Manager needs a bit of information about you and the
@@ -46,19 +51,20 @@ in
 
     home.packages = with pkgs; [
       glibcLocales
-    ];
+    ] ++ platformSpecific.packages;
 
-    services.redshift = {
-      # TODO: ??? Does this work on mac?
-      enable = true;
-      latitude = 37.7749;
-      longitude = 122.4194;
-      temperature = {
-        day = 5500;
-        night = 3700;
+    services = {
+      redshift = {
+        enable = true;
+        latitude = 37.7749;
+        longitude = 122.4194;
+        temperature = {
+          day = 5500;
+          night = 3700;
+        };
+        tray = true;
       };
-      tray = true;
-    };
+    } // platformSpecific.services;
 
     programs = {
       # Let Home Manager install and manage itself.
