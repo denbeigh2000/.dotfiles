@@ -10,15 +10,6 @@ alias clip='xclip -selection CLIPBOARD $@'
 
 bindkey -v
 
-if command -v nvim >/dev/null
-then
-    alias vim='nvim'
-    export EDITOR='nvim'
-elif command -v vim >/dev/null
-then
-    export EDITOR='vim'
-fi
-
 ZSH_SYNTAX_FILES=(
     /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
     /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

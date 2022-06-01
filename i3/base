@@ -1,0 +1,260 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod1
+set $mod1 Mod4
+
+set $bgcolor #555555
+set $fgcolor #dedede
+set $indcolor #585858
+
+# white-ish
+set $inactivebg #7c6f64
+set $inactivefg #edbbb2
+set $inactiveind #928374
+
+set $inactive_secondaryfg #a89984
+set $inactive_secondarybg #3c3836
+set $inactive_secondaryind #504945
+
+set $inactive_primaryfg #d5c4a1
+set $inactive_primarybg #504945
+set $inactive_primaryind #7c6f64
+
+set $barfg #928374
+set $barbg #282828
+set $barsep #928374
+
+set $titlebarbgcolor #2d2d2d
+set $titlebarfgcolor #dcdcdc
+
+set $selectedbg   #d65d0e
+set $selectedfg   #ebdbb2
+set $selectedind  #fe8019
+
+set $urgentbg   #cc241d
+set $urgentfg   #282828
+set $urgentind  #3c3836
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. ISO 10646 = Unicode
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, if you need a lot of unicode glyphs or
+# right-to-left text rendering, you should instead use pango for rendering and
+# chose a FreeType font, such as:
+# font pango:DejaVu Sans Mono 10
+# font pango:Source Code Pro ExtraLight 18
+# font pango:SFNS Display 19
+font pango:SFNS Display 10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+#bindsym $mod+Return exec terminator
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod1+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+p exec dmenu_run -l 20 -nb \#3c3836 -nf \#a89984 -sb \#d65d0e -sf \#ebdbb2
+
+
+#bindsym $mod/z exec "~/.local/bin/quickswitch.py"
+#bindsym $mod+x exec "~/.local/bin/quickswitch.py -w"
+bindsym $mod+c exec i3-input -F 'rename workspace to "%s"' -P 'New workspace name: '
+#bindsym $mod+b exec "~/.local/bin/quickswitch.py -s"
+bindsym $mod+Shift+b move scratchpad
+bindsym $mod+b scratchpad show
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# vim keys erryday
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# vim keys erryday
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+v split h
+
+# split in vertical orientation
+bindsym $mod+n split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 $ws1
+bindsym $mod+2 $ws2
+bindsym $mod+3 $ws3
+bindsym $mod+4 $ws4
+bindsym $mod+5 $ws5
+bindsym $mod+6 $ws6
+bindsym $mod+7 $ws7
+bindsym $mod+8 $ws8
+bindsym $mod+9 $ws9
+bindsym $mod+0 $ws10
+bindsym $mod1+1 $ws11
+bindsym $mod1+2 $ws12
+bindsym $mod1+3 $ws13
+bindsym $mod1+4 $ws14
+bindsym $mod1+5 $ws15
+bindsym $mod1+6 $ws16
+bindsym $mod1+7 $ws17
+bindsym $mod1+8 $ws18
+bindsym $mod1+9 $ws19
+bindsym $mod1+0 $ws20
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to $ws1
+bindsym $mod+Shift+2 move container to $ws2
+bindsym $mod+Shift+3 move container to $ws3
+bindsym $mod+Shift+4 move container to $ws4
+bindsym $mod+Shift+5 move container to $ws5
+bindsym $mod+Shift+6 move container to $ws6
+bindsym $mod+Shift+7 move container to $ws7
+bindsym $mod+Shift+8 move container to $ws8
+bindsym $mod+Shift+9 move container to $ws9
+bindsym $mod+Shift+0 move container to $ws10
+bindsym $mod1+Shift+1 move container to $ws11
+bindsym $mod1+Shift+2 move container to $ws12
+bindsym $mod1+Shift+3 move container to $ws13
+bindsym $mod1+Shift+4 move container to $ws14
+bindsym $mod1+Shift+5 move container to $ws15
+bindsym $mod1+Shift+6 move container to $ws16
+bindsym $mod1+Shift+7 move container to $ws17
+bindsym $mod1+Shift+8 move container to $ws18
+bindsym $mod1+Shift+9 move container to $ws19
+bindsym $mod1+Shift+0 move container to $ws20
+
+bindsym $mod+Control+w move container to output left
+bindsym $mod+Control+e move container to output right
+bindsym $mod+Control+Shift+w move workspace to output left
+bindsym $mod+Control+Shift+e move workspace to output right
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym $mod+Delete exec "i3lock -c 282828 -f"
+
+bindsym $mod1+h exec "spotify-control Previous"
+bindsym $mod1+l exec "spotify-control Next"
+#bindsym Print exec mpc prev
+#bindsym Shift+Print exec mpc volume -1
+#bindsym Scroll_Lock exec mpc toggle
+#bindsym Pause exec mpc next
+#bindsym Shift+Pause exec mpc volume +1
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # Alternate resize bindings for finer control
+        bindsym Shift+h resize shrink width 3 px or 3 ppt
+        bindsym Shift+j resize grow height 3 px or 3 ppt
+        bindsym Shift+k resize shrink height 3 px or 3 ppt
+        bindsym Shift+l resize grow width 3 px or 3 ppt
+
+        # vim keys erryday
+        # same bindings, but for the arrow keys
+        #bindsym Left resize shrink width 10 px or 10 ppt
+        #bindsym Down resize grow height 10 px or 10 ppt
+        #bindsym Up resize shrink height 10 px or 10 ppt
+        #bindsym Right resize grow width 10 px or 10 ppt
+
+
+        bindsym n move workspace to output left
+        bindsym m move workspace to output right
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+#
+# Colors
+set $BLAAACK #000000
+
+# class                 border      backgr.                 text                    indicator
+client.focused          $BLAAACK    $selectedbg             $selectedfg             $selectedind
+client.focused_inactive $BLAAACK    $inactive_primarybg     $inactive_primaryfg     $inactive_primaryind
+client.unfocused        $BLAAACK    $inactive_secondarybg   $inactive_secondaryfg   $inactive_secondaryinactive_secondaryind
+client.urgent           $BLAAACK    $urgentbg           $urgentfg           #urgentind
+client.placeholder      $BLAAACK    #0c0c0c             #ffffff             #000000
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    colors {
+        background $barbg
+        statusline $barfg
+        separator $barsep
+
+        focused_workspace  $selectedbg $selectedbg $selectedfg
+        active_workspace   $inactive_primarybg $inactive_primarybg $inactive_primaryfg
+        inactive_workspace $inactive_secondarybg $inactive_secondarybg $inactive_secondaryfg
+        urgent_workspace   $urgentbg $urgentbg $urgentfg
+    }
+
+    mode dock
+    hidden_state hide
+    modifier Ctrl
+    # font pango:Source Code Pro 18
+    # font pango:SFNS Display Light 20
+    font pango:SFNS Display Regular 10
+    status_command /home/denbeigh/.config/i3/goi3bar --config-path /home/denbeigh/.config/i3/config.json
+    # status_command /home/denbeigh/src/server/go/src/github.com/denbeigh2000/goi3bar/goi3bar --config-path /home/denbeigh/.config/i3/config.json
+}
+
+assign [class="^Spotify"] 10: music
