@@ -28,14 +28,8 @@ let
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
 
-  i3-config = import ./i3/default.nix { configuration = host.graphical; };
-
-  files = (if (hostPlatform.isLinux && host.graphical != "none")
-           then { inherit i3-config; }
-           else {});
-
   platformSpecific = (if hostPlatform.isLinux
-                      then import ./linux.nix { inherit pkgs; }
+                      then import ./linux.nix { inherit pkgs host; }
                       else import ./darwin.nix { inherit pkgs; });
 
 in
@@ -45,7 +39,7 @@ in
     home.username = host.username;
     home.homeDirectory = host.home;
 
-    home.file = files;
+    home.file = platformSpecific.files;
 
     targets.genericLinux.enable = hostPlatform.isLinux;
 
