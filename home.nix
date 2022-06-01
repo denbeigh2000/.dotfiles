@@ -48,6 +48,18 @@ in
       glibcLocales
     ];
 
+    services.redshift = {
+      # TODO: ??? Does this work on mac?
+      enable = true;
+      latitude = 37.7749;
+      longitude = 122.4194;
+      temperature = {
+        day = 5500;
+        night = 3700;
+      };
+      tray = true;
+    };
+
     programs = {
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
