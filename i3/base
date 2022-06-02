@@ -5,6 +5,27 @@
 set $mod Mod1
 set $mod1 Mod4
 
+set $ws1 workspace "1"
+set $ws2 workspace "2"
+set $ws3 workspace "3"
+set $ws4 workspace "4"
+set $ws5 workspace "5"
+set $ws6 workspace "6"
+set $ws7 workspace "7"
+set $ws8 workspace "8"
+set $ws9 workspace "9"
+set $ws10 workspace "10: music"
+set $ws11 workspace "11"
+set $ws12 workspace "12"
+set $ws13 workspace "13"
+set $ws14 workspace "14"
+set $ws15 workspace "15"
+set $ws16 workspace "16"
+set $ws17 workspace "17"
+set $ws18 workspace "18"
+set $ws19 workspace "19"
+set $ws20 workspace "20"
+
 set $bgcolor #555555
 set $fgcolor #dedede
 set $indcolor #585858

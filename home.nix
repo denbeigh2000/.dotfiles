@@ -24,14 +24,13 @@ let
 
   host = hosts."${hostname}";
 
-  alacritty = import ./alacritty.nix;
+  alacritty = import ./alacritty.nix { inherit pkgs; };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
 
   platformSpecific = (if hostPlatform.isLinux
                       then import ./linux.nix { inherit pkgs host; }
                       else import ./darwin.nix { inherit pkgs; });
-
 in
   {
     # Home Manager needs a bit of information about you and the
