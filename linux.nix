@@ -32,11 +32,13 @@ let
   };
 
   nonGraphical = {
-    packages = {};
+    packages = with pkgs; [
+      glibcLocales
+    ];
     services = {};
     files = {};
   };
 in
   if host.graphical == null
   then nonGraphical
-  else nonGraphical // graphical
+  else pkgs.lib.recursiveUpdate nonGraphical graphical
