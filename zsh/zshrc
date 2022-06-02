@@ -23,16 +23,9 @@ do
     fi
 done
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [[ -s "$HOME/.zprofile" ]]
 then
     source "$HOME/.zprofile"
-fi
-
-INTOXICATED="$(intox_interactive)"
-if [[ ! -z $INTOXICATED ]]
-then
-    export INTOXICATED
 fi
 
 HISTSIZE=10000

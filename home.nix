@@ -2,7 +2,6 @@
 
 let
   inherit (pkgs.stdenv) hostPlatform;
-  hostname = (pkgs.lib.removeSuffix "\n" (builtins.readFile "/etc/hostname"));
 
   hosts = {
     martha = {
@@ -15,13 +14,14 @@ let
     mutant = {
       work = true;
       graphical = "single";
-      username = "denbeigh.stevens";
-      home = "/Users/denbeigh.stevens";
+      username = "denbeighstevens";
+      home = "/Users/denbeighstevens";
       keys = ["id_ed25519"];
     };
   };
 
 
+  hostname = (builtins.getEnv "HOSTNAME");
   host = hosts."${hostname}";
 
   alacritty = import ./alacritty.nix { inherit pkgs; };
@@ -43,21 +43,11 @@ in
     targets.genericLinux.enable = hostPlatform.isLinux;
 
     home.packages = with pkgs; [
-      glibcLocales
+      ripgrep
+      neovim
     ] ++ platformSpecific.packages;
 
-    services = {
-      redshift = {
-        enable = true;
-        latitude = 37.7749;
-        longitude = 122.4194;
-        temperature = {
-          day = 5500;
-          night = 3700;
-        };
-        tray = true;
-      };
-    } // platformSpecific.services;
+    services = platformSpecific.services;
 
     programs = {
       # Let Home Manager install and manage itself.

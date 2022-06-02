@@ -1,6 +1,8 @@
 { pkgs }:
 
 let
+  inherit (pkgs.stdenv) hostPlatform;
+  font = if hostPlatform.isLinux then "Roboto Mono for Powerline" else "Menlo";
   glWrap = import ./gl.nix { inherit pkgs; };
 in
   {
@@ -44,15 +46,15 @@ in
 
       font = {
         normal = {
-          family = "Roboto Mono for Powerline";
+          family = font;
           style = "Regular";
         };
         bold = {
-          family = "Roboto Mono for Powerline";
+          family = font;
           style = "Bold";
         };
         italic = {
-          family = "Roboto Mono for Powerline";
+          family = font;
           style = "Italic";
         };
         size = 10;

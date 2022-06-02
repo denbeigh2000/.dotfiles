@@ -15,6 +15,16 @@ let
         enable = true;
         lockCmd = "${pkgs.i3lock}/bin/i3lock";
       };
+      redshift = {
+        enable = true;
+        latitude = 37.7749;
+        longitude = 122.4194;
+        temperature = {
+          day = 5500;
+          night = 3700;
+        };
+        tray = true;
+      };
     };
     files = {
       i3-config = import ./i3/default.nix { configuration = host.graphical; };
