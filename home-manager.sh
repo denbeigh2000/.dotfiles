@@ -1,3 +1,3 @@
 #!/bin/sh
 
-home-manager switch -f home.nix
+HOSTNAME="$(hostname)" home-manager switch -f home.nix
