@@ -32,26 +32,28 @@
   outputs = { self, nixpkgs, home-manager, neovim, flake-utils, nixgl, rnix-lsp }:
     let
       buildConfig = { hostname, system, username, homeDirectory }:
-        home-manager.lib.homeManagerConfiguration {
-          inherit system username homeDirectory;
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+          home-manager.lib.homeManagerConfiguration {
+            inherit system username homeDirectory;
 
-          configuration = import ./home.nix {
-            inherit hostname;
+            configuration = import ./home.nix {
+              inherit pkgs hostname;
 
-            pkgs = nixpkgs.legacyPackages."${system}";
-            neovim = neovim.defaultPackage."${system}";
-            rnix-lsp = rnix-lsp.defaultPackage."${system}";
-            nixgl = nixgl.defaultPackage.x86_64-linux;
+              neovim = neovim.defaultPackage."${system}";
+              rnix-lsp = rnix-lsp.defaultPackage."${system}";
+              nixgl = nixgl.defaultPackage.x86_64-linux;
+            };
+
+            # Update the state version as needed.
+            # See the changelog here:
+            # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
+            stateVersion = "22.05";
+
+            # Optionally use extraSpecialArgs
+            # to pass through arguments to home.nix
           };
-
-          # Update the state version as needed.
-          # See the changelog here:
-          # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
-          stateVersion = "22.05";
-
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-        };
 
     in
     {
