@@ -18,7 +18,7 @@ let
       redshift = {
         enable = true;
         latitude = 37.7749;
-        longitude = 122.4194;
+        longitude = -122.4194;
         temperature = {
           day = 5500;
           night = 3700;
