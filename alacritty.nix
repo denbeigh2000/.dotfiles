@@ -4,10 +4,11 @@ let
   inherit (pkgs.stdenv) hostPlatform;
   font = if hostPlatform.isLinux then "Roboto Mono for Powerline" else "Menlo";
   glWrap = import ./gl.nix { inherit pkgs; };
+  package = if hostPlatform.isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
 in
   {
     enable = true;
-    package = (glWrap pkgs.alacritty) "alacritty";
+    inherit package;
     settings = {
       # Colors (Gruvbox dark)
       colors = {
