@@ -6,10 +6,10 @@ usage() {
     echo "Usage: $0 [build|apply]" >&2
 }
 
-if [[ $# -eq 1 ]]
+if [[ $# -eq 0 ]]
 then
     COMMAND=apply
-elif [[ $# -eq 2 ]]
+elif [[ $# -eq 1 ]]
 then
     COMMAND="$1"
 else
