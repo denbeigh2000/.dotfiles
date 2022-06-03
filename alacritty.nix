@@ -1,9 +1,9 @@
-{ pkgs }:
+{ pkgs, nixgl }:
 
 let
   inherit (pkgs.stdenv) hostPlatform;
   font = if hostPlatform.isLinux then "Roboto Mono for Powerline" else "Menlo";
-  glWrap = import ./gl.nix { inherit pkgs; };
+  glWrap = import ./gl.nix { inherit pkgs nixgl; };
   package = if hostPlatform.isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
 in
   {

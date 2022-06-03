@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, neovim, hostname, nixgl, rnix-lsp, ... }:
 
 let
   inherit (pkgs.stdenv) hostPlatform;
@@ -21,10 +21,9 @@ let
   };
 
 
-  hostname = (builtins.getEnv "HOSTNAME");
   host = hosts."${hostname}";
 
-  alacritty = import ./alacritty.nix { inherit pkgs; };
+  alacritty = import ./alacritty.nix { inherit pkgs nixgl; };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
 
@@ -44,8 +43,7 @@ in
 
     home.packages = with pkgs; [
       ripgrep
-      neovim
-    ] ++ platformSpecific.packages;
+    ] ++ [ neovim rnix-lsp ] ++ platformSpecific.packages;
 
     services = platformSpecific.services;
 

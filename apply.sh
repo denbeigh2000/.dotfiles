@@ -29,5 +29,8 @@ case $COMMAND in
         exit 1;
         ;;
 esac
+HOSTNAME="${HOSTNAME:-$(hostname)}"
 
-HOSTNAME="${HOSTNAME:-$(hostname)}" home-manager switch -f home.nix
+# NOTE: We need --impute because nixgl specifically wants to stay impure, which
+# is usually denied by flakes.
+home-manager "$HM_CMD" --impure --flake ".#$HOSTNAME"

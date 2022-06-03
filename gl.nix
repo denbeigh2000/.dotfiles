@@ -1,5 +1,5 @@
-{ pkgs, nixgl ? import <nixgl> {} }:
+{ pkgs, nixgl }:
 
 (pkg: (name: pkgs.writeShellScriptBin "${name}" ''
-  ${nixgl.auto.nixGLDefault}/bin/nixGL exec ${pkg}/bin/${name} "$@"
+  ${nixgl}/bin/nixGL exec ${pkg}/bin/${name} "$@"
 ''))
