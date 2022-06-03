@@ -64,8 +64,8 @@
       homeConfigurations.mutant = buildConfig {
         hostname = "mutant";
         system = "aarch64-darwin";
-        homeDirectory = "/Users/denbeigh.stevens";
-        username = "denbeigh.stevens";
+        homeDirectory = "/Users/denbeighstevens";
+        username = "denbeighstevens";
       };
     };
 }

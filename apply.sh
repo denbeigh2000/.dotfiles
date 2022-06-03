@@ -33,4 +33,4 @@ HOSTNAME="${HOSTNAME:-$(hostname)}"
 
 # NOTE: We need --impute because nixgl specifically wants to stay impure, which
 # is usually denied by flakes.
-home-manager "$HM_CMD" --impure --flake ".#$HOSTNAME"
+home-manager --max-jobs auto "$HM_CMD" --impure --flake ".#$HOSTNAME"
