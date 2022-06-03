@@ -9,26 +9,26 @@ let
 
   shellAliases = {
     vim = "nvim";
-  } // (if hostPlatform.isLinux then linuxAliases else {});
+  } // (if hostPlatform.isLinux then linuxAliases else { });
 
 in
-  {
+{
+  enable = true;
+  enableCompletion = true;
+  enableAutosuggestions = true;
+  enableSyntaxHighlighting = true;
+
+  oh-my-zsh = {
     enable = true;
-    enableCompletion = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    plugins = [ "git" "rust" ];
+    theme = "steeef";
+  };
 
-    oh-my-zsh = {
-      enable = true;
-      plugins = ["git" "rust"];
-      theme = "steeef";
-    };
+  inherit shellAliases;
 
-    inherit shellAliases;
+  sessionVariables = {
+    EDITOR = "nvim";
+  };
 
-    sessionVariables = {
-      EDITOR = "nvim";
-    };
-
-    initExtra = (builtins.readFile ./zshrc);
-  }
+  initExtra = (builtins.readFile ./zshrc);
+}

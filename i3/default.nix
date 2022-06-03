@@ -8,11 +8,11 @@ let
 
   config = extra_configs."${configuration}";
   text = ''
-${builtins.readFile ./base}
-${config}
+    ${builtins.readFile ./base}
+    ${config}
   '';
 in
-  {
-    target = ".config/i3/config";
-    inherit text;
-  }
+{
+  target = ".config/i3/config";
+  inherit text;
+}

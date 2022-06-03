@@ -1,7 +1,7 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
-  packages = [];
-  services = {};
-  files = {};
+  packages = [ ];
+  services = { };
+  files = { };
 }

@@ -1,5 +1,6 @@
 { host
-, pkgs ? import <nixpkgs> }:
+, pkgs ? import <nixpkgs>
+}:
 
 let
   graphical = {
@@ -35,10 +36,10 @@ let
     packages = with pkgs; [
       glibcLocales
     ];
-    services = {};
-    files = {};
+    services = { };
+    files = { };
   };
 in
-  if host.graphical == null
-  then nonGraphical
-  else pkgs.lib.recursiveUpdate nonGraphical graphical
+if host.graphical == null
+then nonGraphical
+else pkgs.lib.recursiveUpdate nonGraphical graphical
