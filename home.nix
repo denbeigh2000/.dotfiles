@@ -1,4 +1,4 @@
-{ pkgs, neovim, host, nixgl, rnix-lsp, ... }:
+{ pkgs, system, fonts, neovim, host, nixgl, rnix-lsp, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
@@ -12,6 +12,7 @@ let
   zsh = import ./zsh/default.nix { inherit pkgs; };
 
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+  extraFonts = with fonts.packages.${system}; [ sf-mono sf-pro ];
 
   platformSpecific =
     (if isLinux
@@ -35,7 +36,7 @@ in
   home.packages = with pkgs; [
     ripgrep
     powerline-fonts
-  ] ++ [ neovim rnix-lsp ] ++ platformSpecific.packages;
+  ] ++ extraFonts ++ [ neovim rnix-lsp ] ++ platformSpecific.packages;
 
   programs = {
     # Let Home Manager install and manage itself.

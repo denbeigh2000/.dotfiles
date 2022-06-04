@@ -8,6 +8,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    fonts = {
+      url = "github:denbeigh2000/fonts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     # TODO: Make this public
     neovim = {
       url = "git+ssh://git@github.com/denbeigh2000/neovim-nix";
@@ -29,14 +35,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim, flake-utils, nixgl, rnix-lsp }:
+  outputs = { self, nixpkgs, home-manager, fonts, neovim, flake-utils, nixgl, rnix-lsp }:
     let
       hosts = import ./hosts.nix;
       buildConfig = import ./build-home-config.nix;
     in
     {
       homeConfigurations = builtins.mapAttrs (name: host: (buildConfig {
-        inherit nixpkgs home-manager neovim nixgl rnix-lsp host;
+        inherit nixpkgs home-manager fonts neovim nixgl rnix-lsp host;
       })) hosts;
     };
 }

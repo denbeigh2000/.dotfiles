@@ -15,6 +15,29 @@
         "type": "github"
       }
     },
+    "fonts": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1654384649,
+        "narHash": "sha256-0rv6YP2L2OVXmaROBv9A+G63g3J0J+zOE7u3yX7Q4k0=",
+        "owner": "denbeigh2000",
+        "repo": "fonts",
+        "rev": "b5c1b2162dae10e2e31b6ccef9236d3580cf6fc9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denbeigh2000",
+        "repo": "fonts",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -142,6 +165,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "fonts": "fonts",
         "home-manager": "home-manager",
         "neovim": "neovim",
         "nixgl": "nixgl",
