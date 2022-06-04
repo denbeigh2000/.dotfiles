@@ -47,7 +47,7 @@ in
     jq.enable = true;
 
     keychain = {
-      enable = true;
+      enable = host.keys != null;
       inherit (host) keys;
       enableZshIntegration = true;
     };

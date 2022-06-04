@@ -1,0 +1,29 @@
+# vi:ft=i3config
+
+set $mon1 DP-2
+set $mon2 DP-1
+set $mon3 DP-3-3
+
+# At the office? TODO: Find better way to swap these
+# set $mon1 eDP-1
+# set $mon2 DP-1-2
+# set $mon2 DP-1-1
+
+$ws1 output $mon1
+$ws2 output $mon1
+$ws3 output $mon1
+$ws4 output $mon2
+$ws5 output $mon2
+$ws6 output $mon2
+$ws7 output $mon3
+$ws8 output $mon3
+$ws9 output $mon3
+$ws11 output $mon1
+$ws12 output $mon1
+$ws13 output $mon1
+$ws14 output $mon2
+$ws15 output $mon2
+$ws16 output $mon2
+$ws17 output $mon3
+$ws18 output $mon3
+$ws19 output $mon3
