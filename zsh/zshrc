@@ -73,7 +73,19 @@ _gen_fzf_default_opts() {
 
 _gen_fzf_default_opts
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]
+then
+    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+else
+    # Simple fallback in case this isn't defined
+    export PATH="$PATH:$HOME/.nix-profile/bin"
+fi
+
+if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]
+then
+    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
+
 
 export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels
