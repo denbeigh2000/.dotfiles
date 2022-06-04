@@ -3,10 +3,16 @@
 }:
 
 let
+  common = {
+    packages = with pkgs; [
+      glibcLocales
+    ];
+  };
+
   graphical = {
     packages = with pkgs; [
       nitrogen
-    ];
+    ] ++ common.packages;
     services = {
       dunst = {
         enable = true;
@@ -23,18 +29,21 @@ let
       };
     };
     files = {
-      i3-config = import ./i3/default.nix { configuration = host.graphical; };
+      i3-config = import ./i3/default.nix { inherit (host) hostname; };
+      font-config = {
+        target = ".config/fontconfig/conf.d/10-nix-conts.conf";
+        text = builtins.readFile ./fontconfig.xml;
+      };
     };
   };
 
   nonGraphical = {
-    packages = with pkgs; [
-      glibcLocales
-    ];
+    packages = common.packages;
     services = { };
     files = { };
   };
+
 in
-if host.graphical == null
-then nonGraphical
-else pkgs.lib.recursiveUpdate nonGraphical graphical
+if host.graphical
+then pkgs.lib.recursiveUpdate nonGraphical graphical
+else nonGraphical

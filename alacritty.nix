@@ -1,10 +1,17 @@
-{ pkgs, nixgl }:
+{ pkgs, nixgl, hostname }:
 
 let
+  inherit (pkgs.lib.attrsets) attrByPath;
   inherit (pkgs.stdenv) hostPlatform;
   font = if hostPlatform.isLinux then "Roboto Mono for Powerline" else "Menlo";
   glWrap = import ./gl.nix { inherit pkgs nixgl; };
   package = if hostPlatform.isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
+
+  fontSizes = {
+    feliccia = 8;
+  };
+
+  fontSize = attrByPath [hostname] 10 fontSizes;
 in
 {
   enable = true;
@@ -58,7 +65,7 @@ in
         family = font;
         style = "Italic";
       };
-      size = 10;
+      size = fontSize;
     };
 
     visual_bell = {

@@ -4,7 +4,10 @@ let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   inherit (host) username;
 
-  alacritty = import ./alacritty.nix { inherit pkgs nixgl; };
+  alacritty = import ./alacritty.nix {
+    inherit (host) hostname;
+    inherit pkgs nixgl;
+  };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
 
@@ -12,7 +15,7 @@ let
 
   platformSpecific =
     (if isLinux
-    then import ./linux.nix { inherit pkgs host; }
+    then import ./linux/default.nix { inherit pkgs host; }
     else import ./darwin.nix { inherit pkgs; });
 in
 {
@@ -29,6 +32,7 @@ in
 
   home.packages = with pkgs; [
     ripgrep
+    powerline-fonts
   ] ++ [ neovim rnix-lsp ] ++ platformSpecific.packages;
 
   services = platformSpecific.services;
