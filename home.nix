@@ -1,46 +1,31 @@
-{ pkgs, neovim, hostname, nixgl, rnix-lsp, ... }:
+{ pkgs, neovim, host, nixgl, rnix-lsp, ... }:
 
 let
-  inherit (pkgs.stdenv) hostPlatform;
-
-  hosts = {
-    martha = {
-      work = false;
-      graphical = "single";
-      username = "denbeigh";
-      home = "/home/denbeigh";
-      keys = [ "id_ed25519" ];
-    };
-    mutant = {
-      work = true;
-      graphical = "single";
-      username = "denbeighstevens";
-      home = "/Users/denbeighstevens";
-      keys = [ "id_ed25519" ];
-    };
-  };
-
-
-  host = hosts."${hostname}";
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
+  inherit (host) username;
 
   alacritty = import ./alacritty.nix { inherit pkgs nixgl; };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
 
+  homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+
   platformSpecific =
-    (if hostPlatform.isLinux
+    (if isLinux
     then import ./linux.nix { inherit pkgs host; }
     else import ./darwin.nix { inherit pkgs; });
 in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = host.username;
-  home.homeDirectory = host.home;
+  home = {
+    inherit (host) username;
+    inherit homeDirectory;
+  };
 
   home.file = platformSpecific.files;
 
-  targets.genericLinux.enable = hostPlatform.isLinux;
+  targets.genericLinux.enable = isLinux;
 
   home.packages = with pkgs; [
     ripgrep
