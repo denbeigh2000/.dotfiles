@@ -26,6 +26,8 @@ in
     inherit homeDirectory;
   };
 
+
+  inherit (platformSpecific) services fonts;
   home.file = platformSpecific.files;
 
   targets.genericLinux.enable = isLinux;
@@ -34,8 +36,6 @@ in
     ripgrep
     powerline-fonts
   ] ++ [ neovim rnix-lsp ] ++ platformSpecific.packages;
-
-  services = platformSpecific.services;
 
   programs = {
     # Let Home Manager install and manage itself.

@@ -30,17 +30,16 @@ let
     };
     files = {
       i3-config = import ./i3/default.nix { inherit (host) hostname; };
-      font-config = {
-        target = ".config/fontconfig/conf.d/10-nix-conts.conf";
-        text = builtins.readFile ./fontconfig.xml;
-      };
     };
+
+    fonts.fontconfig.enable = true;
   };
 
   nonGraphical = {
     packages = common.packages;
     services = { };
     files = { };
+    fonts = { };
   };
 
 in

@@ -3,14 +3,15 @@
 let
   inherit (pkgs.lib.attrsets) attrByPath;
   inherit (pkgs.stdenv) hostPlatform;
-  font = if hostPlatform.isLinux then "Roboto Mono for Powerline" else "Menlo";
   glWrap = import ./gl.nix { inherit pkgs nixgl; };
   package = if hostPlatform.isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
 
   fontSizes = {
     feliccia = 8;
+    mutant = 11;
   };
 
+  fontFamily = "Roboto Mono for Powerline" ;
   fontSize = attrByPath [hostname] 10 fontSizes;
 in
 {
@@ -54,15 +55,15 @@ in
 
     font = {
       normal = {
-        family = font;
+        family = fontFamily;
         style = "Regular";
       };
       bold = {
-        family = font;
+        family = fontFamily;
         style = "Bold";
       };
       italic = {
-        family = font;
+        family = fontFamily;
         style = "Italic";
       };
       size = fontSize;

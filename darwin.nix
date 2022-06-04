@@ -4,4 +4,5 @@
   packages = [ ];
   services = { };
   files = { };
+  fonts = { };
 }
