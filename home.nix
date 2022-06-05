@@ -30,13 +30,14 @@ let
     else import ./darwin.nix { inherit pkgs; });
 in
 {
+  imports = [ ./linux/noisetorch.nix ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
     inherit (host) username;
     inherit homeDirectory;
   };
-
 
   inherit (platformSpecific) services fonts;
   home.file = platformSpecific.files;

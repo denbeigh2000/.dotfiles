@@ -14,9 +14,8 @@ let
       nitrogen
     ] ++ common.packages;
     services = {
-      dunst = {
-        enable = true;
-      };
+      dunst.enable = true;
+      noisetorch.enable = true;
       redshift = {
         enable = true;
         latitude = 37.7749;

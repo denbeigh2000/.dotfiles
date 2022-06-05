@@ -13,11 +13,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1654445525,
-        "narHash": "sha256-/jsYAN9BbiXIfSEpzX4W0AEffqvGMt2Z5BnNWZRGBZw=",
+        "lastModified": 1654449728,
+        "narHash": "sha256-YkzoFs/UTiHC6WgKpUywvxY640OF6HWa2Tc0RlOyZJs=",
         "owner": "denbeigh2000",
         "repo": "nix-dev",
-        "rev": "32ba7bd1768fff370085e8f672ede337a4340f86",
+        "rev": "fc3962eb8f52ff8d65fb2aefc8a8726dc9822be9",
         "type": "github"
       },
       "original": {
@@ -40,15 +40,15 @@
       "locked": {
         "lastModified": 1654442668,
         "narHash": "sha256-igbos3a2nVCAHYU+eA1fGRAPQMsw8MgAuSIiViORH+g=",
-        "ref": "master",
+        "owner": "denbeigh2000",
+        "repo": "neovim-nix",
         "rev": "907604f0e37e5c9f16f3b77f8480c565c717f4d9",
-        "revCount": 8,
-        "type": "git",
-        "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
+        "owner": "denbeigh2000",
+        "repo": "neovim-nix",
+        "type": "github"
       }
     },
     "flake-utils": {
@@ -153,16 +153,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1654230545,
-        "narHash": "sha256-8Vlwf0x8ow6pPOK2a04bT+pxIeRnM1+O0Xv9/CuDzRs=",
+        "lastModified": 1654398695,
+        "narHash": "sha256-Kw/KeoFXszNsF5mORP45mrxCP+k9Aq03hWcuWCL9sdI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "236cc2971ac72acd90f0ae3a797f9f83098b17ec",
+        "rev": "c5d810f4c74c824ae0fb788103003c6c9d366a08",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
