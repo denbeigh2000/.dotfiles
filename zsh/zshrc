@@ -1,12 +1,8 @@
 export GOPATH='/home/denbeigh/dev/go'
 
-# Customize to your needs...
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH:$GOPATH/bin
-
 SED_CMD='s/^\(.*\)/sudo \1/g' 
 alias fuck="fc -e \"sed -i '$SED_CMD'\""
 unset SED_CMD
-alias clip='xclip -selection CLIPBOARD $@'
 
 bindkey -v
 
@@ -22,11 +18,6 @@ do
         break
     fi
 done
-
-if [[ -s "$HOME/.zprofile" ]]
-then
-    source "$HOME/.zprofile"
-fi
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -73,24 +64,34 @@ _gen_fzf_default_opts() {
 
 _gen_fzf_default_opts
 
-if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]
+if [[ -z "$__DENBEIGH_ZSHRC_SET" ]]
 then
-    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-else
-    # Simple fallback in case this isn't defined
-    export PATH="$PATH:$HOME/.nix-profile/bin"
-fi
+    if [[ -s "$HOME/.zprofile" ]]
+    then
+        source "$HOME/.zprofile"
+    fi
 
-if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]
-then
-    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-fi
+    export PATH=$HOME/bin:$HOME/.local/bin:$PATH:$GOPATH/bin
 
+    if [[ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]
+    then
+        source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    else
+        # Simple fallback in case this isn't defined
+        export PATH="$PATH:$HOME/.nix-profile/bin"
+    fi
 
+    if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]
+    then
+        source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+    fi
 
-export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels
+    export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels
 
-if [[ -f "$HOME/.local.zshrc" ]]
-then
-    source "$HOME/.local.zshrc"
+    if [[ -f "$HOME/.local.zshrc" ]]
+    then
+        source "$HOME/.local.zshrc"
+    fi
+
+    export __DENBEIGH_ZSHRC_SET=1
 fi
