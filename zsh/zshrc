@@ -89,3 +89,8 @@ fi
 
 
 export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels
+
+if [[ -f "$HOME/.local.zshrc" ]]
+then
+    source "$HOME/.local.zshrc"
+fi
