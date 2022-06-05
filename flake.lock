@@ -89,11 +89,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1654375471,
-        "narHash": "sha256-09JFoM/XHXWNZQumknL4Zt/hTUtOwu1yivxG1iPAubw=",
+        "lastModified": 1654388183,
+        "narHash": "sha256-7DIZfum+njYAmCfyDbtuKgVUDEWcy7wp8vJHS/gZIaQ=",
         "ref": "master",
-        "rev": "73645f74b197eb266e1dd8b4eaaa6f30615ae0e4",
-        "revCount": 6,
+        "rev": "3f8b7af6aca9664a6ad6a158c627f82ff7cf232a",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
       },
