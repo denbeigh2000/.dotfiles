@@ -10,7 +10,10 @@ let
   };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
-  devPkgs = import ./dev.nix { inherit pkgs; };
+  devPkgs = import ./dev.nix {
+    inherit (host) system work;
+    inherit pkgs;
+  };
 
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 
