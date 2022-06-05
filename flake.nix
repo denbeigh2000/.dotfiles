@@ -14,13 +14,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    # TODO: Make this public
-    neovim = {
-      url = "git+ssh://git@github.com/denbeigh2000/neovim-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     flake-utils.url = "github:numtide/flake-utils";
 
     nixgl = {
@@ -28,21 +21,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
+    denbeigh-devtools = {
+      url = "github:denbeigh2000/nix-dev";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, fonts, neovim, flake-utils, nixgl, rnix-lsp }:
+  outputs = { self, nixpkgs, home-manager, fonts, flake-utils, nixgl, denbeigh-devtools }:
     let
       hosts = import ./hosts.nix;
       buildConfig = import ./build-home-config.nix;
     in
     {
-      homeConfigurations = builtins.mapAttrs (name: host: (buildConfig {
-        inherit nixpkgs home-manager fonts neovim nixgl rnix-lsp host;
-      })) hosts;
+      homeConfigurations = builtins.mapAttrs
+        (name: host: (buildConfig {
+          inherit nixpkgs home-manager fonts nixgl denbeigh-devtools host;
+        }))
+        hosts;
     };
 }

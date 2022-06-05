@@ -1,4 +1,4 @@
-{ pkgs, system, fonts, neovim, host, nixgl, rnix-lsp, ... }:
+{ pkgs, system, fonts, host, nixgl, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
@@ -18,10 +18,11 @@ let
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 
   standardPackages = with pkgs; [
+    neovim
     ripgrep
     powerline-fonts
   ];
-  customPackages = [ neovim rnix-lsp ] ++ devPkgs ++ (with fonts.packages.${system}; [ sf-mono sf-pro ]);
+  customPackages = devPkgs ++ (with fonts.packages.${system}; [ sf-mono sf-pro ]);
 
   platformSpecific =
     (if isLinux

@@ -2,28 +2,12 @@
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  pip-packages = packages:
-    with packages; ([ pynvim ]) ++ (
-      if system != "aarch64-darwin"
-      then
-        ([
-          python-lsp-server
-          pylsp-mypy
-          pyls-isort
-          python-lsp-black
-        ]) else [ ]
-    );
+  inherit (pkgs.devPackages) python rust go node nix;
 
-  python = pkgs.python310.withPackages pip-packages;
+  python-packages = if !work then [ python.python310 ] else [ ];
 
-  node-packages = with pkgs.nodePackages; [
-    typescript-language-server
-  ];
-
-  python-packages = if !work then [ python ] else [ ];
-
-  extra-js-packafges = if !work then [ pkgs.yarn ] else [ ];
-  js-packages = [ pkgs.nodejs-18_x ] ++ node-packages ++ extra-js-packafges;
+  extra-node-packages = if !work then [ node.yarn ] else [ ];
+  node-packages = node.allNode18 ++ extra-node-packages;
+  nix-packages = [ nix.rnix-lsp ];
 in
-  (with pkgs; [ rustc cargo rustfmt rust-analyzer ]) ++
-  js-packages ++ python-packages
+rust.all ++ go.all ++ node-packages ++ python-packages ++ nix-packages

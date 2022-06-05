@@ -1,7 +1,10 @@
-{ nixpkgs, home-manager, fonts, neovim, nixgl, rnix-lsp, host }:
+{ nixpkgs, home-manager, fonts, nixgl, denbeigh-devtools, host }:
 let
   inherit (host) system username;
-  pkgs = import nixpkgs { inherit (host) system; };
+  pkgs = import nixpkgs {
+    inherit (host) system;
+    overlays = [ denbeigh-devtools.overlay ];
+  };
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   homeDirectory = (
     if isDarwin
@@ -16,8 +19,6 @@ home-manager.lib.homeManagerConfiguration {
   configuration = import ./home.nix {
     inherit pkgs host system fonts;
 
-    neovim = neovim.defaultPackage."${system}";
-    rnix-lsp = rnix-lsp.defaultPackage."${system}";
     nixgl = nixgl.defaultPackage.x86_64-linux;
   };
 

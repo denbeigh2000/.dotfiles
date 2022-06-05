@@ -1,5 +1,56 @@
 {
   "nodes": {
+    "denbeigh-devtools": {
+      "inputs": {
+        "denbeigh-neovim": "denbeigh-neovim",
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rnix-lsp": "rnix-lsp",
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1654445525,
+        "narHash": "sha256-/jsYAN9BbiXIfSEpzX4W0AEffqvGMt2Z5BnNWZRGBZw=",
+        "owner": "denbeigh2000",
+        "repo": "nix-dev",
+        "rev": "32ba7bd1768fff370085e8f672ede337a4340f86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denbeigh2000",
+        "repo": "nix-dev",
+        "type": "github"
+      }
+    },
+    "denbeigh-neovim": {
+      "inputs": {
+        "flake-utils": [
+          "denbeigh-devtools",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "denbeigh-devtools",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1654442668,
+        "narHash": "sha256-igbos3a2nVCAHYU+eA1fGRAPQMsw8MgAuSIiViORH+g=",
+        "ref": "master",
+        "rev": "907604f0e37e5c9f16f3b77f8480c565c717f4d9",
+        "revCount": 8,
+        "type": "git",
+        "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1653893745,
@@ -45,11 +96,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1654113406,
-        "narHash": "sha256-70esZvhal+FsyU89mJRcAb+cDGHKt0sgZ6MlRr9Cplg=",
+        "lastModified": 1654422613,
+        "narHash": "sha256-ZxkMM13AnrMwYOV99ohzcqeTkAOqD9Q2SBdZ9WoFE9Y=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "684e85d01d333be91c4875baebb05b93c7d2ffaa",
+        "rev": "20703892473d01c70fb10248442231fe94f4ceb4",
         "type": "github"
       },
       "original": {
@@ -61,6 +112,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
+          "denbeigh-devtools",
           "rnix-lsp",
           "nixpkgs"
         ]
@@ -77,29 +129,6 @@
         "owner": "nix-community",
         "repo": "naersk",
         "type": "github"
-      }
-    },
-    "neovim": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1654388183,
-        "narHash": "sha256-7DIZfum+njYAmCfyDbtuKgVUDEWcy7wp8vJHS/gZIaQ=",
-        "ref": "master",
-        "rev": "3f8b7af6aca9664a6ad6a158c627f82ff7cf232a",
-        "revCount": 7,
-        "type": "git",
-        "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/denbeigh2000/neovim-nix"
       }
     },
     "nixgl": {
@@ -142,11 +171,10 @@
       "inputs": {
         "naersk": "naersk",
         "nixpkgs": [
+          "denbeigh-devtools",
           "nixpkgs"
         ],
-        "utils": [
-          "flake-utils"
-        ]
+        "utils": "utils"
       },
       "locked": {
         "lastModified": 1651229115,
@@ -164,13 +192,52 @@
     },
     "root": {
       "inputs": {
+        "denbeigh-devtools": "denbeigh-devtools",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
         "home-manager": "home-manager",
-        "neovim": "neovim",
         "nixgl": "nixgl",
-        "nixpkgs": "nixpkgs",
-        "rnix-lsp": "rnix-lsp"
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "denbeigh-devtools",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "denbeigh-devtools",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1654396786,
+        "narHash": "sha256-stM8eWx51WDwptsByQFwmAvPBT1N0XUhcGaMq5Nx7T8=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "2d306305e1a52d3e18bf10a5d88f3eca99033ba8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1638122382,
+        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     }
   },
