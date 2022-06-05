@@ -10,9 +10,15 @@ let
   };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh/default.nix { inherit pkgs; };
+  devPkgs = import ./dev.nix { inherit pkgs; };
 
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
-  extraFonts = with fonts.packages.${system}; [ sf-mono sf-pro ];
+
+  standardPackages = with pkgs; [
+    ripgrep
+    powerline-fonts
+  ];
+  customPackages = [ neovim rnix-lsp ] ++ devPkgs ++ (with fonts.packages.${system}; [ sf-mono sf-pro ]);
 
   platformSpecific =
     (if isLinux
@@ -33,10 +39,11 @@ in
 
   targets.genericLinux.enable = isLinux;
 
-  home.packages = with pkgs; [
-    ripgrep
-    powerline-fonts
-  ] ++ extraFonts ++ [ neovim rnix-lsp ] ++ platformSpecific.packages;
+  home.packages = (
+    standardPackages ++
+    customPackages ++
+    platformSpecific.packages
+  );
 
   programs = {
     # Let Home Manager install and manage itself.
