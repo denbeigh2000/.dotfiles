@@ -1,7 +1,7 @@
 # vi:ft=i3config
 
-set $mon1 DP-0
-set $mon2 DP-2
+set $mon1 DP-2
+set $mon2 DP-0
 set $mon3 DP-4
 
 $ws1 output $mon1
