@@ -2,9 +2,9 @@
 
 let
   inherit (pkgs.lib.attrsets) attrByPath;
-  inherit (pkgs.stdenv) hostPlatform;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
   glWrap = import ./gl.nix { inherit pkgs nixgl; };
-  package = if hostPlatform.isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
+  package = if isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
 
   fontSizes = {
     feliccia = 8;
