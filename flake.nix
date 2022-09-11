@@ -2,7 +2,7 @@
   description = "Denbeigh's Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,19 +35,16 @@
     , flake-utils
     , ...
     }@attrs:
-    let
-      hosts = import ./hosts.nix;
-      homeArgs = attrs // { inherit hosts; };
-    in
     {
-      homeConfigurations = import ./home-configurations.nix homeArgs;
+      homeConfigurations = import ./home-manager/configs attrs;
+      nixosConfigurations = import ./nixos/configs attrs;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
     in
     {
       devShells.default = pkgs.mkShell {
-        packages = [ home-manager.packages.x86_64-linux.default ];
+        packages = [ home-manager.packages.${system}.default ];
       };
     }
     );

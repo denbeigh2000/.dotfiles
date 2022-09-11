@@ -2,13 +2,13 @@
 
 let
   inherit (host) graphical;
-  graphicalModules = [ ./i3 ./noisetorch.nix ];
+  graphicalModules = [ ./i3 ];
   graphicalPackages = with pkgs; [ nitrogen ];
 
 in
 
 {
-  imports = [ ]
+  imports = [ ./noisetorch.nix ]
     ++ (if graphical then graphicalModules else [ ]);
 
   home = {
@@ -16,9 +16,9 @@ in
       ++ (if graphical then graphicalPackages else [ ]);
   };
 
-  fonts.fontconfig.enable = graphical;
-  # NOTE: This must change if we're ever running on NixOS
-  targets.genericLinux.enable = true;
+  fonts.fontconfig.enable = true;
+  # NOTE: This must change if we're ever running graphical systems on NixOS
+  targets.genericLinux.enable = !graphical;
 
   services = {
     dunst.enable = graphical;

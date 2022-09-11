@@ -14,10 +14,6 @@ let
 in
 
 {
-  nixpkgs.overlays = [
-    denbeigh-devtools.overlay
-  ];
-
   home.packages = [ pkgs.neovim ]
     ++ rust.all
     ++ go-packages

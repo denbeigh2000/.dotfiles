@@ -1,4 +1,4 @@
-{ pkgs, system, fonts, host, ... }:
+{ pkgs, system, fonts, host, denbeigh-devtools, nixgl, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
@@ -10,6 +10,11 @@ in
   imports = [ ./modules/dev.nix ./modules/git.nix ./modules/zsh ]
   ++ (if isLinux then [ ./modules/linux.nix ] else [ ])
   ++ (if graphical then [ ./modules/graphical.nix ] else [ ]);
+
+  nixpkgs.overlays = [
+    denbeigh-devtools.overlay
+    nixgl.overlay
+  ];
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.

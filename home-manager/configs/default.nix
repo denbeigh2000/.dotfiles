@@ -2,17 +2,20 @@
 , home-manager
 , fonts
 , denbeigh-devtools
-, hosts
+, nixgl
 , ...
 }@inputs:
 
+let
+  hosts = import ./hosts.nix;
+in
 builtins.mapAttrs
   (_: host: (
     let
       inherit (host) system username;
       pkgs = import nixpkgs {
         inherit (host) system;
-        overlays = [ denbeigh-devtools.overlay ];
+        overlays = [ denbeigh-devtools.overlay nixgl.overlay ];
       };
       inherit (pkgs.stdenv.hostPlatform) isDarwin;
       homeDirectory = (
@@ -27,9 +30,9 @@ builtins.mapAttrs
 
       # Pass flake inputs, host config to modules
       extraSpecialArgs = inputs // { inherit host; };
-      configuration = import ./home.nix {
-        inherit pkgs host system fonts;
-      };
+      configuration = import ../home.nix (inputs // {
+        inherit pkgs host system;
+      });
 
       # Update the state version as needed.
       # See the changelog here:
