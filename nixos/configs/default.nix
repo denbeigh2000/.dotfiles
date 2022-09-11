@@ -8,4 +8,4 @@ let
     coder-ec2-x86 = ./coder-ec2-x86.nix;
   };
 in
-mapAttrs (module: nixosSystem (import module inputs)) configs
+mapAttrs (_: path: nixosSystem (import path inputs)) configs
