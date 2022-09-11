@@ -9,16 +9,4 @@ let
   };
 
 in
-  mapAttrs (_: modules: nixosSystem {
-    # TODO: Needs to be more generael
-    system = "x86_64-linux";
-    modules =  [
-      {
-        nixpkgs.overlays = [
-          denbeigh-devtools.overlay
-        ];
-      }
-      home-manager.nixosModules.home-manager
-    ] ++ (import modules);
-    specialArgs = inputs;
-  }) configs
+  mapAttrs (_: config: nixosSystem (import config inputs)) configs

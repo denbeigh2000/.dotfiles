@@ -7,8 +7,6 @@
 
 with lib;
 let
-  # inherit (config) hmConfig;
-  hmConfig = "coder";
   system =  "x86_64-linux";
   hostArgs = {
     inherit system;
@@ -23,13 +21,6 @@ let
   };
 in
 {
-  options = {
-    hmConfig = mkOption {
-      type = types.str;
-      default = null;
-    };
-  };
-
   config = {
     users.users.denbeigh = {
       isNormalUser = true;
@@ -48,12 +39,5 @@ in
 
     environment.systemPackages = with pkgs; [ git neovim ];
 
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-
-      extraSpecialArgs = hostArgs;
-      users.denbeigh = import ../../home.nix (inputs // hostArgs);
-    };
   };
 }
