@@ -12,10 +12,6 @@ let
   hmConfig = "coder";
 in
 {
-  imports = [
-    home-manager.nixosModules.home-manager
-  ];
-
   options = {
     hmConfig = mkOption {
       type = types.str;
@@ -27,7 +23,7 @@ in
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.denbeigh =  self.homeConfigurations.${hmConfig};
+      users.denbeigh = self.homeConfigurations.${hmConfig};
     };
 
     users.users.denbeigh = {
