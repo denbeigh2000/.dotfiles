@@ -38,11 +38,11 @@
     let
       hosts = import ./hosts.nix;
       homeArgs = attrs // { inherit hosts; };
-      osArgs = args // { inherit (self) homeConfigurations; };
+      osArgs = attrs // { inherit (self) homeConfigurations; };
     in
     {
       homeConfigurations = import ./home-configurations.nix homeArgs;
-      nixosConfigurations = import ./nixos/configs homeArgs;
+      nixosConfigurations = import ./nixos/configs osArgs;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
