@@ -43,7 +43,7 @@ in
       users.denbeigh = {
         imports = [
           # Infinite recursion somewhere in these modules (or in keychain)
-          # ../../modules/dev.nix
+          ../../modules/dev.nix
           ../../modules/git.nix
           ../../modules/linux.nix
           ../../modules/zsh

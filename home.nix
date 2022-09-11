@@ -11,6 +11,10 @@ in
   ++ (if isLinux then [ ./modules/linux.nix ] else [ ])
   ++ (if graphical then [ ./modules/graphical.nix ] else [ ]);
 
+  nixpkgs.overlays = [
+    denbeigh-devtools.overlay
+  ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {

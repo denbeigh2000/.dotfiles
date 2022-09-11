@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, ... }@inputs:
+{ nixpkgs, denbeigh-devtools, home-manager, ... }@inputs:
 
 let
   inherit (builtins) mapAttrs;
@@ -12,6 +12,13 @@ in
   mapAttrs (_: modules: nixosSystem {
     # TODO: Needs to be more generael
     system = "x86_64-linux";
-    modules = (import modules) ++ [ home-manager.nixosModules.home-manager ];
+    modules =  [
+      {
+        nixpkgs.overlays = [
+          denbeigh-devtools.overlay
+        ];
+      }
+      home-manager.nixosModules.home-manager
+    ] ++ (import modules);
     specialArgs = inputs;
   }) configs
