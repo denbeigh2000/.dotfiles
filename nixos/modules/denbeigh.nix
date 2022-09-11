@@ -35,7 +35,7 @@ in
           hostname = "dev";
           system = "x86_64-linux";
           username = "denbeigh";
-          graphical = "false";
+          graphical = false;
           keys = null;
         };
       };
@@ -45,8 +45,8 @@ in
           # Infinite recursion somewhere in these modules (or in keychain)
           # ../../modules/dev.nix
           ../../modules/git.nix
-          # ../../modules/linux.nix
-          # ../../modules/zsh
+          ../../modules/linux.nix
+          ../../modules/zsh
         ];
 
         # TODO: Don't copy-paste/pass these along
