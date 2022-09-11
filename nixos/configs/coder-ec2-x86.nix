@@ -1,14 +1,15 @@
 { ... }:
 
 {
-  imports = [
+  modules = [
     ../modules/denbeigh.nix
     ../modules/cloud
     ../modules/cloud/aws
+    {
+      networking = {
+        hostName = "dev";
+        domain = "denbeigh.cloud";
+      };
+    }
   ];
-
-  networking = {
-    hostName = "dev";
-    domain = "denbeigh.cloud";
-  };
 }

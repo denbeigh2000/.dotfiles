@@ -5,7 +5,7 @@ let
   inherit (nixpkgs.lib) nixosSystem;
 
   configs = {
-    coder-ec2-x86 = ./coder-ec2-x86.nix;
+    coder-ec2-x86 = import ./coder-ec2-x86.nix;
   };
 in
-mapAttrs (_: path: nixosSystem (import path inputs)) configs
+mapAttrs (_: module: nixosSystem (module inputs)) configs
