@@ -28,26 +28,27 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, fonts, flake-utils, nixgl, denbeigh-devtools }:
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , flake-utils
+    , ...
+    }@attrs:
     let
       hosts = import ./hosts.nix;
-      buildConfig = import ./build-home-config.nix;
+      homeArgs = attrs // { inherit hosts; };
     in
     {
-      homeConfigurations = builtins.mapAttrs
-        (name: host: (buildConfig {
-          inherit nixpkgs home-manager fonts nixgl denbeigh-devtools host;
-        }))
-        hosts;
-
+      homeConfigurations = import ./home-configurations.nix homeArgs;
     } // flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          packages = [ home-manager.packages.x86_64-linux.default ];
-        };
-      }
+    let
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShells.default = pkgs.mkShell {
+        packages = [ home-manager.packages.x86_64-linux.default ];
+      };
+    }
     );
 }
