@@ -28,18 +28,28 @@ in
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      # TODO: This doesn't seem to be the right thing to do:
-      # https://nix-community.github.io/home-manager/index.html#sec-flakes-nixos-module
-      # Need to find an example of something that's done this
+
+      extraSpecialArgs = {
+        host = {
+          work = false;
+          hostname = "dev";
+          system = "x86_64-linux";
+          username = "denbeigh";
+          graphical = "false";
+          keys = null;
+        };
+      };
+
       users.denbeigh = {
         imports = [
+          # Infinite recursion somewhere in these modules (or in keychain)
           # ../../modules/dev.nix
           ../../modules/git.nix
           # ../../modules/linux.nix
           # ../../modules/zsh
         ];
 
-        # TODO: Don't copy-paste
+        # TODO: Don't copy-paste/pass these along
         home = {
           username = "denbeigh";
           homeDirectory = "/home/denbeigh";
