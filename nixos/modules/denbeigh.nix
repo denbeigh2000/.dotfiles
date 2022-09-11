@@ -1,7 +1,7 @@
-{ self
-, lib
+{ lib
 , pkgs
 , home-manager
+, homeConfigurations
 , hostname
 , ...
 }:
@@ -23,7 +23,7 @@ in
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.denbeigh = self.homeConfigurations.${hmConfig};
+      users.denbeigh = homeConfigurations.${hmConfig};
     };
 
     users.users.denbeigh = {

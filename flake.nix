@@ -38,6 +38,7 @@
     let
       hosts = import ./hosts.nix;
       homeArgs = attrs // { inherit hosts; };
+      osArgs = args // { inherit (self) homeConfigurations; };
     in
     {
       homeConfigurations = import ./home-configurations.nix homeArgs;
