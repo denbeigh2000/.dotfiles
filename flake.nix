@@ -41,6 +41,7 @@
     in
     {
       homeConfigurations = import ./home-configurations.nix homeArgs;
+      nixosConfigurations = import ./nixos/configs homeArgs;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
