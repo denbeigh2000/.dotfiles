@@ -35,21 +35,16 @@
     , flake-utils
     , ...
     }@attrs:
-    let
-      hosts = import ./hosts.nix;
-      homeArgs = attrs // { inherit hosts; };
-      osArgs = attrs // { inherit (self) homeConfigurations; };
-    in
     {
-      homeConfigurations = import ./home-configurations.nix homeArgs;
-      nixosConfigurations = import ./nixos/configs osArgs;
+      homeConfigurations = import ./home-manager/configs attrs;
+      nixosConfigurations = import ./nixos/configs attrs;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
     in
     {
       devShells.default = pkgs.mkShell {
-        packages = [ home-manager.packages.x86_64-linux.default ];
+        packages = [ home-manager.packages.${system}.default ];
       };
     }
     );

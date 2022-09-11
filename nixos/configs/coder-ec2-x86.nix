@@ -31,6 +31,7 @@ in
     home-manager.nixosModules.home-manager
 
     ../modules/denbeigh.nix
+    ../modules/flakes.nix
     ../modules/cloud
     ../modules/cloud/aws
 
@@ -49,8 +50,10 @@ in
         useUserPackages = true;
 
         extraSpecialArgs = hostArgs;
-        users.denbeigh = import ../../home.nix (inputs // hostArgs);
+        users.denbeigh = import ../../home-manager/home.nix (inputs // hostArgs);
       };
+
+      system.stateVersion = "22.05";
     }
   ];
   specialArgs = inputs;

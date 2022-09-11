@@ -1,4 +1,4 @@
-{ nixpkgs, denbeigh-devtools, home-manager, ... }@inputs:
+{ nixpkgs, ... }@inputs:
 
 let
   inherit (builtins) mapAttrs;

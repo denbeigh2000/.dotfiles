@@ -8,7 +8,7 @@ let
   inherit (host) hostname;
   inherit (pkgs.lib.attrsets) attrByPath;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  glWrap = import ../gl.nix { inherit pkgs; };
+  glWrap = import ../tools/gl.nix { inherit pkgs; };
   package = if isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
 
   fontSizes = {
