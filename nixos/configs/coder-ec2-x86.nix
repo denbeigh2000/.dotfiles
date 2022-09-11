@@ -1,19 +1,14 @@
-{ ... }:
+[
+  ../modules/denbeigh.nix
+  ../modules/cloud
+  ../modules/cloud/aws
 
-{
-  system = "x86_64-linux";
+  {
+    networking = {
+      hostName = "dev";
+      domain = "denbeigh.cloud";
+    };
 
-  modules = [
-    ../modules/denbeigh.nix
-    ../modules/cloud
-    ../modules/cloud/aws
-    {
-      networking = {
-        hostName = "dev";
-        domain = "denbeigh.cloud";
-      };
-
-      hmConfig = "coder";
-    }
-  ];
-}
+    hmConfig = "coder";
+  }
+]

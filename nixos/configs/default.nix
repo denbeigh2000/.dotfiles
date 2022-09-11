@@ -8,13 +8,10 @@ let
     coder-ec2-x86 = ./coder-ec2-x86.nix;
   };
 
-  attrs = inputs // {
-    modules = inputs.modules ++ [
-      home-manager.nixosModules.home-manager
-    ];
-  };
 in
-  mapAttrs (_: module: nixosSystem {
-    modules = [ module ];
+  mapAttrs (_: modules: nixosSystem {
+    # TODO: Needs to be more generael
+    system = "x86_64-linux";
+    modules = (import modules) ++ [ home-manager.nixosModules.home-manager ];
     specialArgs = inputs;
   }) configs
