@@ -10,6 +10,8 @@
         hostName = "dev";
         domain = "denbeigh.cloud";
       };
+
+      hmConfig = "coder";
     }
   ];
 }
