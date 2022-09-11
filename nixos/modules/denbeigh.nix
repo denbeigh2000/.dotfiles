@@ -16,22 +16,24 @@ in
     home-manager.nixosModules.home-manager
   ];
 
-  config = {
+  options = {
     hmConfig = mkOption {
       type = types.str;
       default = null;
     };
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.denbeigh =  self.homeConfigurations.${hmConfig};
-  };
+  config = {
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      users.denbeigh =  self.homeConfigurations.${hmConfig};
+    };
 
-  users.users.denbeigh = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
+    users.users.denbeigh = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+      shell = pkgs.zsh;
+    };
   };
 }
