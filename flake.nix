@@ -39,5 +39,15 @@
           inherit nixpkgs home-manager fonts nixgl denbeigh-devtools host;
         }))
         hosts;
-    };
+
+    } // flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = [ home-manager.packages.x86_64-linux.default ];
+        };
+      }
+    );
 }
