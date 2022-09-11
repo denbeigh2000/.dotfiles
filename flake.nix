@@ -38,6 +38,7 @@
     {
       homeConfigurations = import ./home-manager/configs attrs;
       nixosConfigurations = import ./nixos/configs attrs;
+      nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
