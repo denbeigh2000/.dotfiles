@@ -1,9 +1,9 @@
-{ pkgs, nixgl, hostname }:
+{ pkgs, hostname }:
 
 let
   inherit (pkgs.lib.attrsets) attrByPath;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  glWrap = import ./gl.nix { inherit pkgs nixgl; };
+  glWrap = import ./gl.nix { inherit pkgs; };
   package = if isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
 
   fontSizes = {

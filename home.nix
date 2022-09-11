@@ -1,4 +1,4 @@
-{ pkgs, system, fonts, host, nixgl, ... }:
+{ pkgs, system, fonts, host, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
@@ -8,7 +8,7 @@ let
 
   alacritty = import ./alacritty.nix {
     inherit (host) hostname;
-    inherit pkgs nixgl;
+    inherit pkgs;
   };
   git = import ./git.nix { inherit (host) work; };
   zsh = import ./zsh { inherit pkgs; };
@@ -21,6 +21,7 @@ let
 
   customPackages = devPkgs ++ (with fonts.packages.${system}; [ sf-mono sf-pro ]);
   standardPackages = with pkgs; [
+    neovim
     ripgrep
     powerline-fonts
   ];

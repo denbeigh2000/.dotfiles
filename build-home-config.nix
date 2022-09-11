@@ -3,7 +3,7 @@ let
   inherit (host) system username;
   pkgs = import nixpkgs {
     inherit (host) system;
-    overlays = [ denbeigh-devtools.overlay ];
+    overlays = [ denbeigh-devtools.overlay nixgl.overlay ];
   };
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   homeDirectory = (
@@ -18,8 +18,6 @@ home-manager.lib.homeManagerConfiguration {
 
   configuration = import ./home.nix {
     inherit pkgs host system fonts;
-
-    nixgl = nixgl.defaultPackage.x86_64-linux;
   };
 
   # Update the state version as needed.
