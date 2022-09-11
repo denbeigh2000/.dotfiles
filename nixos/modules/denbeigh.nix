@@ -3,12 +3,24 @@
 , home-manager
 , hostname
 , ...
-}:
+}@inputs:
 
 with lib;
 let
   # inherit (config) hmConfig;
   hmConfig = "coder";
+  system =  "x86_64-linux";
+  hostArgs = {
+    inherit system;
+    host = {
+      inherit system;
+      work = false;
+      hostname = "dev";
+      username = "denbeigh";
+      graphical = false;
+      keys = null;
+    };
+  };
 in
 {
   options = {
@@ -25,56 +37,14 @@ in
       shell = pkgs.zsh;
     };
 
+    environment.systemPackages = with pkgs; [ git neovim ];
+
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      extraSpecialArgs = {
-        host = {
-          work = false;
-          hostname = "dev";
-          system = "x86_64-linux";
-          username = "denbeigh";
-          graphical = false;
-          keys = null;
-        };
-      };
-
-      users.denbeigh = {
-        imports = [
-          # Infinite recursion somewhere in these modules (or in keychain)
-          ../../modules/dev.nix
-          ../../modules/git.nix
-          ../../modules/linux.nix
-          ../../modules/zsh
-        ];
-
-        # TODO: Don't copy-paste/pass these along
-        home = {
-          username = "denbeigh";
-          homeDirectory = "/home/denbeigh";
-          packages = with pkgs; [ ripgrep ];
-        };
-
-        programs = {
-          # Let Home Manager install and manage itself.
-          home-manager.enable = true;
-
-          aria2.enable = true;
-          jq.enable = true;
-
-          # keychain = {
-          #   enable = host.keys != null;
-          #   inherit (host) keys;
-          # };
-
-          gh.enable = true;
-
-          fzf.enable = true;
-        };
-
-        home.stateVersion = "22.05";
-      };
+      extraSpecialArgs = hostArgs;
+      users.denbeigh = import ../../home.nix (inputs // hostArgs);
     };
   };
 }

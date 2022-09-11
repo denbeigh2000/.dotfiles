@@ -1,4 +1,4 @@
-{ pkgs, system, fonts, host, ... }:
+{ pkgs, system, fonts, host, denbeigh-devtools, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;

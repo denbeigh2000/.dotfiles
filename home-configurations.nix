@@ -28,7 +28,7 @@ builtins.mapAttrs
       # Pass flake inputs, host config to modules
       extraSpecialArgs = inputs // { inherit host; };
       configuration = import ./home.nix {
-        inherit pkgs host system fonts;
+        inherit pkgs host system fonts denbeigh-devtools;
       };
 
       # Update the state version as needed.
