@@ -8,7 +8,8 @@
 
 with lib;
 let
-  inherit (config) hmConfig;
+  # inherit (config) hmConfig;
+  hmConfig = "coder";
 in
 {
   imports = [
@@ -22,7 +23,7 @@ in
     };
   };
 
-  home-manager = mkIf (hmConfig != null) {
+  home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users.denbeigh =  self.homeConfigurations.${hmConfig};
