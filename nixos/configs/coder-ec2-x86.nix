@@ -12,7 +12,6 @@ let
     hostname = "dev";
     username = "denbeigh";
     graphical = false;
-    keys = null;
   };
 
   specialArgs = inputs // { inherit host; };

@@ -30,16 +30,15 @@ in
     home-manager.enable = true;
 
     aria2.enable = true;
+    fzf.enable = true;
+    gh.enable = true;
     jq.enable = true;
+    tmux.enable = true;
 
     keychain = {
-      enable = host.keys != null;
-      inherit (host) keys;
+      enable = host ? keys;
+      keys = host.keys or null;
     };
-
-    gh.enable = true;
-
-    fzf.enable = true;
   };
 
   # This value determines the Home Manager release that your

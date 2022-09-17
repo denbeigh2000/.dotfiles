@@ -5,7 +5,6 @@
     system = "x86_64-linux";
     username = "discord";
     graphical = false;
-    keys = null;
   };
   feliccia = {
     work = false;
