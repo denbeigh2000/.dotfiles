@@ -11,5 +11,7 @@
     neovim
     ripgrep
     ctags
+    file
+    unzip
   ];
 }
