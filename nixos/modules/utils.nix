@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ ./docker.nix ];
+
   environment.systemPackages = with pkgs; [
     jq
     git
@@ -9,7 +11,5 @@
     neovim
     ripgrep
     ctags
-    docker
-    docker-compose
   ];
 }

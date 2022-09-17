@@ -26,7 +26,7 @@ in
 
   users.users.denbeigh = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "docker" "wheel" ];
     shell = pkgs.zsh;
 
     openssh.authorizedKeys.keys = [
