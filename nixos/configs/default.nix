@@ -7,6 +7,7 @@ let
   configs = {
     coder-ec2-x86 = ./coder-ec2-x86.nix;
     coder-ec2-aarch64 = ./coder-ec2-aarch64.nix;
+    coder-ec2-aarch64-plain = ./coder-ec2-aarch64-plain.nix;
   };
 
 in
