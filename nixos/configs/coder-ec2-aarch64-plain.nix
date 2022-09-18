@@ -1,11 +1,11 @@
 { ... }@inputs:
 
 let
-  system = "x86_64-linux";
+  system = "aarch64-linux";
   host = {
     inherit system;
-    work = false;
-    hostname = "dev";
+    work = true;
+    hostname = "plain";
     username = "denbeigh";
     graphical = false;
   };
@@ -15,9 +15,13 @@ in
 {
   inherit system specialArgs;
   modules = [
+    home-manager.nixosModules.home-manager
+
     ../modules/standard.nix
+    ../modules/cloud/aws/aarch64.nix
     {
       system.stateVersion = "22.05";
     }
   ];
 }
+
