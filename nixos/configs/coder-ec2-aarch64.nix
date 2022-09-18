@@ -1,8 +1,4 @@
-{ nixpkgs
-, home-manager
-, denbeigh-devtools
-, ...
-}@inputs:
+{ ... }@inputs:
 
 let
   system = "aarch64-linux";
@@ -19,20 +15,10 @@ in
 {
   inherit system specialArgs;
   modules = [
-    home-manager.nixosModules.home-manager
-
-    ../modules/denbeigh.nix
-    ../modules/flakes.nix
-    ../modules/utils.nix
-    ../modules/cloud
+    ../modules/standard.nix
     ../modules/cloud/aws/aarch64.nix
-
+    ../modules/cloud/aws/coder
     {
-      networking = {
-        hostName = "dev";
-        domain = "denbeigh.cloud";
-      };
-
       system.stateVersion = "22.05";
     }
   ];

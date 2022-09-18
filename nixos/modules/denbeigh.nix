@@ -14,6 +14,10 @@ let
   hostArgs = { inherit host system; };
 in
 {
+  imports = [
+    home-manager.nixosModules.home-manager
+  ];
+
   nixpkgs.overlays = [ denbeigh-devtools.overlay ];
 
   home-manager = {
@@ -21,10 +25,10 @@ in
     useUserPackages = true;
 
     extraSpecialArgs = hostArgs;
-    users.denbeigh = import ../../home-manager/home.nix (inputs // hostArgs);
+    users.${host.username} = import ../../home-manager/home.nix (inputs // hostArgs);
   };
 
-  users.users.denbeigh = {
+  users.users.${host.username} = {
     isNormalUser = true;
     extraGroups = [ "docker" "wheel" ];
     shell = pkgs.zsh;
