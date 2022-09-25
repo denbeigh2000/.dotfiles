@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1662241716,
+        "narHash": "sha256-urqPvSvvGUhkwzTDxUI8N1nsdMysbAfjmBNZaTYBZRU=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "c96da5835b76d3d8e8d99a0fec6fe32f8539ee2e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "denbeigh-devtools": {
       "inputs": {
         "denbeigh-neovim": "denbeigh-neovim",
@@ -209,6 +229,7 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "denbeigh-devtools": "denbeigh-devtools",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
