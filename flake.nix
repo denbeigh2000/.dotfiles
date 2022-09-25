@@ -49,13 +49,18 @@
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ agenix.overlay ];
+      };
+      tools = import ./tools { inherit pkgs; };
     in
     {
       devShells.default = pkgs.mkShell {
         packages = [
           agenix.packages.${system}.agenix
           home-manager.packages.${system}.default
+          tools
         ];
       };
     }
