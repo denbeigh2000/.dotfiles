@@ -21,5 +21,14 @@
     };
   };
 
+  services.oauth2_proxy.skipAuthRegexes = [
+    # TODO: WTF is wrong with these regexes, and why do done of them work?
+    # Maybe TVL was right in writing their own module...
+    ".*oauth/.*"
+    ''.*well-known.*''
+    # ''.*acme.*''
+    # ''.*''
+  ];
+
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

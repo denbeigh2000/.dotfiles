@@ -11,9 +11,10 @@
     clientID = "d4a974e408abc94fa590";
     keyFile = config.age.secrets.oauth2Proxy.path;
     provider = "github";
-    redirectURL = "https://auth.bruce.denbeigh.cloud/oauth/redirect";
-    validateURL = "https://auth.bruce.denbeigh.cloud/oauth/validate";
+    redirectURL = "http://auth.bruce.denbeigh.cloud/oauth/redirect";
+    validateURL = "http://auth.bruce.denbeigh.cloud/oauth/validate";
     email.domains = [ "denbeighstevens.com" ];
+    reverseProxy = true;
     extraConfig = {
       # Only users who can push to this public repo can access services.
       github-repo = "denbeigh2000/.dotfiles";
