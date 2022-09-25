@@ -17,4 +17,5 @@ let
 in
 {
   "secrets/digitalOceanAPIKey.age".publicKeys = (attrValues hosts) ++ [ servers.bruce ];
+  "secrets/oauth2Proxy.age".publicKeys = (attrValues hosts) ++ [ servers.bruce ];
 }

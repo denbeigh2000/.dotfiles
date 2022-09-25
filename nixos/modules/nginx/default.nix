@@ -1,12 +1,15 @@
 { config, ... }:
 
 {
-  age.secrets.digitalOceanKey.file = ../../secrets/digitalOceanAPIKey.age;
+  age.secrets.digitalOceanKey.file = ../../../secrets/digitalOceanAPIKey.age;
 
   services.nginx = {
     enable = true;
     # Drop all inbound connections by default
-    virtualHosts."_".locations."/".return = "444";
+    virtualHosts."misc" = {
+      serverName = "_";
+      locations."/".return = "444";
+    };
   };
 
   security.acme = {

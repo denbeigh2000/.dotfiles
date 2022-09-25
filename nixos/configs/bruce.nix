@@ -86,7 +86,7 @@ in
     (mod "cloud")
     (mod "secrets.nix")
     (mod "standard.nix")
-    # (mod "nginx.nix")
-    # (mod "oauth2_proxy.nix")
+    (mod "nginx")
+    (mod "oauth2_proxy.nix")
   ];
 }
