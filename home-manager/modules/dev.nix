@@ -14,7 +14,7 @@ let
 in
 
 {
-  home.packages = with pkgs; [ neovim ctags ]
+  home.packages = with pkgs; [ agenix neovim ctags ]
     ++ rust.all
     ++ go-packages
     ++ node-packages

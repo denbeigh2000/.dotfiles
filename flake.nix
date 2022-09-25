@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fonts = {
       url = "github:denbeigh2000/fonts";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +40,7 @@
     , nixpkgs
     , home-manager
     , flake-utils
+    , agenix
     , ...
     }@attrs:
     {
@@ -43,11 +49,19 @@
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ agenix.overlay ];
+      };
+      tools = import ./tools { inherit pkgs; };
     in
     {
       devShells.default = pkgs.mkShell {
-        packages = [ home-manager.packages.${system}.default ];
+        packages = [
+          agenix.packages.${system}.agenix
+          home-manager.packages.${system}.default
+          tools
+        ];
       };
     }
     );

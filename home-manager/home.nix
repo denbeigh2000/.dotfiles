@@ -1,4 +1,12 @@
-{ pkgs, system, fonts, host, denbeigh-devtools, nixgl, ... }:
+{ pkgs
+, system
+, fonts
+, host
+, agenix
+, denbeigh-devtools
+, nixgl
+, ...
+}:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
@@ -8,10 +16,11 @@ let
 in
 {
   imports = [ ./modules/dev.nix ./modules/git.nix ./modules/zsh ]
-  ++ (if isLinux then [ ./modules/linux.nix ] else [ ])
-  ++ (if graphical then [ ./modules/graphical.nix ] else [ ]);
+    ++ (if isLinux then [ ./modules/linux.nix ] else [ ])
+    ++ (if graphical then [ ./modules/graphical.nix ] else [ ]);
 
   nixpkgs.overlays = [
+    agenix.overlay
     denbeigh-devtools.overlay
     nixgl.overlay
   ];

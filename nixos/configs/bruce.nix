@@ -83,8 +83,9 @@ in
       services.openssh.enable = true;
       networking.firewall.allowedTCPPorts = [ 22 ];
     }
-    (mod "standard.nix")
     (mod "cloud")
+    (mod "secrets.nix")
+    (mod "standard.nix")
     # (mod "nginx.nix")
     # (mod "oauth2_proxy.nix")
   ];
