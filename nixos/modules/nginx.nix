@@ -1,4 +1,6 @@
 {
+  age.secrets.digitalOceanKey = ../../secrets/digitalOceanAPIKey.age;
+
   services.nginx = {
     enable = true;
     # Drop all inbound connections by default

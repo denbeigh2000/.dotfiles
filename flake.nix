@@ -40,6 +40,7 @@
     , nixpkgs
     , home-manager
     , flake-utils
+    , agenix
     , ...
     }@attrs:
     {
@@ -52,7 +53,10 @@
     in
     {
       devShells.default = pkgs.mkShell {
-        packages = [ home-manager.packages.${system}.default ];
+        packages = [
+          agenix.packages.${system}.agenix
+          home-manager.packages.${system}.default
+        ];
       };
     }
     );
