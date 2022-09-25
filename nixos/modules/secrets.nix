@@ -8,6 +8,4 @@
     # "/home/denbeigh/.ssh/ed_25519"
     "/var/lib/denbeigh/host_key"
   ];
-
-  users.groups."key-access".gid = 1100;
 }

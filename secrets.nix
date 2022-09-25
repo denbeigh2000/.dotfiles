@@ -10,12 +10,14 @@ let
     santiago = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEhLcnb7GSelOV/3x0DYwzfIZgQ0QGaK3ma4NzXND79k";
   };
 
-  # TODO
   servers = {
     bruce = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMo37TCbucxMhvXt9mwR6iIJId82peZ6i31mfzDYx+2O";
   };
+
+  allHosts = (attrValues hosts) ++ [ servers.bruce ];
 in
 {
-  "secrets/digitalOceanAPIKey.age".publicKeys = (attrValues hosts) ++ [ servers.bruce ];
-  "secrets/oauth2Proxy.age".publicKeys = (attrValues hosts) ++ [ servers.bruce ];
+  "secrets/digitalOceanAPIKey.age".publicKeys = allHosts;
+  "secrets/oauth2Proxy.age".publicKeys = allHosts;
+  "secrets/buildkiteToken.age".publicKeys = allHosts;
 }
