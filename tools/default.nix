@@ -1,10 +1,9 @@
 { pkgs }:
 
 let
-  agenix-edit = import ./agenix-edit.nix { inherit pkgs; };
-  create-server-key = import ./create-server-key.nix { inherit pkgs; };
+  secrets = import ./secrets { inherit pkgs; };
 in
-  pkgs.symlinkJoin {
-    name = "tools";
-    paths = [ agenix-edit create-server-key ];
-  }
+pkgs.symlinkJoin {
+  name = "tools";
+  paths = [ secrets ];
+}

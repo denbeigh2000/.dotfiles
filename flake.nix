@@ -53,15 +53,26 @@
         inherit system;
         overlays = [ agenix.overlay ];
       };
-      tools = import ./tools { inherit pkgs; };
+      secret-tools = import ./tools/secrets { inherit pkgs; };
+      ci-tools = import ./tools/ci { inherit pkgs; };
     in
     {
-      devShells.default = pkgs.mkShell {
-        packages = [
-          agenix.packages.${system}.agenix
-          home-manager.packages.${system}.default
-          tools
-        ];
+      packages = {
+        ci = ci-tools.ci;
+        inherit secret-tools;
+      };
+      devShells = {
+        default = pkgs.mkShell {
+          packages = [
+            agenix.packages.${system}.agenix
+            home-manager.packages.${system}.default
+            secret-tools
+          ];
+        };
+        ci = pkgs.mkShell {
+          packages = [ ci-tools.ci ];
+        };
+        ci-dev = ci-tools.devShell;
       };
     }
     );
