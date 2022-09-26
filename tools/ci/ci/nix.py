@@ -7,13 +7,15 @@ from typing import Any, Dict, Iterable, List, Optional, Set
 
 from ci.constants import REPO_ROOT
 
+from ci import git
+
 _SYSTEM = "x86_64-linux"  # TODO: Improve this
 
 # TODO: singulars (e.g., devShell)
 # TODO: Maybe other evalable items I don't really use yet - checks, tasks, etc.
 _EVALABLE_ITEMS_ARCH = {"packages", "devShells"}
 # TODO: This causes problems with my current assumptions because there's
-# not one specific output path
+# not one specific output path (causes problems with `nix show-derivation`
 # _EVALABLE_ITEMS_NO_ARCH = {"nixosConfigurations"}
 _EVALABLE_ITEMS_NO_ARCH: Set[str] = set()
 _EVALABLE_ITEMS = _EVALABLE_ITEMS_ARCH.union(_EVALABLE_ITEMS_NO_ARCH)
@@ -101,27 +103,35 @@ class Nix:
         cmd = ["nix", "build"] + list(targets)
         run(cmd)
 
-    def eval_codebase(self, rev: Optional[str] = None) -> Dict[str, str]:
+    def eval_codebase(self, rev: Optional[str] = None) -> Dict[str, DerivationInfo]:
         flake_data = self.show_flake()
         relevant_keys = set(flake_data.keys()).intersection(_EVALABLE_ITEMS)
         uri_prefix = f"{REPO_ROOT}"
         if rev is not None:
-            assert len(rev) == 40, "must be full-length sha"
+            if len(rev) != 40:
+                rev = git.get_sha(rev)
             uri_prefix += f"?rev={rev}"
 
         targets = {}
 
-        for item in relevant_keys:
-            key = f"{uri_prefix}#{item}"
-            if item in _EVALABLE_ITEMS_ARCH:
+        for category in relevant_keys:
+            key = f"{uri_prefix}#{category}"
+            items = flake_data.get(category)
+            if not items:
+                # TODO
+                continue
+
+            if category in _EVALABLE_ITEMS_ARCH:
                 key += f".{_SYSTEM}"
+                items = items.get(_SYSTEM)
+                if not items:
+                    # TODO
+                    continue
 
-            proc = run(["nix", "eval", "--derivation", "--json", key], capture_output=True)
-            data: Dict[str, str] = json.loads(proc.stdout)
-
-            targets.update({
-                f'{key}.{k}': deriv_path
-                for (k, deriv_path) in data.items()
-            })
+            for item_key in items:
+                flake_key = f"{key}.{item_key}"
+                proc = run(["nix", "show-derivation", flake_key], capture_output=True)
+                info = list(json.loads(proc.stdout).values())[0]
+                targets[flake_key] = DerivationInfo.from_json(flake_key, info)
 
         return targets
