@@ -21,6 +21,14 @@ in
         tokenPath = config.age.secrets.buildkiteToken.path;
         privateSshKeyPath = "/var/lib/denbeigh/host_key";
         runtimePackages = with pkgs; [ buildkite-agent ci-tool bash gnutar gzip git nix ];
+        hooks.pre-checkout = ''
+          set -euo pipefail
+          set -x
+
+          mkdir -p $HOME/.ssh
+          cp -rf /var/lib/denbeigh/host_key $HOME/.ssh/id_ed25519
+          chmod -R go-rwx $HOME/.ssh
+        '';
       };
     })
   (pkgs.lib.range 1 12));
