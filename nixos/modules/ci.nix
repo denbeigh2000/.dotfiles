@@ -2,6 +2,8 @@
 
 let
   inherit (builtins) listToAttrs;
+
+  ci-tool = (import ../../tools/ci { inherit pkgs; }).ci;
 in
 
 {
@@ -18,6 +20,7 @@ in
         inherit name;
         tokenPath = config.age.secrets.buildkiteToken.path;
         privateSshKeyPath = "/var/lib/denbeigh/host_key";
+        runtimePackages = with pkgs; [ buildkite-agent ci-tool bash gnutar gzip git nix ];
       };
     })
   (pkgs.lib.range 1 12));

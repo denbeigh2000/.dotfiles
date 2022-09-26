@@ -1,22 +1,34 @@
 import json
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from subprocess import run
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Set
 
 from ci.constants import REPO_ROOT
 
 _SYSTEM = "x86_64-linux"  # TODO: Improve this
 
+# TODO: singulars (e.g., devShell)
+# TODO: Maybe other evalable items I don't really use yet - checks, tasks, etc.
+_EVALABLE_ITEMS_ARCH = {"packages", "devShells"}
+# TODO: This causes problems with my current assumptions because there's
+# not one specific output path
+# _EVALABLE_ITEMS_NO_ARCH = {"nixosConfigurations"}
+_EVALABLE_ITEMS_NO_ARCH: Set[str] = set()
+_EVALABLE_ITEMS = _EVALABLE_ITEMS_ARCH.union(_EVALABLE_ITEMS_NO_ARCH)
+
 
 @dataclass
 class DerivationInfo:
+    name: str
     derivation_path: Path
     output_path: Path
 
     @classmethod
     def from_json(cls, key: str, data: Dict[str, Any]) -> "DerivationInfo":
         return cls(
+            name=data["env"]["name"],
             derivation_path=Path(key),
             output_path=Path(data["outputs"]["out"]["path"]),
         )
@@ -60,6 +72,7 @@ class Nix:
     def __init__(self):
         pass
 
+    @lru_cache()
     def show_flake(self) -> Dict[str, Any]:
         proc = run(
             ["nix", "flake", "show", "--json"], capture_output=True, cwd=REPO_ROOT
@@ -74,8 +87,41 @@ class Nix:
         return [f'.#{".".join(d)}' for d in derivations if _SYSTEM in d]
 
     def find_buildable_derivations(self) -> Iterable[DerivationInfo]:
-        targets = self.find_buildable_targets()
-        raw_deriv_info = run(["nix", "show-derivation"] + list(targets), capture_output=True)
+        return self.show_derivations(self.find_buildable_targets())
+
+    def show_derivations(self, targets: Iterable[str]) -> List[DerivationInfo]:
+        raw_deriv_info = run(
+            ["nix", "show-derivation"] + list(targets), capture_output=True
+        )
         deriv_info = json.loads(raw_deriv_info.stdout)
 
         return [DerivationInfo.from_json(k, v) for k, v in deriv_info.items()]
+
+    def build_derivations(self, targets: Iterable[str]) -> None:
+        cmd = ["nix", "build"] + list(targets)
+        run(cmd)
+
+    def eval_codebase(self, rev: Optional[str] = None) -> Dict[str, str]:
+        flake_data = self.show_flake()
+        relevant_keys = set(flake_data.keys()).intersection(_EVALABLE_ITEMS)
+        uri_prefix = f"{REPO_ROOT}"
+        if rev is not None:
+            assert len(rev) == 40, "must be full-length sha"
+            uri_prefix += f"?rev={rev}"
+
+        targets = {}
+
+        for item in relevant_keys:
+            key = f"{uri_prefix}#{item}"
+            if item in _EVALABLE_ITEMS_ARCH:
+                key += f".{_SYSTEM}"
+
+            proc = run(["nix", "eval", "--derivation", "--json", key], capture_output=True)
+            data: Dict[str, str] = json.loads(proc.stdout)
+
+            targets.update({
+                f'{key}.{k}': deriv_path
+                for (k, deriv_path) in data.items()
+            })
+
+        return targets

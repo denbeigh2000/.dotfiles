@@ -61,8 +61,14 @@
         ci = ci-tools.ci;
         inherit secret-tools;
       };
+      apps.ci = {
+        name = "ci";
+        type = "app";
+        program = "${ci-tools.ci}/bin/ci";
+      };
       devShells = {
         default = pkgs.mkShell {
+          name = "dotfiles-dev-shell";
           packages = [
             agenix.packages.${system}.agenix
             home-manager.packages.${system}.default
@@ -70,6 +76,7 @@
           ];
         };
         ci = pkgs.mkShell {
+          name = "ci-deploy-shell";
           packages = [ ci-tools.ci ];
         };
         ci-dev = ci-tools.devShell;
