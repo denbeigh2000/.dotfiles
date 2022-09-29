@@ -55,8 +55,10 @@
       };
       secret-tools = import ./tools/secrets { inherit pkgs; };
       ci-tools = import ./tools/ci { inherit pkgs; };
+
+      mkFlake = (import ./. { inherit pkgs flake-utils; });
     in
-    {
+    mkFlake {
       packages = {
         ci = ci-tools.ci;
         inherit secret-tools;

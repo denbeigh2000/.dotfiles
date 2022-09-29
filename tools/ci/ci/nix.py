@@ -131,6 +131,9 @@ class Nix:
             for item_key in items:
                 flake_key = f"{key}.{item_key}"
                 proc = run(["nix", "show-derivation", flake_key], capture_output=True)
+                if not proc.stdout:
+                    continue
+
                 info = list(json.loads(proc.stdout).values())[0]
                 targets[flake_key] = DerivationInfo.from_json(flake_key, info)
 
