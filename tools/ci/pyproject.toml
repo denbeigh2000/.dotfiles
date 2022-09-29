@@ -5,7 +5,7 @@
 name = "ci"
 version = "0.0.0"
 description = "Tools for operating Denbeigh's CI"
-dependencies = ["click"]
+dependencies = ["click", "jsonschema"]
 
 [project.scripts]
 ci = "ci.__main__:__main__"

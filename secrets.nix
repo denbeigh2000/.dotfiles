@@ -20,4 +20,5 @@ in
   "secrets/digitalOceanAPIKey.age".publicKeys = allHosts;
   "secrets/oauth2Proxy.age".publicKeys = allHosts;
   "secrets/buildkiteToken.age".publicKeys = allHosts;
+  "secrets/buildkiteAPIToken.age".publicKeys = allHosts;
 }
