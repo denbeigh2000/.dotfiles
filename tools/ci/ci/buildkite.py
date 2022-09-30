@@ -18,7 +18,7 @@ def build_derivations_step(derivs: Sequence[DerivationInfo]) -> Dict[str, Any]:
 
     return {
         "label": f":hammer_and_wrench: building {msg}",
-        "command": f"ci build-derivations {targets}",
+        "command": f"nix run .#ci build-derivations {targets}",
     }
 
 
