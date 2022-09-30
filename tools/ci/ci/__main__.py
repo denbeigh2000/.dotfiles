@@ -3,7 +3,8 @@ from typing import Optional, Sequence
 import click
 from ci.buildkite import build_derivations_step, upload_pipeline
 
-from ci import delta, git, nix
+from ci import delta, nix
+from ci.constants import REPO_ROOT
 
 
 @click.group()
@@ -41,7 +42,10 @@ def show_changes(
     n = nix.Nix()
     affected = delta.find_changes(n, base_branch, commit)
 
-    for item in sorted(affected):
+    unsorted_path = [ str(a.derivation_path) for a in affected.values()]
+    paths = n.remove_absolute_flake_paths(sorted(unsorted_path))
+
+    for item in paths:
         click.echo(item)
 
 

@@ -1,4 +1,5 @@
 import json
+import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -10,6 +11,7 @@ from ci.constants import REPO_ROOT
 from ci import git
 
 _SYSTEM = "x86_64-linux"  # TODO: Improve this
+_REPO_ROOT_REGEX = f'^{REPO_ROOT}'
 
 # TODO: singulars (e.g., devShell)
 # TODO: Maybe other evalable items I don't really use yet - checks, tasks, etc.
@@ -54,7 +56,6 @@ def _find_derivations(data: Any) -> Iterable[List[str]]:
     found: List[List[str]] = []
 
     for k, v in data.items():
-        # print(k, v)
         if not isinstance(v, dict):
             # Only continue traversing if we're
             continue
@@ -73,6 +74,13 @@ def _find_derivations(data: Any) -> Iterable[List[str]]:
 class Nix:
     def __init__(self):
         pass
+
+    @staticmethod
+    def remove_absolute_flake_paths(targets: Iterable[str]) -> Iterable[str]:
+        return [
+            re.sub(_REPO_ROOT_REGEX, ".", target)
+            for target in targets
+        ]
 
     @lru_cache()
     def show_flake(self) -> Dict[str, Any]:
