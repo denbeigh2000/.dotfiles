@@ -135,6 +135,6 @@ class Nix:
                     continue
 
                 info = list(json.loads(proc.stdout).values())[0]
-                targets[flake_key] = DerivationInfo.from_json(flake_key, info)
+                targets[f'.{item_key}'] = DerivationInfo.from_json(flake_key, info)
 
         return targets

@@ -1,5 +1,4 @@
-import json
-from typing import Dict, Iterable, Optional
+from typing import Dict, Optional
 
 from ci import git
 from ci.nix import DerivationInfo, Nix
