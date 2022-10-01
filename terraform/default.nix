@@ -23,8 +23,25 @@ let
     tailscale-provider
   ]);
 
-  # TODO: Create a derivation that packages local config, and write a wrapper
-  # to apply it
+  terraform-config = pkgs.stdenv.mkDerivation {
+    name = "terraform-config";
+    dontFixup = true;
+    dontBuild = true;
+
+    src = ./.;
+
+    checkPhase = ''
+      ${pkgs.terraform}/bin/terraform fmt -check .
+    '';
+
+    installPhase = ''
+      set -euo pipefail
+
+      mkdir $out
+      ${pkgs.findutils}/bin/find -mindepth 1 -maxdepth 1 \
+        | ${pkgs.findutils}/bin/xargs -I{} cp -r {} $out/
+    '';
+  };
 in
 
 {
@@ -32,5 +49,5 @@ in
     name = "terraform-shell";
     packages = [ terraform pkgs.tflint ];
   };
-  packages = { };
+  packages = { inherit terraform terraform-config; };
 }

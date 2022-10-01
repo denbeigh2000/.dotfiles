@@ -89,6 +89,7 @@ in
     (mod "standard.nix")
     (mod "nginx")
     (mod "tailscale.nix")
+    (mod "terraform.nix")
     (mod "ahoy.nix")
   ];
 }

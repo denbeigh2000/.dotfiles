@@ -70,6 +70,7 @@
     mkFlake {
       packages = {
         ci = ci-tools.ci;
+        inherit (terraform.packages) terraform terraform-config;
         inherit secret-tools;
       };
       apps.ci = {
