@@ -6,3 +6,6 @@ indent_size = 4;
 
 [*.nix]
 indent_size = 2;
+
+[*.tf]
+indent_size = 2;

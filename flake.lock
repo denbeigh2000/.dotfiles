@@ -236,7 +236,8 @@
         "fonts": "fonts",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "terraform-providers-bin": "terraform-providers-bin"
       }
     },
     "rust-overlay": {
@@ -261,6 +262,29 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "terraform-providers-bin": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664587027,
+        "narHash": "sha256-aafky7WNFNEwAirBVxi2bntHGMMGXqXcPnruczJBlE0=",
+        "owner": "nix-community",
+        "repo": "nixpkgs-terraform-providers-bin",
+        "rev": "2a5f68466b73a473e75982f707adf80232de0939",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs-terraform-providers-bin",
         "type": "github"
       }
     },

@@ -33,6 +33,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    terraform-providers-bin = {
+      url = "github:nix-community/nixpkgs-terraform-providers-bin";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -41,6 +47,7 @@
     , home-manager
     , flake-utils
     , agenix
+    , terraform-providers-bin
     , ...
     }@attrs:
     {
@@ -53,14 +60,17 @@
         inherit system;
         overlays = [ agenix.overlay ];
       };
+      tf-providers = import terraform-providers-bin { inherit system; };
       secret-tools = import ./tools/secrets { inherit pkgs; };
       ci-tools = import ./tools/ci { inherit pkgs; };
+      terraform = import ./terraform { inherit pkgs tf-providers; };
 
       mkFlake = (import ./. { inherit pkgs flake-utils; });
     in
     mkFlake {
       packages = {
         ci = ci-tools.ci;
+        inherit (terraform.packages) terraform terraform-config;
         inherit secret-tools;
       };
       apps.ci = {
@@ -77,11 +87,8 @@
             secret-tools
           ];
         };
-        ci = pkgs.mkShell {
-          name = "ci-deploy-shell";
-          packages = [ ci-tools.ci ];
-        };
-        ci-dev = ci-tools.devShell;
+        ci = ci-tools.devShell;
+        terraform = terraform.devShell;
       };
     }
     );
