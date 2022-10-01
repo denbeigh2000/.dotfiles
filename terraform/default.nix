@@ -17,6 +17,7 @@ let
     p.random
     p.null
 
+    tf-providers.providers.cloudflare.cloudflare
     tf-providers.providers.digitalocean.digitalocean
     tf-providers.providers.hashicorp.aws
     tailscale-provider

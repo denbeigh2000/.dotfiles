@@ -1,6 +1,14 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/cloudflare/cloudflare" {
+  version     = "3.24.0"
+  constraints = "~> 3.24"
+  hashes = [
+    "h1:L12DulNBH6i/YoMHuY3i4zmiG2MoEU9T3kmFn9LJzKk=",
+  ]
+}
+
 provider "registry.terraform.io/digitalocean/digitalocean" {
   version     = "2.22.3"
   constraints = "~> 2.0"
