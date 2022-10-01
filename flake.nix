@@ -55,6 +55,7 @@
       };
       secret-tools = import ./tools/secrets { inherit pkgs; };
       ci-tools = import ./tools/ci { inherit pkgs; };
+      terraform = import ./terraform { inherit pkgs; };
 
       mkFlake = (import ./. { inherit pkgs flake-utils; });
     in
@@ -77,11 +78,8 @@
             secret-tools
           ];
         };
-        ci = pkgs.mkShell {
-          name = "ci-deploy-shell";
-          packages = [ ci-tools.ci ];
-        };
-        ci-dev = ci-tools.devShell;
+        ci = ci-tools.devShell;
+        terraform = terraform.devShell;
       };
     }
     );
