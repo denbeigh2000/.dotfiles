@@ -88,6 +88,7 @@ in
     (mod "secrets.nix")
     (mod "standard.nix")
     (mod "nginx")
-    (mod "oauth2_proxy.nix")
+    (mod "tailscale.nix")
+    (mod "ahoy.nix")
   ];
 }
