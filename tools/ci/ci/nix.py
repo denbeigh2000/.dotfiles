@@ -108,7 +108,7 @@ class Nix:
         return [DerivationInfo.from_json(k, v) for k, v in deriv_info.items()]
 
     def build_derivations(self, targets: Iterable[str]) -> None:
-        cmd = ["nix", "build"] + list(targets)
+        cmd = ["nix", "build", "--no-link"] + list(targets)
         run(cmd)
 
     def eval_codebase(self, rev: Optional[str] = None) -> Dict[str, DerivationInfo]:
