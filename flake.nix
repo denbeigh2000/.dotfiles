@@ -33,6 +33,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    terraform-providers-bin = {
+      url = "github:nix-community/nixpkgs-terraform-providers-bin";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -41,6 +47,7 @@
     , home-manager
     , flake-utils
     , agenix
+    , terraform-providers-bin
     , ...
     }@attrs:
     {
@@ -53,9 +60,10 @@
         inherit system;
         overlays = [ agenix.overlay ];
       };
+      tf-providers = import terraform-providers-bin { inherit system; };
       secret-tools = import ./tools/secrets { inherit pkgs; };
       ci-tools = import ./tools/ci { inherit pkgs; };
-      terraform = import ./terraform { inherit pkgs; };
+      terraform = import ./terraform { inherit pkgs tf-providers; };
 
       mkFlake = (import ./. { inherit pkgs flake-utils; });
     in
