@@ -16,8 +16,7 @@ in
   inherit system specialArgs;
   modules = [
     ../modules/standard.nix
-    {
-      system.stateVersion = "22.05";
-    }
+    ../modules/cloud
+    ../modules/cloud/aws
   ];
 }
