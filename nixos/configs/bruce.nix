@@ -91,5 +91,6 @@ in
     (mod "tailscale.nix")
     (mod "terraform.nix")
     (mod "ahoy.nix")
+    (mod "wireguard.nix")
   ];
 }
