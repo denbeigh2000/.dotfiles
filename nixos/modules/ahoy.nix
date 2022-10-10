@@ -10,6 +10,7 @@
   services = {
     transmission.enable = true;
     jellyfin.enable = true;
+    prowlarr.enable = true;
     sonarr.enable = true;
     radarr.enable = true;
     jackett.enable = true;
