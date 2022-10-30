@@ -22,4 +22,5 @@ in
   "secrets/buildkiteAPIToken.age".publicKeys = allHosts;
   "secrets/tailscaleAuthKey.age".publicKeys = allHosts;
   "secrets/terraform.age".publicKeys = allHosts;
+  "secrets/vpnPrivateKey.age".publicKeys = allHosts;
 }
