@@ -1,19 +1,42 @@
+{ config, pkgs, ... }:
+
 {
   imports = [
-    ./nginx/jellyfin.nix
-    ./nginx/transmission.nix
     ./nginx/jackett.nix
+    ./nginx/jellyfin.nix
     ./nginx/prowlarr.nix
-    ./nginx/sonarr.nix
     ./nginx/radarr.nix
+    ./nginx/sonarr.nix
+    ./transmission.nix
+    ./wireguard.nix
   ];
 
-  services = {
-    transmission.enable = true;
-    jellyfin.enable = true;
-    prowlarr.enable = true;
-    sonarr.enable = true;
-    radarr.enable = true;
-    jackett.enable = true;
-  };
+  config =
+    let
+      groupName = "media";
+      serviceConfig = {
+        enable = true;
+        group = groupName;
+      };
+    in
+    {
+      users.groups."${groupName}".gid = 94;
+
+      denbeigh = {
+        transmission = serviceConfig;
+        wireguard = {
+          enable = true;
+          users = [ "transmission" "jackett" ];
+        };
+      };
+
+      services = {
+        jellyfin.enable = true;
+        # TODO: Create a PR that adds group/package/etc. to this config
+        prowlarr.enable = true;
+        sonarr = serviceConfig;
+        radarr = serviceConfig;
+        jackett = serviceConfig;
+      };
+    };
 }

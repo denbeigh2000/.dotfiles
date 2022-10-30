@@ -83,14 +83,13 @@ in
       services.openssh.enable = true;
       networking.firewall.allowedTCPPorts = [ 22 ];
     }
-    (mod "ci.nix")
     (mod "cloud")
+    (mod "nginx")
+    (mod "ahoy.nix")
+    (mod "ci.nix")
     (mod "secrets.nix")
     (mod "standard.nix")
-    (mod "nginx")
     (mod "tailscale.nix")
     (mod "terraform.nix")
-    (mod "ahoy.nix")
-    (mod "wireguard.nix")
   ];
 }

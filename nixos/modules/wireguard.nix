@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   ips = [ "10.67.192.214/32" "fc00:bbbb:bbbb:bb01::4:c0d5/128" ];
@@ -116,6 +116,36 @@ let
 
 in
 {
+  options.denbeigh.wireguard =
+    with lib.options;
+    with lib.types;
+    {
+      enable = mkEnableOption "Enable WireGuard client";
+
+      users = mkOption {
+        type = listOf str;
+        description = lib.mdDoc "Users to route through the VPN";
+      };
+
+      interfaceName = mkOption {
+        type = str;
+        default = "wg0";
+        description = lib.mdDoc "Name to give the WireGuard interface";
+      };
+
+      table = mkOption {
+        type = int;
+        default = 61;
+        description = lib.mdDoc "Firewall table to use for routing rules";
+      };
+
+      mark = mkOption {
+        type = int;
+        default = 61;
+        description = lib.mdDoc "Firewall mark to use for routing affected traffic";
+      };
+    };
+
   config = {
     age.secrets.vpnPrivateKey.file = ../../secrets/vpnPrivateKey.age;
 
@@ -123,18 +153,21 @@ in
       let
         inherit (builtins) concatStringsSep fromJSON readFile;
         inherit (pkgs.lib) mapAttrsToList;
-        # NOTE: No actual secrets should be kept in this file, it's OK if its
-        # contents end up in the nix store (private key is in a separate secret)
-        # vpnConfig = fromJSON (readFile config.age.secrets.vpn.path);
+        vpn =
+          with config.denbeigh.wireguard;
+          {
+            inherit interfaceName users;
+            table = toString table;
+            mark = toString mark;
+          };
 
-        vpn = {
-          interfaceName = "wg0";
-          table = "61";
-          mark = "61";
+        # Set up a different routing table, and don't set up default
+        # routing rules, so that we can route traffic from only certain
+        # applications through the VPN
 
-          # TODO: Expose as module options
-          users = [ "transmission" "jackett" ];
-        };
+        # https://unix.stackexchange.com/a/589605
+        # https://github.com/davidtwco/veritas/blob/567e002fbc0ca5f5576ed37f5c22cae82fc31d1a/nixos/modules/per-user-vpn.nix#L158-L175
+        # https://www.wireguard.com/netns
 
         # Creates a network table <num> that routes all traffic through our interface
         setupTable = num: ''
@@ -154,21 +187,37 @@ in
         '';
 
         # Adds a rule to all traffic from user <uid> to consult our table <num>
-        routeUser = uid: num: ''
-          USER_RULE="$(ip rule show uidrange ${uid}-${uid} lookup ${num})"
-          if [[ "$USER_RULE" != "" ]]
-          then
-            ${unRouteUser uid num}
-          fi
+        routeUser = uname: num:
+          let
+            uid = toString config.users.users.${uname}.uid;
+          in
+          ''
+            USER_RULE="$(ip rule show uidrange ${uid}-${uid} lookup ${num})"
+            if [[ "$USER_RULE" != "" ]]
+            then
+              ${unRouteUser uname num}
+            fi
 
-          ip rule add uidrange ${uid}-${uid} lookup ${num} prio 6120
-          unset USER_RULE
-        '';
+            ip rule add uidrange ${uid}-${uid} lookup ${num} prio 6120
+            unset USER_RULE
+          '';
+
+        routeUsers = unames: num:
+          builtins.concatStringsSep "\n" (map (u: routeUser u num) unames);
 
         # Deletes all rules telling <user> to consume our table <num>
-        unRouteUser = uid: num: ''
-          ip rule del uidrange ${uid}-${uid} lookup ${num}
-        '';
+        unRouteUser = uname: num:
+          let
+            uid = toString config.users.users.${uname}.uid;
+          in
+          ''
+            ip rule del uidrange ${uid}-${uid} lookup ${num}
+          '';
+
+        unRouteUsers = unames: num:
+          builtins.concatStringsSep "\n" (map (u: unRouteUser u num) unames);
+
+        cfg = config.denbeigh.wireguard;
 
       in
       {
@@ -181,10 +230,6 @@ in
             # inherit (vpn) table;
 
             privateKeyFile = config.age.secrets.vpnPrivateKey.path;
-
-            # Set up a different routing table, and don't set up default
-            # routing rules, so that we can route traffic from only certain
-            # applications through the VPN
             allowedIPsAsRoutes = false;
 
             peers = mapAttrsToList
@@ -194,20 +239,13 @@ in
               })
               servers;
 
-            # https://unix.stackexchange.com/a/589605
-            # https://github.com/davidtwco/veritas/blob/567e002fbc0ca5f5576ed37f5c22cae82fc31d1a/nixos/modules/per-user-vpn.nix#L158-L175
-            # https://www.wireguard.com/netns
-
-            # TODO: Expose configuration as variables
             postSetup = ''
               ${setupTable vpn.table}
-              ${routeUser (toString config.users.users.transmission.uid) vpn.table}
-              ${routeUser (toString config.users.users.jackett.uid) vpn.table}
+              ${routeUsers vpn.users vpn.table}
             '';
 
             postShutdown = ''
-              ${unRouteUser (toString config.users.users.transmission.uid) vpn.table}
-              ${unRouteUser (toString config.users.users.jackett.uid) vpn.table}
+              ${unRouteUsers vpn.users vpn.table}
               ${flushTable vpn.table}
             '';
           };
