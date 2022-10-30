@@ -1,4 +1,4 @@
-{ nixpkgs, ... }@inputs:
+{ nixpkgs, nixpkgs-unstable, ... }@inputs:
 
 let
   inherit (builtins) mapAttrs;
@@ -11,13 +11,26 @@ let
     coder-ec2-aarch64-plain = ./coder-ec2-aarch64-plain.nix;
   };
 
-  defaults = {
-    system.stateVersion = "22.05"; #  Did you read the comment?
-  };
+  defaults = { pkgs, ... }:
+    let
+      inherit (pkgs.stdenv.hostPlatform) system;
+      pkgs-unstable = import nixpkgs-unstable { inherit system; };
+    in
+    {
+      nixpkgs.overlays = [
+        (final: prev: {
+          # These are very far apart, and have large feature gaps
+          inherit (pkgs-unstable) radarr sonarr prowlarr;
+          # This is only built for aarch64-linux in unstable
+          inherit (pkgs-unstable) delve;
+        })
+      ];
+      system.stateVersion = "22.05"; #  Did you read the comment?
+    };
 
   buildSystem = configPath:
     let
-      modules = config.modules ++ [defaults];
+      modules = config.modules ++ [ defaults ];
       config = ((import configPath) inputs);
     in
     nixosSystem (config // { inherit modules; });

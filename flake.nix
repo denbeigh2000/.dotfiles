@@ -4,7 +4,8 @@
   inputs = {
     # TODO: If we can backport delve running on more platforms to 22.05, we can
     # undo this
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +45,7 @@
   outputs =
     { self
     , nixpkgs
+    , nixpkgs-unstable
     , home-manager
     , flake-utils
     , agenix
@@ -56,9 +58,18 @@
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
+      pkgs-unstable = import nixpkgs-unstable { inherit system; };
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ agenix.overlay ];
+        overlays = [
+          agenix.overlay
+          (next: prev: {
+            # These are very far apart, and have large feature gaps
+            inherit (pkgs-unstable) radarr sonarr prowlarr;
+            # This is only built for aarch64-linux in unstable
+            inherit (pkgs-unstable) delve;
+          })
+        ];
       };
       tf-providers = import terraform-providers-bin { inherit system; };
       secret-tools = import ./tools/secrets { inherit pkgs; };
