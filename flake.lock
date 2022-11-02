@@ -191,16 +191,32 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1666961615,
-        "narHash": "sha256-+Sqz6zQA85Q14U/KwsJO386oxd47zDte8dqBGOtRJGg=",
+        "lastModified": 1667254466,
+        "narHash": "sha256-YrMQzDVOo+uz5gg1REj2q/uVhJE3WcpkqGiMzh3Da3o=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "040c6d8374d090f46ab0e99f1f7c27a4529ecffd",
+        "rev": "1b4722674c315de0e191d0d79790b4eac51570a1",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "ref": "nixos-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-release": {
+      "locked": {
+        "lastModified": 1667327283,
+        "narHash": "sha256-XEMEmRwv0lrhV8OFn1+dsEJovTDmn94zEjfxMfAoLIc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c9a1090e19f93cb30c205682aab2d0989f8de91f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-22.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -253,6 +269,7 @@
         "home-manager": "home-manager",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-release": "nixpkgs-release",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "terraform-providers-bin": "terraform-providers-bin"
       }

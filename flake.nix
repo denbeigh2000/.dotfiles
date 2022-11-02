@@ -5,6 +5,7 @@
     # TODO: If we can backport delve running on more platforms to 22.05, we can
     # undo this
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs-release.url = "github:nixos/nixpkgs/release-22.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
@@ -45,6 +46,7 @@
   outputs =
     { self
     , nixpkgs
+    , nixpkgs-release
     , nixpkgs-unstable
     , home-manager
     , flake-utils
