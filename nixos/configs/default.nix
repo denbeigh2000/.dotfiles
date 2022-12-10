@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-release, nixpkgs-unstable, ... }@inputs:
+{ nixpkgs, nixpkgs-unstable, ... }@inputs:
 
 let
   inherit (builtins) mapAttrs;
@@ -15,13 +15,10 @@ let
     let
       inherit (pkgs.stdenv.hostPlatform) system;
       pkgs-unstable = import nixpkgs-unstable { inherit system; };
-      pkgs-release = import nixpkgs-release { inherit system; };
     in
     {
       nixpkgs.overlays = [
         (final: prev: {
-          # https://www.openssl.org/news/secadv/20221101.txt
-          inherit (pkgs-release) openssl_3;
           # These are very far apart, and have large feature gaps
           inherit (pkgs-unstable) radarr sonarr prowlarr;
           # This is only built for aarch64-linux in unstable

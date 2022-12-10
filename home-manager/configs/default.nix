@@ -26,18 +26,14 @@ builtins.mapAttrs
       inherit (pkgs.lib.debug) traceVal;
     in
     home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory;
+      inherit pkgs;
 
       # Pass flake inputs, host config to modules
       extraSpecialArgs = inputs // { inherit host; };
-      configuration = import ../home.nix (inputs // {
-        inherit pkgs host system;
-      });
 
-      # Update the state version as needed.
-      # See the changelog here:
-      # https://nix-community.github.io/home-manager/release-notes.html#sec-release-21.05
-      stateVersion = "22.05";
+      modules = [
+        ../home.nix
+      ];
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix

@@ -1,4 +1,5 @@
 { pkgs
+, lib
 , system
 , fonts
 , host
@@ -9,8 +10,9 @@
 }:
 
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
-  inherit (host) graphical username;
+  inherit (host) graphical system username;
+  # NOTE: Using stdenv.hostPlatform here causes an import cycle
+  inherit (lib.systems.elaborate system) isLinux isDarwin;
 
   homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 in
@@ -32,6 +34,16 @@ in
     inherit (host) username;
 
     packages = with pkgs; [ ripgrep ];
+
+    # This value determines the Home Manager release that your
+    # configuration is compatible with. This helps avoid breakage
+    # when a new Home Manager release introduces backwards
+    # incompatible changes.
+    #
+    # You can update Home Manager without changing this value. See
+    # the Home Manager release notes for a list of state version
+    # changes in each release.
+    stateVersion = "22.05";
   };
 
   programs = {
@@ -49,14 +61,4 @@ in
       keys = host.keys or null;
     };
   };
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.05";
 }

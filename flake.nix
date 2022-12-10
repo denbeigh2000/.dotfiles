@@ -2,13 +2,10 @@
   description = "Denbeigh's Home Manager configuration";
 
   inputs = {
-    # TODO: If we can backport delve running on more platforms to 22.05, we can
-    # undo this
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-    nixpkgs-release.url = "github:nixos/nixpkgs/release-22.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.05";
+      url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -46,7 +43,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-release
     , nixpkgs-unstable
     , home-manager
     , flake-utils
@@ -68,8 +64,6 @@
           (next: prev: {
             # These are very far apart, and have large feature gaps
             inherit (pkgs-unstable) radarr sonarr prowlarr;
-            # This is only built for aarch64-linux in unstable
-            inherit (pkgs-unstable) delve;
           })
         ];
       };
