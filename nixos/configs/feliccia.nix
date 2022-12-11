@@ -9,6 +9,7 @@ in
     username = "denbeigh";
     graphical = true;
     domain = "sfo.denbeigh.cloud";
+    location = "sf";
   };
   config = {
     modules = [

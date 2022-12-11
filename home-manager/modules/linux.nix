@@ -5,6 +5,8 @@ let
   graphicalModules = [ ./i3 ];
   graphicalPackages = with pkgs; [ nitrogen ];
 
+  locations = import ../../locations.nix;
+  location = locations.${host.location};
 in
 
 {
@@ -24,13 +26,11 @@ in
     noisetorch.enable = graphical;
     redshift = {
       enable = graphical;
-      latitude = 37.7749;
-      longitude = -122.4194;
       temperature = {
         day = 5500;
         night = 3700;
       };
       tray = true;
-    };
+    } // location.coords;
   };
 }

@@ -13,6 +13,7 @@
     username = "denbeigh";
     graphical = true;
     keys = [ "id_rsa" ];
+    location = "sf";
   };
   martha = {
     work = false;
@@ -21,6 +22,7 @@
     username = "denbeigh";
     graphical = true;
     keys = [ "id_ed25519" ];
+    location = "sf";
   };
   mutant = {
     work = true;
@@ -29,6 +31,7 @@
     username = "denbeighstevens";
     graphical = true;
     keys = [ "id_ed25519" ];
+    location = "sf";
   };
   runt = {
     work = true;
@@ -37,6 +40,7 @@
     username = "denbeighstevens";
     graphical = true;
     keys = [ "id_ed25519" ];
+    location = "sf";
   };
   santiago = {
     work = true;
@@ -45,5 +49,6 @@
     username = "denbeigh";
     graphical = true;
     keys = [ "id_ed25519" ];
+    location = "sf";
   };
 }
