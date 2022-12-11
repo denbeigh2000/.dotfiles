@@ -13,6 +13,7 @@ in
   config = {
     modules = [
       (mod "standard.nix")
+      (mod "development.nix")
     ];
   };
 }

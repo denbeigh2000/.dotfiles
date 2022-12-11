@@ -5,12 +5,25 @@ let
   inherit (pkgs.denbeigh.fonts) sf-mono;
 in
 {
+  nixpkgs.config.allowUnfree = true;
+
   users = {
     mutableUsers = true;
 
     users.root.initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
     users.${host.username}.initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
   };
+
+  environment.systemPackages = with pkgs; [
+    alacritty
+    discord-canary
+    firefox
+    nix
+    openssh
+    scrot
+    spotify
+    vim
+  ];
 
   console = {
     enable = true;
