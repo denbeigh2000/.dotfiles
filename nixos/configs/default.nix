@@ -2,7 +2,6 @@
 
 let
   inherit (builtins) mapAttrs;
-  inherit (nixpkgs.lib) nixosSystem;
 
   configs =
     let
@@ -42,10 +41,24 @@ let
 
   buildSystem = configPath:
     let
-      modules = config.modules ++ [ defaults ];
-      config = ((import configPath) inputs);
+      inherit (builtins) pathExists;
+      inherit (nixpkgs.lib) nixosSystem;
+      config = import configPath;
+      hostConfig = config.config;
+
+      hardware =
+        let
+          hwPath = ./hardware/${config.host.hostname}.nix;
+        in
+        if (pathExists hwPath) then (import hwPath) else { };
+
+      specialArgs = inputs // { inherit (config) host; };
+      modules = (if hostConfig ? modules then hostConfig.modules else []) ++ [ defaults hardware ];
     in
-    nixosSystem (config // { inherit modules; });
+    nixosSystem (hostConfig // {
+      inherit modules specialArgs;
+      inherit (config.host) system;
+    });
 
 in
 mapAttrs (_: config: (buildSystem config)) configs

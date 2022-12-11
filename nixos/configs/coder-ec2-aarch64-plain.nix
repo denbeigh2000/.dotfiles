@@ -1,27 +1,17 @@
-{ ... }@inputs:
-
-let
-  system = "aarch64-linux";
+{
+  # Specific to this configuration system
   host = {
-    inherit system;
+    system = "aarch64-linux";
     work = true;
     hostname = "plain";
     username = "denbeigh";
     graphical = false;
   };
-
-  specialArgs = inputs // { inherit host; };
-in
-{
-  inherit system specialArgs;
-  modules = [
-    home-manager.nixosModules.home-manager
-
-    ../modules/standard.nix
-    ../modules/cloud/aws/aarch64.nix
-    {
-      system.stateVersion = "22.05";
-    }
-  ];
+  # General config to pass to nixosSystem
+  config = {
+    modules = [
+      ../modules/standard.nix
+      ../modules/cloud/aws/aarch64.nix
+    ];
+  };
 }
-
