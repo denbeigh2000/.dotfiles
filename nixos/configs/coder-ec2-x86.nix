@@ -1,23 +1,16 @@
-{ ... }@inputs:
-
-let
-  system = "x86_64-linux";
+{
+  # Specific to this configuration system
   host = {
-    inherit system;
+    system = "x86_64-linux";
     work = false;
     hostname = "dev";
     username = "denbeigh";
     graphical = false;
   };
-
-  specialArgs = inputs // { inherit host; };
-in
-{
-  inherit system specialArgs;
-  modules = [
-    ../modules/standard.nix
-    {
-      system.stateVersion = "22.05";
-    }
-  ];
+  # General config to pass to nixosSystem
+  config = {
+    modules = [
+      ../modules/standard.nix
+    ];
+  };
 }
