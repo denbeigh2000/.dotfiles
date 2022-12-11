@@ -1,13 +1,9 @@
-{ fonts, pkgs, ... }:
-
-let
-  inherit (pkgs.stdenv.hostPlatform) system;
-in
+{ pkgs, ... }:
 
 {
-  home.packages = with fonts.packages.${system}; [
-    sf-mono
-    sf-pro
-    pkgs.powerline-fonts
+  home.packages = with pkgs; [
+    denbeigh.fonts.sf-mono
+    denbeigh.fonts.sf-pro
+    powerline-fonts
   ];
 }

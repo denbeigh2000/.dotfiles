@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-unstable, ... }@inputs:
+{ nixpkgs, nixpkgs-unstable, nixos-generators, fonts, ... }@inputs:
 
 let
   inherit (builtins) mapAttrs;
@@ -29,6 +29,7 @@ let
     in
     {
       nixpkgs.overlays = [
+        fonts.overlays.default
         (final: prev: {
           # These are very far apart, and have large feature gaps
           inherit (pkgs-unstable) radarr sonarr prowlarr;
@@ -42,8 +43,8 @@ let
   buildSystem = configPath:
     let
       inherit (builtins) pathExists;
-      inherit (nixpkgs.lib) nixosSystem;
-      config = import configPath;
+      inherit (nixpkgs.lib) nixosSystem recursiveUpdate;
+      config = recursiveUpdate (import configPath) { host.isNixOS = true; };
       hostConfig = config.config;
 
       hardware =
@@ -55,7 +56,7 @@ let
       specialArgs = inputs // { inherit (config) host; };
       modules = (if hostConfig ? modules then hostConfig.modules else []) ++ [ defaults hardware ];
     in
-    nixosSystem (hostConfig // {
+    (hostConfig // {
       inherit modules specialArgs;
       inherit (config.host) system;
     });

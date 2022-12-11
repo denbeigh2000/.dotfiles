@@ -112,11 +112,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1668992388,
-        "narHash": "sha256-a/NAHmAhSwA9cRv8JuR/ExFs7zTAEsiwULvr4kQjmGY=",
+        "lastModified": 1670793661,
+        "narHash": "sha256-qNa5YahifC1OZez60fcXPEoNDYOg09xKnF3xPfiQgeE=",
         "owner": "denbeigh2000",
         "repo": "fonts",
-        "rev": "3ef2d2b417bb2fdf9bed824a3e1899a316c2c82b",
+        "rev": "426de91e4c9636e8ef11c6619de191f513a1ec30",
         "type": "github"
       },
       "original": {
@@ -190,6 +190,42 @@
         "type": "github"
       }
     },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1636849918,
+        "narHash": "sha256-nzUK6dPcTmNVrgTAC1EOybSMsrcx+QrVPyqRdyKLkjA=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "28a5b0557f14124608db68d3ee1f77e9329e9dd5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1669065280,
+        "narHash": "sha256-3+pq1oJWjGDLfd8G/vR3IIFZ+EQ/aglukA0bTiMlf3o=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "50aeec40f2072d2ab267c8ec8a345573704ec110",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1670625113,
@@ -253,6 +289,7 @@
         "fonts": "fonts",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
+        "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "terraform-providers-bin": "terraform-providers-bin"

@@ -6,10 +6,16 @@
 , ...
 }@inputs:
 
+# Load non-NixOS home-manager configurations.
+# NixOS home-manager configurations are loaded in nixos/configs/default.nix
+
 let
-  hosts = import ./hosts.nix;
+  inherit (builtins) mapAttrs;
+  hosts = mapAttrs
+    (n: v: v // { isNixOS = false; })
+    (import ./hosts.nix);
 in
-builtins.mapAttrs
+mapAttrs
   (_: host: (
     let
       inherit (host) system username;

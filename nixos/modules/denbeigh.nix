@@ -1,10 +1,10 @@
-{ lib
-, pkgs
-, home-manager
-, hostname
-, host
-, denbeigh-devtools
-, ...
+  { lib
+  , pkgs
+  , home-manager
+  , hostname
+  , host
+  , denbeigh-devtools
+  , ...
 }@inputs:
 
 with lib;
@@ -14,9 +14,7 @@ let
   hostArgs = { inherit host system; };
 in
 {
-  imports = [
-    home-manager.nixosModules.home-manager
-  ];
+  imports = [ home-manager.nixosModules.home-manager ];
 
   nixpkgs.overlays = [ denbeigh-devtools.overlay ];
 
@@ -25,6 +23,8 @@ in
     useUserPackages = true;
 
     extraSpecialArgs = hostArgs;
+    # Load the same shared configuration as used for non-NixOS home-manager
+    # installations
     users.${host.username} = import ../../home-manager/home.nix (inputs // hostArgs);
   };
 

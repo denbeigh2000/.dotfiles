@@ -38,6 +38,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -46,13 +52,32 @@
     , nixpkgs-unstable
     , home-manager
     , flake-utils
+    , fonts
     , agenix
     , terraform-providers-bin
+    , nixos-generators
     , ...
     }@attrs:
+    let
+      inherit (builtins) mapAttrs;
+      inherit (nixpkgs.lib) nixosSystem mapAttrs';
+      inherit (nixos-generators) nixosGenerate;
+      nixosSystemConfigs = import ./nixos/configs attrs;
+      nixosConfigurations = mapAttrs
+        (n: v: nixosSystem v)
+        nixosSystemConfigs;
+
+      buildVm =
+        (configName: config: {
+          name = "vm-${configName}";
+          value = nixosGenerate (config // { format = "vm"; });
+        });
+
+      vms = mapAttrs' buildVm nixosSystemConfigs;
+    in
     {
+      inherit nixosConfigurations;
       homeConfigurations = import ./home-manager/configs attrs;
-      nixosConfigurations = import ./nixos/configs attrs;
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
@@ -61,6 +86,7 @@
         inherit system;
         overlays = [
           agenix.overlay
+          fonts.overlays.default
           (next: prev: {
             # These are very far apart, and have large feature gaps
             inherit (pkgs-unstable) radarr sonarr prowlarr;
@@ -79,7 +105,7 @@
         ci = ci-tools.ci;
         inherit (terraform.packages) terraform terraform-config;
         inherit secret-tools;
-      };
+      } // vms;
       apps.ci = {
         name = "ci";
         type = "app";

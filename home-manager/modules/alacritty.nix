@@ -5,11 +5,18 @@
 }:
 
 let
-  inherit (host) hostname;
+  inherit (host) hostname isNixOS;
   inherit (pkgs.lib.attrsets) attrByPath;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
+
+  # We only need to explicitly wrap if we're on linux and we are _not_ on NixOS
+  shouldGlWrap = isLinux && !isNixOS;
   glWrap = import ../tools/gl.nix { inherit pkgs; };
-  package = if isLinux then ((glWrap pkgs.alacritty) "alacritty") else pkgs.alacritty;
+  package = (
+    if shouldGlWrap
+    then (glWrap pkgs.alacritty "alacritty")
+    else pkgs.alacritty
+  );
 
   fontSizes = {
     feliccia = 8;

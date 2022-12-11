@@ -1,7 +1,7 @@
 { pkgs, host, ... }:
 
 let
-  inherit (host) graphical;
+  inherit (host) graphical isNixOS;
   graphicalModules = [ ./i3 ];
   graphicalPackages = with pkgs; [ nitrogen ];
 
@@ -17,8 +17,7 @@ in
   };
 
   fonts.fontconfig.enable = true;
-  # NOTE: This must change if we're ever running graphical systems on NixOS
-  targets.genericLinux.enable = !graphical;
+  targets.genericLinux.enable = !isNixOS;
 
   services = {
     dunst.enable = graphical;
