@@ -15,6 +15,7 @@ in
     modules = [
       (mod "standard.nix")
       (mod "development.nix")
+      (mod "gaming.nix")
     ];
   };
 }

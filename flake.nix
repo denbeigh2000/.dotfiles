@@ -67,6 +67,26 @@
         (n: v: nixosSystem v)
         nixosSystemConfigs;
 
+      hwModule = config:
+        let
+          hwPath = ./nixos/configs/hardware/${config.host.hostname}.nix;
+        in
+        if (pathExists hwPath) then (import hwPath) else { };
+
+      patchHardware = config:
+        let
+          hardware = hwModule config;
+          modules = (if config ? modules then config.modules else [ ]) ++ [ hardware ];
+        in
+        (config // { inherit modules; });
+
+      buildSystem =
+        (name: config: {
+          inherit name;
+          value =
+              nixosSystem (patchHardware config);
+        });
+
       buildVm =
         (configName: config: {
           name = "vm-${configName}";

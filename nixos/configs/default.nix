@@ -40,21 +40,15 @@ let
       system.stateVersion = "22.05"; #  Did you read the comment?
     };
 
-  buildSystem = configPath:
+  buildConfig = configPath:
     let
       inherit (builtins) pathExists;
       inherit (nixpkgs.lib) nixosSystem recursiveUpdate;
       config = recursiveUpdate (import configPath) { host.isNixOS = true; };
       hostConfig = config.config;
 
-      hardware =
-        let
-          hwPath = ./hardware/${config.host.hostname}.nix;
-        in
-        if (pathExists hwPath) then (import hwPath) else { };
-
       specialArgs = inputs // { inherit (config) host; };
-      modules = (if hostConfig ? modules then hostConfig.modules else []) ++ [ defaults hardware ];
+      modules = (if hostConfig ? modules then hostConfig.modules else []) ++ [ defaults ];
     in
     (hostConfig // {
       inherit modules specialArgs;
@@ -62,4 +56,4 @@ let
     });
 
 in
-mapAttrs (_: config: (buildSystem config)) configs
+mapAttrs (_: config: (buildConfig config)) configs
