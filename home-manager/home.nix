@@ -24,6 +24,7 @@ in
   nixpkgs.overlays = [
     agenix.overlay
     denbeigh-devtools.overlay
+    fonts.overlays.default
     nixgl.overlay
   ];
 

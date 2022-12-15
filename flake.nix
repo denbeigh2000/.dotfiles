@@ -42,7 +42,6 @@
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -59,7 +58,7 @@
     , ...
     }@attrs:
     let
-      inherit (builtins) mapAttrs;
+      inherit (builtins) mapAttrs pathExists;
       inherit (nixpkgs.lib) nixosSystem mapAttrs';
       inherit (nixos-generators) nixosGenerate;
       nixosSystemConfigs = import ./nixos/configs attrs;
