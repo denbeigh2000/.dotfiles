@@ -16,7 +16,7 @@ in
 {
   imports = [ home-manager.nixosModules.home-manager ];
 
-  nixpkgs.overlays = [ denbeigh-devtools.overlay ];
+  nixpkgs.overlays = [ denbeigh-devtools.overlays.default ];
 
   home-manager = {
     useGlobalPkgs = true;

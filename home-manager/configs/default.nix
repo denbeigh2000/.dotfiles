@@ -21,7 +21,7 @@ mapAttrs
       inherit (host) system username;
       pkgs = import nixpkgs {
         inherit (host) system;
-        overlays = [ denbeigh-devtools.overlay nixgl.overlay ];
+        overlays = [ denbeigh-devtools.overlays.default nixgl.overlay ];
       };
       inherit (pkgs.stdenv.hostPlatform) isDarwin;
       homeDirectory = (
