@@ -62,29 +62,23 @@
       inherit (nixpkgs.lib) nixosSystem mapAttrs';
       inherit (nixos-generators) nixosGenerate;
       nixosSystemConfigs = import ./nixos/configs attrs;
-      nixosConfigurations = mapAttrs
-        (n: v: nixosSystem v)
-        nixosSystemConfigs;
 
-      hwModule = config:
+      hwModule = name: config:
         let
-          hwPath = ./nixos/configs/hardware/${config.host.hostname}.nix;
+          hwPath = ./nixos/configs/hardware/${name}.nix;
         in
         if (pathExists hwPath) then (import hwPath) else { };
 
-      patchHardware = config:
+      patchHardware = name: config:
         let
-          hardware = hwModule config;
+          hardware = hwModule name config;
           modules = (if config ? modules then config.modules else [ ]) ++ [ hardware ];
         in
         (config // { inherit modules; });
 
-      buildSystem =
-        (name: config: {
-          inherit name;
-          value =
-              nixosSystem (patchHardware config);
-        });
+      nixosConfigurations = mapAttrs
+        (n: v: nixosSystem (patchHardware n v))
+        nixosSystemConfigs;
 
       buildVm =
         (configName: config: {
