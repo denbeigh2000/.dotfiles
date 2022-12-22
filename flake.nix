@@ -93,6 +93,7 @@
         });
 
       vms = mapAttrs' buildVm nixosSystemConfigs;
+      liveusb = nixosGenerate (nixosSystemConfigs.live // { format = "iso"; });
     in
     {
       inherit nixosConfigurations;
@@ -123,6 +124,7 @@
       packages = {
         ci = ci-tools.ci;
         inherit (terraform.packages) terraform terraform-config;
+        inherit liveusb;
         inherit secret-tools;
       } // vms;
       apps.ci = {
