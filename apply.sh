@@ -31,6 +31,6 @@ case $COMMAND in
 esac
 HOSTNAME="${HOSTNAME:-$(hostname)}"
 
-# NOTE: We need --impute because nixgl specifically wants to stay impure, which
+# NOTE: We need --impure because nixgl specifically wants to stay impure, which
 # is usually denied by flakes.
 home-manager --max-jobs auto "$HM_CMD" --impure --flake ".#$HOSTNAME"
