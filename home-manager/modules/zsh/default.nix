@@ -25,7 +25,7 @@ in
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "gitfast" "rust" ];
+        plugins = [ "gitfast" ];
         theme = "steeef";
       };
 

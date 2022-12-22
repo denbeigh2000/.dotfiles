@@ -20,6 +20,7 @@ in
     firefox
     nix
     openssh
+    pavucontrol
     scrot
     spotify
     vim
@@ -27,7 +28,14 @@ in
 
   console = {
     enable = true;
-    font = sf-mono;
+  };
+
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio = {
+    enable = true;
+    extraConfig = "load-module module-combine-sink";
+    package = pkgs.pulseaudioFull;
+    support32Bit = true;
   };
 
   # NOTE: We explicitly don't use provide a config here, and defer to the
