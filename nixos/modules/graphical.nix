@@ -10,8 +10,13 @@ in
   users = {
     mutableUsers = true;
 
-    users.root.initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
-    users.${host.username}.initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
+    users = {
+      root.initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
+      ${host.username} = {
+        initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
+        extraGroups = [ "audio" ];
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -37,6 +42,7 @@ in
     package = pkgs.pulseaudioFull;
     support32Bit = true;
   };
+
 
   # NOTE: We explicitly don't use provide a config here, and defer to the
   # config populated by home-manager (see home-manager/modules/i3)
