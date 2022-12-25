@@ -2,7 +2,7 @@
 
 let
   inherit (host) graphical isNixOS;
-  graphicalModules = [ ./i3 ];
+  graphicalModules = [ ./i3 ./autorandr ];
   graphicalPackages = with pkgs; [ nitrogen ];
 
   locations = import ../../locations.nix;
