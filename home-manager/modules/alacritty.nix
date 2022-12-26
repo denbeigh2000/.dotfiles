@@ -18,8 +18,9 @@ let
     else pkgs.alacritty
   );
 
+  # TODO: improve this in modularisation refactor
   fontSizes = {
-    feliccia = 8;
+    feliccia = 10;
     mutant = 11;
   };
 
