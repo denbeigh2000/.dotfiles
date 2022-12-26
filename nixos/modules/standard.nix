@@ -1,19 +1,8 @@
-{ host, ... }:
+{ config, lib, ... }:
 
 let
-  hostName = host.hostname;
-  domain = host.domain or "denbeigh.cloud";
-
-  locations = import ../../locations.nix;
-
-  timezone = if host ? location
-  then locations.${host.location}.tz
-  else "UTC";
-
-  graphicalModules =
-    if host.graphical
-    then [ ./graphical.nix ]
-    else [ ];
+  inherit (lib) mkOption types;
+  cfg = config.denbeigh;
 in
 
 {
@@ -21,10 +10,87 @@ in
     ./denbeigh.nix
     ./flakes.nix
     ./utils.nix
-  ] ++ graphicalModules;
+    ./graphical.nix
+  ];
 
-  networking = { inherit hostName domain; };
+  options.denbeigh.machine = {
+      hostname = mkOption {
+        type = types.str;
+        description = ''
+          Hostname of the machine.
+        '';
+      };
 
-  time.timeZone = timezone;
-  services.chrony.enable = true;
+      domain = mkOption {
+        type = types.str;
+        default = "sfo.denbeigh.cloud";
+        description = ''
+          Networking domain of the machine.
+        '';
+      };
+
+      graphical = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether this machine will be used interactively.
+        '';
+      };
+
+      work = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether this machine will be used for "work" purposes.
+        '';
+      };
+
+      location = mkOption {
+        type = types.submodule {
+          options = {
+            timezone = mkOption {
+              type = types.str;
+              default = "UTC";
+              description = ''
+                Timezone of the machine
+              '';
+            };
+
+            coordinates = mkOption {
+              type = types.nullOr types.submodule {
+                options = {
+                  latitude = mkOption {
+                    type = types.float;
+                  };
+
+                  longitude = mkOption {
+                    type = types.float;
+                  };
+                };
+              };
+              default = null;
+              description = ''
+                Coordinates of the machine.
+                Currently only used for redshift.
+
+                redshift will be disabled on graphical machines where this is not
+                provided.
+              '';
+            };
+          };
+        };
+
+        default = {};
+      };
+  };
+
+  config = {
+    networking = {
+      hostName = cfg.machine.hostname;
+      inherit (cfg.machine) domain;
+    };
+
+    time.timeZone = cfg.machine.location.timezone;
+    services.chrony.enable = true;
+  };
 }

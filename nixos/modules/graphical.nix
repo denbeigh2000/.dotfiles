@@ -1,8 +1,9 @@
-{ pkgs, host, ... }:
+{ config, pkgs, ... }:
 
 let
   inherit (pkgs) alacritty writeShellScriptBin;
   inherit (pkgs.denbeigh.fonts) sf-mono;
+  inherit (config.denbeigh.user) username;
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -12,7 +13,7 @@ in
 
     users = {
       root.initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
-      ${host.username} = {
+      ${username} = {
         initialHashedPassword = "$y$j9T$TK9zFbNlrHL9vroc.uBZC1$FRhAYk/Y4LY480eesYdxDIDOvttgzcmmaB0vF3ge.1C";
         extraGroups = [ "audio" ];
       };
