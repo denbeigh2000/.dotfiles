@@ -11,7 +11,9 @@
 
 let
   inherit (builtins) mapAttrs;
-  inherit (nixpkgs.lib.attrs) recursiveUpdate;
+  inherit (nixpkgs.lib) recursiveUpdate;
+
+  hosts = import ./hosts.nix;
 in
 mapAttrs
   (_: host: (
@@ -21,6 +23,12 @@ mapAttrs
         inherit (host) system;
         overlays = [ denbeigh-devtools.overlays.default nixgl.overlay ];
       };
+
+      # NOTE: This is manually tied to the same default as options.denbeigh.username
+      initUsername =
+        if config.denbeigh ? username
+        then config.denbeigh.username
+        else "denbeigh";
     in
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
@@ -30,11 +38,10 @@ mapAttrs
 
       modules = [
         ../modules/default.nix
+        (recursiveUpdate config {
+          denbeigh.isNixOS = false;
+        })
       ];
-
-      users.${config.denbeigh.username} = recursiveUpdate config {
-        denbeigh.isNixOS = false;
-      };
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
