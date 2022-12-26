@@ -83,11 +83,17 @@
       buildVm =
         (configName: config: {
           name = "vm-${configName}";
-          value = nixosGenerate (config // { format = "vm"; });
+          value = nixosGenerate (config // {
+            system = "x86_64-linux";
+            format = "vm";
+          });
         });
 
       vms = mapAttrs' buildVm nixosSystemConfigs;
-      liveusb = nixosGenerate (nixosSystemConfigs.live // { format = "iso"; });
+      liveusb = nixosGenerate (nixosSystemConfigs.live // {
+        system = "x86_64-linux";
+        format = "iso";
+      });
     in
     {
       inherit nixosConfigurations;

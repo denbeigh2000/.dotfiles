@@ -13,25 +13,6 @@ let
 
   cfg = config.denbeigh;
 
-  # TODO: This should be pulled out of home-manager, too
-  hostArgs = {
-    inherit (pkgs.stdenvNoCC.hostPlatform) system;
-    host = {
-      inherit (pkgs.stdenvNoCC.hostPlatform) system;
-      keys = [ ];
-      username = "denbeigh";
-      hostname = "bruce";
-      graphical = false;
-      work = false;
-      # TODO: Using these as inputs to host-manager cause infinite recursion
-      # https://discourse.nixos.org/t/infinite-recursion-on-optional-import/8892/2
-      # inherit (cfg.user) keys username;
-      # inherit (cfg.machine) hostname graphical work;
-
-      isNixOS = true;
-      location = "sf"; # TODO
-    };
-  };
 in
 {
   imports = [ home-manager.nixosModules.home-manager ];
@@ -41,7 +22,7 @@ in
       type = types.str;
       default = "denbeigh";
       description = ''
-        Username of the user to provision on the system
+        Username of the user to provision on the system.
       '';
     };
 
@@ -49,16 +30,16 @@ in
       type = types.package;
       default = pkgs.zsh;
       description = ''
-        Shell to use for the environment
+        Shell to use for the environment.
       '';
     };
 
     # TODO: Rename this?
     keys = mkOption {
       type = types.listOf types.str;
-      default = [ "id_ed25519" ];
+      default = [];
       description = ''
-        The SSH key paths to expect to use
+        The SSH key paths to expect to use.
       '';
     };
   };
@@ -70,10 +51,21 @@ in
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      extraSpecialArgs = hostArgs;
-      # Load the same shared configuration as used for non-NixOS home-manager
-      # installations
-      users.${cfg.user.username} = import ../../home-manager/home.nix (inputs // hostArgs);
+      # TODO: Verify this is even necessary
+      extraSpecialArgs = {
+        inherit (inputs) agenix denbeigh-devtools fonts nixgl;
+      };
+      users.${cfg.user.username} = {
+        denbeigh = {
+          isNixOS = true;
+          inherit (cfg.machine) graphical hostname;
+          inherit (cfg.user) username keys;
+        };
+
+        imports = [
+          ../../home-manager/modules/default.nix
+        ];
+      };
     };
 
     users.users.${cfg.user.username} = {

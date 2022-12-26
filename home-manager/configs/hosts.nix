@@ -1,54 +1,75 @@
 {
   coder = {
-    work = true;
-    hostname = "coder";
     system = "x86_64-linux";
-    username = "discord";
-    graphical = false;
+    config.denbeigh = {
+      username = "discord";
+      hostname = "coder";
+      work = true;
+    };
   };
   feliccia = {
-    work = false;
-    hostname = "feliccia";
     system = "x86_64-linux";
-    username = "denbeigh";
-    graphical = true;
-    keys = [ "id_rsa" ];
-    location = "sf";
+    config.denbeigh = {
+      hostname = "feliccia";
+      keys = [ "id_rsa" ];
+      graphical = true;
+      location = {
+        latitude = 37.7749;
+        longitude = -122.4194;
+      };
+    };
   };
   martha = {
-    work = false;
-    hostname = "martha";
     system = "x86_64-linux";
-    username = "denbeigh";
-    graphical = true;
-    keys = [ "id_ed25519" ];
-    location = "sf";
+    config.denbeigh = {
+      hostname = "martha";
+      graphical = true;
+      keys = [ "id_ed25519" ];
+      location = {
+        latitude = 37.7749;
+        longitude = -122.4194;
+      };
+    };
   };
   mutant = {
-    work = true;
-    hostname = "mutant";
     system = "aarch64-darwin";
-    username = "denbeighstevens";
-    graphical = true;
-    keys = [ "id_ed25519" ];
-    location = "sf";
+    config.denbeigh = {
+      work = true;
+      hostname = "mutant";
+      username = "denbeighstevens";
+      graphical = true;
+      keys = [ "id_ed25519" ];
+      location = {
+        latitude = 37.7749;
+        longitude = -122.4194;
+      };
+    };
   };
   runt = {
-    work = true;
-    hostname = "runt";
-    system = "x86_64";
-    username = "denbeighstevens";
-    graphical = true;
-    keys = [ "id_ed25519" ];
-    location = "sf";
+    system = "x86_64-darwin";
+    config.denbeigh = {
+      work = true;
+      hostname = "runt";
+      username = "denbeighstevens";
+      graphical = true;
+      keys = [ "id_ed25519" ];
+      location = {
+        latitude = 37.7749;
+        longitude = -122.4194;
+      };
+    };
   };
   santiago = {
-    work = true;
-    hostname = "santiago";
     system = "x86_64-linux";
-    username = "denbeigh";
-    graphical = true;
-    keys = [ "id_ed25519" ];
-    location = "sf";
+    config.denbeigh = {
+      work = true;
+      hostname = "santiago";
+      graphical = true;
+      keys = [ "id_ed25519" ];
+      location = {
+        latitude = 37.7749;
+        longitude = -122.4194;
+      };
+    };
   };
 }

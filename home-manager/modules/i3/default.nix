@@ -1,7 +1,7 @@
-{ host, ... }:
+{ config, ... }:
 
 let
-  inherit (host) hostname;
+  inherit (config.denbeigh) hostname;
   inherit (builtins) readFile pathExists;
   extra_config = (
     if pathExists ./${hostname}

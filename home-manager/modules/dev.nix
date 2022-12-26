@@ -1,10 +1,10 @@
-{ denbeigh-devtools, host, pkgs, ... }:
+{ config, denbeigh-devtools, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.devPackages) python rust go node nix;
 
-  inherit (host) work;
+  inherit (config.denbeigh) work;
 
   python-packages = if !work then [ python.python310 ] else [ ];
   go-packages = if !work then go.all else [ go.gopls ];
