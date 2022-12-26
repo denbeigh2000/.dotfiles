@@ -1,13 +1,6 @@
 {
-  host = {
-    system = "x86_64-linux";
-    work = false;
-    hostname = "live";
-    username = "denbeigh";
-    graphical = false;
-    location = "sf";
-  };
   config = {
+    system = "x86_64-linux";
     modules = [
       {
         services.openssh.enable = true;
@@ -20,6 +13,9 @@
           "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
         ];
       })
+      {
+        denbeigh.machine.hostname = "live";
+      }
     ];
   };
 }

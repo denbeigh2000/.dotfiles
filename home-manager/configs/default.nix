@@ -11,34 +11,36 @@
 
 let
   inherit (builtins) mapAttrs;
-  hosts = mapAttrs
-    (n: v: v // { isNixOS = false; })
-    (import ./hosts.nix);
+  inherit (nixpkgs.lib) recursiveUpdate;
+
+  hosts = import ./hosts.nix;
 in
 mapAttrs
   (_: host: (
     let
-      inherit (host) system username;
+      inherit (host) system config;
       pkgs = import nixpkgs {
         inherit (host) system;
         overlays = [ denbeigh-devtools.overlays.default nixgl.overlay ];
       };
-      inherit (pkgs.stdenv.hostPlatform) isDarwin;
-      homeDirectory = (
-        if isDarwin
-        then "/Users/${username}"
-        else "/home/${username}"
-      );
-      inherit (pkgs.lib.debug) traceVal;
+
+      # NOTE: This is manually tied to the same default as options.denbeigh.username
+      initUsername =
+        if config.denbeigh ? username
+        then config.denbeigh.username
+        else "denbeigh";
     in
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       # Pass flake inputs, host config to modules
-      extraSpecialArgs = inputs // { inherit host; };
+      extraSpecialArgs = inputs;
 
       modules = [
-        ../home.nix
+        ../modules/default.nix
+        (recursiveUpdate config {
+          denbeigh.isNixOS = false;
+        })
       ];
 
       # Optionally use extraSpecialArgs

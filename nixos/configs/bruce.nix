@@ -2,17 +2,9 @@ let
   mod = location: ../modules/${location};
 in
 {
-  # Specific to this configuration system
-  host = {
-    system = "x86_64-linux";
-    work = false;
-    hostname = "bruce";
-    username = "denbeigh";
-    graphical = false;
-  };
-  # General config to pass to nixosSystem
   # NOTE: Hardware is auto-detected by matching filenames in ./hardware
   config = {
+    system = "x86_64-linux";
     modules = [
       {
         services.openssh.enable = true;
@@ -26,6 +18,14 @@ in
       (mod "standard.nix")
       (mod "tailscale.nix")
       (mod "terraform.nix")
+      {
+        denbeigh = {
+          machine = {
+            hostname = "bruce";
+            domain = "denbeigh.cloud";
+          };
+        };
+      }
     ];
   };
 }

@@ -1,7 +1,9 @@
-{ pkgs, host, config, ... }:
+{ pkgs, config, ... }:
 
 let
   inherit (builtins) listToAttrs;
+
+  inherit (config.denbeigh.machine) hostname;
 in
 
 {
@@ -19,7 +21,7 @@ in
 
   services.buildkite-agents = listToAttrs (map
     (n: rec {
-      name = "${host.hostname}-${builtins.toString n}";
+      name = "${hostname}-${builtins.toString n}";
       value = {
         inherit name;
         tokenPath = config.age.secrets.buildkiteToken.path;

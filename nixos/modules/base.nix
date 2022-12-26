@@ -1,18 +1,11 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
   inherit (lib) mkOption types;
-  cfg = config.denbeigh;
+
 in
 
 {
-  imports = [
-    ./denbeigh.nix
-    ./flakes.nix
-    ./utils.nix
-    ./graphical.nix
-  ];
-
   options.denbeigh.machine = {
     hostname = mkOption {
       type = types.str;
@@ -49,11 +42,15 @@ in
       type = types.submodule {
         options = {
           timezone = mkOption {
-            default = "UTC";
             type = types.str;
+            default = "UTC";
+            description = ''
+              Timezone of the machine
+            '';
           };
+
           coordinates = mkOption {
-            type = types.nullOr (types.submodule {
+            type = types.nullOr types.submodule {
               options = {
                 latitude = mkOption {
                   type = types.float;
@@ -63,7 +60,7 @@ in
                   type = types.float;
                 };
               };
-            });
+            };
             default = null;
             description = ''
               Coordinates of the machine.
@@ -76,15 +73,5 @@ in
         };
       };
     };
-  };
-
-  config = {
-    networking = {
-      hostName = cfg.machine.hostname;
-      inherit (cfg.machine) domain;
-    };
-
-    time.timeZone = cfg.machine.location.timezone;
-    services.chrony.enable = true;
   };
 }

@@ -42,17 +42,16 @@ let
 
   buildConfig = configPath:
     let
-      inherit (builtins) pathExists;
       inherit (nixpkgs.lib) nixosSystem recursiveUpdate;
       config = recursiveUpdate (import configPath) { host.isNixOS = true; };
       hostConfig = config.config;
 
-      specialArgs = inputs // { inherit (config) host; };
-      modules = (if hostConfig ? modules then hostConfig.modules else []) ++ [ defaults ];
+      modules = (if hostConfig ? modules then hostConfig.modules else [ ]) ++ [ defaults ];
     in
+
     (hostConfig // {
-      inherit modules specialArgs;
-      inherit (config.host) system;
+      inherit modules;
+      specialArgs = inputs;
     });
 
 in

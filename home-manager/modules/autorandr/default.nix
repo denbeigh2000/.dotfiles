@@ -1,13 +1,14 @@
-{ pkgs, lib, host, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (builtins) pathExists;
   inherit (lib) mkIf;
+  inherit (config.denbeigh) hostname;
 
-  configPath' = ./configs/${host.hostname}.nix;
-  configPath = builtins.trace configPath' configPath';
+  configPath = ./configs/${hostname}.nix;
 in
 {
+  # TODO: Support this in configuration directly
   programs.autorandr = mkIf (pathExists configPath) ({
     enable = true;
   } // (import configPath));
