@@ -49,6 +49,7 @@ in
       type = types.submodule {
         options = {
           timezone = mkOption {
+            default = "UTC";
             type = types.string;
           };
           coordinates = mkOption {
@@ -73,13 +74,12 @@ in
             '';
           };
         };
-        default = { location = "UTC"; };
       };
     };
 
     config = {
       networking = {
-        hostName = cfg.machine.hostname;
+        hostName = builtins.trace cfg cfg.machine.hostname;
         inherit (cfg.machine) domain;
       };
 

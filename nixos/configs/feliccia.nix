@@ -2,25 +2,33 @@ let
   mod = location: ../modules/${location};
 in
 {
-  host = {
-    system = "x86_64-linux";
-    work = false;
-    hostname = "feliccia";
-    username = "denbeigh";
-    graphical = true;
-    domain = "sfo.denbeigh.cloud";
-    location = "sf";
-  };
   config = {
+    system = "x86_64-linux";
     modules = [
-      {
-        boot.loader.grub.enable = true;
-        boot.loader.grub.version = 2;
-        boot.loader.grub.device = "/dev/sda";
-      }
       (mod "standard.nix")
       (mod "development.nix")
       (mod "gaming.nix")
+      {
+        boot.loader.grub = {
+          enable = true;
+          version = 2;
+          device = "/dev/sda";
+        };
+
+        denbeigh = {
+          machine = {
+            hostname = "feliccia";
+            graphical = true;
+            location = {
+              timezone = "America/Los_Angeles";
+              coordinates = {
+                latitude = 37.7749;
+                longitude = -122.4194;
+              };
+            };
+          };
+        };
+      }
     ];
   };
 }

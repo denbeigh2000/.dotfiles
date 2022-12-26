@@ -12,7 +12,7 @@
 let
   inherit (lib) mkOption types;
   inherit (config.denbeigh) username;
-  inherit (pkgs.stdenvNoCC.hostPlatform) isDarwin;
+  inherit (pkgs.stdenvNoCC.hostPlatform) isDarwin isLinux;
 in
 {
   imports = [

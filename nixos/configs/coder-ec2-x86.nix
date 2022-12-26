@@ -1,16 +1,13 @@
 {
-  # Specific to this configuration system
-  host = {
-    system = "x86_64-linux";
-    work = false;
-    hostname = "dev";
-    username = "denbeigh";
-    graphical = false;
-  };
-  # General config to pass to nixosSystem
+  system = "x86_64-linux";
   config = {
     modules = [
       ../modules/standard.nix
+      ../modules/cloud/aws
+      ../modules/cloud
+      {
+        denbeigh.machine.hostname = "dev";
+      }
     ];
   };
 }
