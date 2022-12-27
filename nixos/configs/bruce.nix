@@ -25,6 +25,9 @@ in
             domain = "denbeigh.cloud";
           };
         };
+
+        # TODO: Use a more DRY setup for this
+        age.identityPaths = [ "/var/lib/denbeigh/host_key" ];
       }
     ];
   };

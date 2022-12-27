@@ -23,4 +23,5 @@ in
   "secrets/tailscaleAuthKey.age".publicKeys = allHosts;
   "secrets/terraform.age".publicKeys = allHosts;
   "secrets/vpnPrivateKey.age".publicKeys = allHosts;
+  "secrets/fontDeployKey.age".publicKeys = allHosts;
 }

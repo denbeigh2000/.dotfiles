@@ -5,9 +5,11 @@ in
   config = {
     system = "x86_64-linux";
     modules = [
+      (mod "secrets.nix")
       (mod "standard.nix")
       (mod "development.nix")
       (mod "gaming.nix")
+      (mod "update-fonts.nix")
       {
         boot.loader.grub = {
           enable = true;
@@ -28,6 +30,9 @@ in
             };
           };
         };
+
+        # TODO: Use a more DRY setup for this
+        age.identityPaths = [ "/home/denbeigh/.ssh/id_rsa" ];
       }
     ];
   };
