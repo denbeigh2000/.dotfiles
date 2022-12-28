@@ -1,3 +1,5 @@
 /secrets.env
 /.terraform
 /result*
+# Prefer managing this with Nix over terraform's generated file
+/.terraform.lock.hcl
