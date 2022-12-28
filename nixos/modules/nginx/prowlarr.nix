@@ -4,5 +4,3 @@
     locations."/".proxyPass = "http://localhost:9696";
   } // (import ./utils).withTailscale;
 }
-
-
