@@ -11,6 +11,7 @@ in
     ./flakes.nix
     ./utils.nix
     ./graphical.nix
+    ./use-nix-cache.nix
   ];
 
   options.denbeigh.machine = {
