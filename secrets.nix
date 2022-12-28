@@ -12,16 +12,19 @@ let
 
   servers = {
     bruce = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMo37TCbucxMhvXt9mwR6iIJId82peZ6i31mfzDYx+2O";
+    faye = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPxWdLCO4ZXISWUIMDFGrjYfTUs0urD9MnnmJDgwjHha";
   };
 
-  allHosts = (attrValues hosts) ++ [ servers.bruce ];
+  commonHosts = (attrValues hosts) ++ [ servers.bruce ];
+  allHosts = (attrValues hosts) ++ (attrValues servers);
 in
 {
-  "secrets/digitalOceanAPIKey.age".publicKeys = allHosts;
-  "secrets/buildkiteToken.age".publicKeys = allHosts;
-  "secrets/buildkiteAPIToken.age".publicKeys = allHosts;
-  "secrets/tailscaleAuthKey.age".publicKeys = allHosts;
-  "secrets/terraform.age".publicKeys = allHosts;
-  "secrets/vpnPrivateKey.age".publicKeys = allHosts;
+  "secrets/digitalOceanAPIKey.age".publicKeys = commonHosts;
+  "secrets/buildkiteToken.age".publicKeys = commonHosts;
+  "secrets/buildkiteAPIToken.age".publicKeys = commonHosts;
+  "secrets/tailscaleAuthKey.age".publicKeys = commonHosts ++ [ servers.faye ];
+  "secrets/terraform.age".publicKeys = commonHosts;
+  "secrets/vpnPrivateKey.age".publicKeys = commonHosts;
+  "secrets/dhcpDnsAuthKey.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/fontDeployKey.age".publicKeys = allHosts;
 }

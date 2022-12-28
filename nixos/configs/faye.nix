@@ -1,0 +1,49 @@
+let
+  mod = location: ../modules/${location};
+in
+{
+  config = {
+    system = "x86_64-linux";
+    modules = [
+      (mod "standard.nix")
+      (mod "secrets.nix")
+      (mod "router")
+      {
+        boot = {
+          loader.grub = {
+            enable = true;
+            version = 2;
+            device = "/dev/sda";
+          };
+          kernelParams = [
+            "console=ttyS0,115200"
+            "console=tty1"
+          ];
+        };
+
+        services.openssh = {
+          enable = true;
+          openFirewall = false;
+        };
+
+        denbeigh = {
+          services.router = {
+            enable = true;
+            interfaces = {
+              lan = "eno4";
+              wan = "eno2";
+            };
+          };
+
+          machine = {
+            hostname = "faye";
+            location.timezone = "America/Los_Angeles";
+          };
+        };
+
+        # TODO: Use a more DRY setup for this
+        age.identityPaths = [ "/var/lib/denbeigh/host_key" ];
+      }
+    ];
+  };
+}
