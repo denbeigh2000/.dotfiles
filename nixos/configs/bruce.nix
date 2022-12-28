@@ -14,6 +14,7 @@ in
       (mod "nginx")
       (mod "ahoy.nix")
       (mod "ci.nix")
+      (mod "nix-cache.nix")
       (mod "secrets.nix")
       (mod "standard.nix")
       (mod "tailscale.nix")
@@ -23,6 +24,12 @@ in
           machine = {
             hostname = "bruce";
             domain = "denbeigh.cloud";
+          };
+
+          services.nix-cache = {
+            enable = true;
+            domain = "nix-cache.denbeigh.cloud";
+            keyFile = "/var/lib/denbeigh/nix-cache/serve-key";
           };
         };
 
