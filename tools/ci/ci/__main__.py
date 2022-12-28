@@ -56,12 +56,12 @@ def show_changes(
 )
 @click.option("--commit", default=None, envvar="BUILDKITE_COMMIT")
 def trigger_jobs_for_changes(branch: str, base_branch: str, commit: Optional[str]) -> None:
-    if branch == "master":
-        # TODO: Everything since last successful build
-        return
-
     n = nix.Nix()
-    affected = delta.find_changes(n, base_branch, commit)
+    if branch == "master":
+        affected = n.eval_codebase(commit)
+    else:
+        affected = delta.find_changes(n, base_branch, commit)
+
     targets = list(affected.values())
 
     if not targets:
