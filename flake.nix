@@ -43,6 +43,11 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    cfdyndns-src = {
+      url = "github:colemickens/cfdyndns";
+      flake = false;
+    };
   };
 
   outputs =

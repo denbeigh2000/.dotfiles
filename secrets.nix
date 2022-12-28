@@ -19,6 +19,7 @@ let
   allHosts = (attrValues hosts) ++ (attrValues servers);
 in
 {
+  "secrets/cloudflareAPIToken.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/digitalOceanAPIKey.age".publicKeys = commonHosts;
   "secrets/buildkiteToken.age".publicKeys = commonHosts;
   "secrets/buildkiteAPIToken.age".publicKeys = commonHosts;
