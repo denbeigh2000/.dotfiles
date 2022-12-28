@@ -25,7 +25,7 @@ in
   config = mkIf cfg.enable {
     services.nginx.virtualHosts."nix-cache" = {
       serverName = cfg.domain;
-      locations."/".proxyPass = "http://localhost:${port}";
+      locations."/".proxyPass = "http://localhost:${toString port}";
     } // tailscaleConfig;
   };
 }

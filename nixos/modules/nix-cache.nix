@@ -36,6 +36,7 @@ in
       users."nix-serve" = {
         isSystemUser = true;
         uid = 1174;
+        group = "nix-serve";
       };
 
       groups."nix-serve".gid = 1174;
