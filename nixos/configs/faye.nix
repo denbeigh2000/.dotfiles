@@ -27,11 +27,18 @@ in
         };
 
         denbeigh = {
-          services.router = {
-            enable = true;
-            interfaces = {
-              lan = "eno4";
-              wan = "eno2";
+          services = {
+            router = {
+              enable = true;
+              interfaces = {
+                lan = "eno4";
+                wan = "eno2";
+              };
+            };
+
+            cfdyndns = {
+              enable = true;
+              records = [ "ddns.denb.ee" ];
             };
           };
 

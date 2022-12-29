@@ -21,6 +21,22 @@
         "type": "github"
       }
     },
+    "cfdyndns-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1619396151,
+        "narHash": "sha256-4f26oQIFnfyVUbahl476xq2vJ5DcFZ8AWetqBm2kDHE=",
+        "owner": "colemickens",
+        "repo": "cfdyndns",
+        "rev": "dfd6200bedc27ade55b24f396a773201c625de92",
+        "type": "github"
+      },
+      "original": {
+        "owner": "colemickens",
+        "repo": "cfdyndns",
+        "type": "github"
+      }
+    },
     "denbeigh-devtools": {
       "inputs": {
         "denbeigh-neovim": "denbeigh-neovim",
@@ -284,6 +300,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "cfdyndns-src": "cfdyndns-src",
         "denbeigh-devtools": "denbeigh-devtools",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
