@@ -45,7 +45,7 @@
     };
 
     cfdyndns-src = {
-      url = "github:colemickens/cfdyndns";
+      url = "github:denbeigh2000/cfdyndns";
       flake = false;
     };
   };

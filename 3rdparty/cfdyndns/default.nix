@@ -10,7 +10,7 @@ buildRustPackage {
   version = "0.0.3+patch";
   src = cfdyndns-src;
 
-  cargoSha256 = "sha256-giq/cM/taDqTcJD2hTK0rU6cr0+XT0X4CIf9OU5DgLo=";
-  nativeBuildInputs = [ pkg-config  ];
+  cargoSha256 = "sha256-RjrwQT6Su8JZlqat2eG+x8yiMIjBpnZgnv/s+5g5wvQ=";
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl_1_1 ];
 }
