@@ -4,6 +4,7 @@
     ./config.nix
     ./dhcp.nix
     ./dns
+    ./dyndns.nix
     ./firewall.nix
   ];
 }
