@@ -1,18 +1,19 @@
-{ pkgs, lib, ... }:
-
-with pkgs.lib;
+{ config, lib, pkgs, ... }:
 
 let
-  name = "noisetorch";
-  cfg = config.services.noisetorch;
+  inherit (lib) mkOption types;
+  inherit (pkgs) noisetorch;
+  inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
+  inherit (config.denbeigh) graphical;
 
+  cfg = config.services.noisetorch;
 in
 {
   options = {
     services.noisetorch = {
       enable = mkOption {
         type = types.bool;
-        default = false;
+        default = graphical && isLinux;
         example = true;
         description = ''
           Whether to install NoiseTorch and associated systemd definitions
@@ -21,8 +22,7 @@ in
 
       package = mkOption {
         type = types.package;
-        default = pkgs.noisetorch;
-        defaultText = "pkgs.noisetorch";
+        default = noisetorch;
         description = ''
           The NoiseTorch package to run
         '';
@@ -30,7 +30,7 @@ in
     };
   };
 
-  config = lib.mkIf true {
+  config = lib.mkIf cfg.enable {
     systemd.user.services.noisetorch = {
       Unit = {
         description = "NoiseTorch noise suppression";
@@ -41,8 +41,8 @@ in
       Service = {
         type = "oneshot";
         RemainAfterExit = "yes";
-        ExecStart = "${pkgs.noisetorch}/bin/noisetorch -i";
-        ExecStop = "${pkgs.noisetorch}/bin/noisetorch -u";
+        ExecStart = "${noisetorch}/bin/noisetorch -i";
+        ExecStop = "${noisetorch}/bin/noisetorch -u";
       };
 
       Install = {
