@@ -6,7 +6,7 @@ let
   cfg = config.denbeigh.services.nix-cache;
 in
 {
-  imports = [ ./nginx/nix-cache.nix ];
+  imports = [ ./3rdparty/harmonia ./nginx/nix-cache.nix ];
 
   options.denbeigh.services.nix-cache = {
     enable = mkEnableOption "External Nix cache";
@@ -33,20 +33,22 @@ in
     # permissions.
 
     users = {
-      users."nix-serve" = {
+      users."harmonia" = {
         isSystemUser = true;
         uid = 1174;
-        group = "nix-serve";
+        group = "harmonia";
       };
 
-      groups."nix-serve".gid = 1174;
+      groups."harmonia".gid = 1174;
     };
 
-    services.nix-serve = {
+    denbeigh.services.harmonia = {
       enable = true;
-      openFirewall = false;
-      bindAddress = "127.0.0.1";
-      secretKeyFile = cfg.keyFile;
+      bindAddress = "127.0.0.1:5000";
+      secretKeyPath = cfg.keyFile;
+      priority = 50;
+      user = "harmonia";
+      group = "harmonia";
     };
   };
 }
