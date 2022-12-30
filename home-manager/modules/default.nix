@@ -21,6 +21,7 @@ in
     ./zsh
     ./linux.nix
     ./graphical.nix
+    ./use-nix-cache.nix
   ];
 
   options.denbeigh = {
