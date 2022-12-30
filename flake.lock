@@ -141,6 +141,22 @@
         "type": "github"
       }
     },
+    "harmonia-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1670319728,
+        "narHash": "sha256-7hsq6Sv06UcIjjlZTFlsYWDfGrc9u77OAr25SjnvZ4A=",
+        "owner": "helsinki-systems",
+        "repo": "harmonia",
+        "rev": "f2476198fb8236c7c7eb432aab4472083cb9831d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "helsinki-systems",
+        "repo": "harmonia",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -304,6 +320,7 @@
         "denbeigh-devtools": "denbeigh-devtools",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
+        "harmonia-src": "harmonia-src",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
         "nixos-generators": "nixos-generators",
