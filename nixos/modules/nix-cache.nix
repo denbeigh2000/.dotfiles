@@ -8,6 +8,7 @@ in
 {
   imports = [ ./3rdparty/harmonia ./nginx/nix-cache.nix ];
 
+  # NOTE: Subtly different from denbeigh.nix-cache (adds .services)
   options.denbeigh.services.nix-cache = {
     enable = mkEnableOption "External Nix cache";
 
