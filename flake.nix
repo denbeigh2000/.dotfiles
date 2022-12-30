@@ -48,6 +48,11 @@
       url = "github:denbeigh2000/cfdyndns";
       flake = false;
     };
+
+    harmonia-src = {
+      url = "github:helsinki-systems/harmonia";
+      flake = false;
+    };
   };
 
   outputs =
