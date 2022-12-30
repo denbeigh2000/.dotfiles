@@ -6,28 +6,18 @@
 }:
 
 let
-  inherit (lib.attrsets) attrByPath;
   inherit (lib) types mkOption;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.denbeigh) hostname isNixOS;
 
   # We only need to explicitly wrap if we're on linux and we are _not_ on NixOS
-  inherit (config.denbeigh.alacritty) shouldGlWrap;
+  inherit (config.denbeigh.alacritty) shouldGlWrap fontSize fontFamily;
   glWrap = import ../tools/gl.nix { inherit pkgs; };
   package = (
     if shouldGlWrap
     then (glWrap pkgs.alacritty "alacritty")
     else pkgs.alacritty
   );
-
-  # TODO: improve this in modularisation refactor
-  fontSizes = {
-    feliccia = 10;
-    mutant = 11;
-  };
-
-  fontFamily = "Roboto Mono for Powerline";
-  fontSize = attrByPath [ hostname ] 10 fontSizes;
 in
 {
   options.denbeigh.alacritty = {
@@ -45,6 +35,22 @@ in
       default = (isLinux && !isNixOS);
       description = ''
         Whether to wrap Alacritty in NixGL.
+      '';
+    };
+
+    fontSize = mkOption {
+      type = types.float;
+      default = 10.0;
+      description = ''
+        Font size to use in terminal.
+      '';
+    };
+
+    fontFamily = mkOption {
+      type = types.str;
+      default = "Roboto Mono for Powerline";
+      description = ''
+        Font to use in terminal.
       '';
     };
   };

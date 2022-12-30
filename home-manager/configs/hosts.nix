@@ -43,6 +43,7 @@
         latitude = 37.7749;
         longitude = -122.4194;
       };
+      alacritty.fontSize = 11;
     };
   };
   runt = {

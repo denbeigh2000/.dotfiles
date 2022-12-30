@@ -55,6 +55,8 @@ in
       extraSpecialArgs = {
         inherit (inputs) agenix denbeigh-devtools fonts nixgl;
       };
+      # TODO: Need to be able to pass user-level config in here
+      # Create an option in this module and combine?
       users.${cfg.user.username} = {
         denbeigh = {
           isNixOS = true;
