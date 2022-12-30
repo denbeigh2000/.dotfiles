@@ -1,0 +1,5 @@
+steps:
+    - command: "nix run github:denbeigh2000/ci-tools/#default trigger-jobs-for-changes"
+    label: ":nix:"
+    agents:
+    - "queue=default"

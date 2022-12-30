@@ -125,23 +125,16 @@
       };
       tf-providers = import terraform-providers-bin { inherit system; };
       secret-tools = import ./tools/secrets { inherit pkgs; };
-      ci-tools = import ./tools/ci { inherit pkgs; };
       terraform = import ./terraform { inherit pkgs tf-providers; };
 
       mkFlake = (import ./. { inherit pkgs flake-utils; });
     in
     mkFlake {
       packages = {
-        ci = ci-tools.ci;
         inherit (terraform.packages) terraform terraform-config;
         inherit liveusb;
         inherit secret-tools;
       } // vms;
-      apps.ci = {
-        name = "ci";
-        type = "app";
-        program = "${ci-tools.ci}/bin/ci";
-      };
       devShells = {
         default = pkgs.mkShell {
           name = "dotfiles-dev-shell";
@@ -151,7 +144,6 @@
             secret-tools
           ];
         };
-        ci = ci-tools.devShell;
         terraform = terraform.devShell;
       };
     }
