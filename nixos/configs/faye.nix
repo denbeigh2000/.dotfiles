@@ -34,11 +34,7 @@ in
                 lan = "eno4";
                 wan = "eno2";
               };
-            };
-
-            cfdyndns = {
-              enable = true;
-              records = [ "ddns.denb.ee" ];
+              ddns.enable = true;
             };
           };
 
