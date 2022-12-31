@@ -29,6 +29,12 @@ in
               };
             };
           };
+
+          webcam = {
+            enable = true;
+            # TODO: Confirm
+            videoDevice = "/dev/video4";
+          };
         };
 
         # TODO: Use a more DRY setup for this
