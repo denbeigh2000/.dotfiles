@@ -22,6 +22,7 @@ in
     ./linux.nix
     ./graphical.nix
     ./use-nix-cache.nix
+    ./webcam.nix
   ];
 
   options.denbeigh = {

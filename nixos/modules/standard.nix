@@ -12,6 +12,9 @@ in
     ./utils.nix
     ./graphical.nix
     ./use-nix-cache.nix
+
+    # Disabled by default
+    ./webcam.nix
   ];
 
   options.denbeigh.machine = {

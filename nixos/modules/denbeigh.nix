@@ -60,6 +60,7 @@ in
       users.${cfg.user.username} = {
         denbeigh = {
           isNixOS = true;
+          inherit (cfg) webcam;
           inherit (cfg.machine) graphical hostname;
           inherit (cfg.user) username keys;
           location = cfg.machine.location.coordinates;
