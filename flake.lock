@@ -326,6 +326,7 @@
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "smfc-src": "smfc-src",
         "terraform-providers-bin": "terraform-providers-bin"
       }
     },
@@ -351,6 +352,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "smfc-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668892542,
+        "narHash": "sha256-S+bDC4H9Y4tRpw7k7RO2aWyqiULrR05gCrJfyVQYvK0=",
+        "owner": "petersulyok",
+        "repo": "smfc",
+        "rev": "ab0ea1ca1ba8c792eb1a9c9196a953ee9cd1aa93",
+        "type": "github"
+      },
+      "original": {
+        "owner": "petersulyok",
+        "repo": "smfc",
         "type": "github"
       }
     },

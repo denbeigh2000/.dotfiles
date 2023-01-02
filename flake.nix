@@ -53,6 +53,11 @@
       url = "github:helsinki-systems/harmonia";
       flake = false;
     };
+
+    smfc-src = {
+      url = "github:petersulyok/smfc";
+      flake = false;
+    };
   };
 
   outputs =
@@ -65,6 +70,7 @@
     , agenix
     , terraform-providers-bin
     , nixos-generators
+    , smfc-src
     , ...
     }@attrs:
     let
@@ -131,6 +137,8 @@
     in
     mkFlake {
       packages = {
+        smfc = pkgs.callPackage ./3rdparty/smfc { inherit smfc-src; };
+
         inherit (terraform.packages) terraform terraform-config;
         inherit liveusb;
         inherit secret-tools;
