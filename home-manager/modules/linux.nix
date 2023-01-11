@@ -1,7 +1,8 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkIf mkOption types;
+  inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
 in
 
 {
@@ -19,7 +20,7 @@ in
         };
       };
     });
-    default = {};
+    default = { };
     description = ''
       Coordinates of the machine.
       Currently only used for redshift.
@@ -29,9 +30,8 @@ in
     '';
   };
 
-  config =
+  config = mkIf isLinux (
     let
-      inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
       inherit (config.denbeigh) graphical isNixOS location;
       enableRedshift = graphical && isLinux && location != null;
       graphicalPackages = with pkgs; [ nitrogen ];
@@ -60,5 +60,6 @@ in
           tray = true;
         } // coords;
       };
-    };
+    }
+  );
 }

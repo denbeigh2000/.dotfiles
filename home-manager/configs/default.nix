@@ -19,16 +19,24 @@ mapAttrs
   (_: host: (
     let
       inherit (host) system config;
+      inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
       pkgs = import nixpkgs {
         inherit (host) system;
         overlays = [ denbeigh-devtools.overlays.default nixgl.overlay ];
       };
 
       # NOTE: This is manually tied to the same default as options.denbeigh.username
-      initUsername =
+      username =
         if config.denbeigh ? username
         then config.denbeigh.username
         else "denbeigh";
+
+      homeDirectory = (
+        if isDarwin
+        then "/Users/${username}"
+        else "/home/${username}"
+      );
     in
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
