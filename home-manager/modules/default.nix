@@ -21,6 +21,7 @@ in
     ./zsh
     ./linux.nix
     ./graphical.nix
+    ./scripts.nix
     ./use-nix-cache.nix
     ./webcam.nix
   ];
