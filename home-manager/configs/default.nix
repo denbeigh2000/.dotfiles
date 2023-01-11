@@ -20,6 +20,7 @@ mapAttrs
     let
       inherit (host) system config;
       inherit (pkgs.stdenv.hostPlatform) isDarwin;
+      inherit (pkgs.lib) setPrio;
 
       pkgs = import nixpkgs {
         inherit (host) system;
@@ -38,7 +39,7 @@ mapAttrs
         else "/home/${username}"
       );
     in
-    home-manager.lib.homeManagerConfiguration {
+    setPrio 10 (home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       # Pass flake inputs, host config to modules
@@ -53,6 +54,6 @@ mapAttrs
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
-    }
+    })
   ))
   hosts
