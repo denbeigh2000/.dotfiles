@@ -11,6 +11,7 @@ let
     workers = ${toString workers}
     max_connection_rate = ${toString maxConnectionRate}
     priority = ${toString priority}
+    sign_key_path = "${secretKeyPath}"
   '';
   configFile = writeText "harmonia.toml" configFileText;
 
