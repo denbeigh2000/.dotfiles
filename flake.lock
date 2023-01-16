@@ -290,6 +290,24 @@
         "type": "github"
       }
     },
+    "noisetorch-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668230031,
+        "narHash": "sha256-18VLOVUmvMN+HR/7B3vfenAESA1xZNrmz1rz+FO5SNM=",
+        "ref": "refs/heads/master",
+        "rev": "7563350d5b2cf6aa206e8132f82c36ab69d9b64c",
+        "revCount": 270,
+        "submodules": true,
+        "type": "git",
+        "url": "ssh://git@github.com/noisetorch/NoiseTorch.git"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "ssh://git@github.com/noisetorch/NoiseTorch.git"
+      }
+    },
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk",
@@ -326,6 +344,7 @@
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "noisetorch-src": "noisetorch-src",
         "terraform-providers-bin": "terraform-providers-bin"
       }
     },

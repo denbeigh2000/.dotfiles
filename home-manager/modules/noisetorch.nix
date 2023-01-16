@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ noisetorch-src, config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkOption types;
-  inherit (pkgs) noisetorch;
+  inherit (pkgs) callPackage;
   inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
   inherit (config.denbeigh) graphical;
+
+  noisetorch = callPackage ../../3rdparty/noisetorch {
+    inherit noisetorch-src;
+  };
 
   cfg = config.services.noisetorch;
 in
@@ -33,20 +37,20 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.services.noisetorch = {
       Unit = {
-        description = "NoiseTorch noise suppression";
+        Description = "NoiseTorch noise suppression";
         After = [ "graphical-session.target" ];
         Requires = [ "pulseaudio.socket" ];
       };
 
       Service = {
-        type = "oneshot";
+        Type = "oneshot";
         RemainAfterExit = "yes";
         ExecStart = "${noisetorch}/bin/noisetorch -i";
         ExecStop = "${noisetorch}/bin/noisetorch -u";
       };
 
       Install = {
-        WantedBy = ["default.target"];
+        WantedBy = [ "default.target" ];
       };
     };
   };

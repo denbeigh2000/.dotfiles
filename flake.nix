@@ -53,6 +53,13 @@
       url = "github:helsinki-systems/harmonia";
       flake = false;
     };
+
+    noisetorch-src = {
+      url = "ssh://git@github.com/noisetorch/NoiseTorch.git";
+      flake = false;
+      submodules = true;
+      type = "git";
+    };
   };
 
   outputs =
