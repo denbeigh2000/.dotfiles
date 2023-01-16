@@ -53,6 +53,17 @@
       url = "github:helsinki-systems/harmonia";
       flake = false;
     };
+
+    csgotothecasino = {
+      url = "github:denbeigh2000/csgotothecasino//denbeigh/module-live";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

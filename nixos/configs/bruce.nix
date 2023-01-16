@@ -14,6 +14,7 @@ in
       (mod "nginx")
       (mod "ahoy.nix")
       (mod "ci.nix")
+      (mod "casino.nix")
       (mod "nix-cache.nix")
       (mod "secrets.nix")
       (mod "standard.nix")

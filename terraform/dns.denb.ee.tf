@@ -16,6 +16,14 @@ resource "cloudflare_record" "www_denb_ee" {
   ttl     = 3600
 }
 
+resource "cloudflare_record" "casino_denb_ee" {
+  zone_id = data.cloudflare_zone.denb_ee.id
+  name    = "casino"
+  value   = "bruce.denbeigh.cloud"
+  type    = "CNAME"
+  ttl     = 3600
+}
+
 resource "cloudflare_record" "wikirace_denb_ee" {
   zone_id = data.cloudflare_zone.denb_ee.id
   name    = "wikirace"

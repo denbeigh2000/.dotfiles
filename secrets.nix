@@ -28,4 +28,7 @@ in
   "secrets/vpnPrivateKey.age".publicKeys = commonHosts;
   "secrets/dhcpDnsAuthKey.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/fontDeployKey.age".publicKeys = allHosts;
+
+  "secrets/csgoFloatKey.age".publicKeys = commonHosts;
+  "secrets/casinoKeystore.age".publicKeys = commonHosts;
 }
