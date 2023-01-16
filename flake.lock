@@ -141,6 +141,23 @@
         "type": "github"
       }
     },
+    "goi3bar-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673858713,
+        "narHash": "sha256-rwmXEieXxtw2n3RjilpNzcWle1Lg3Oy181Z1NcW3GHk=",
+        "owner": "denbeigh2000",
+        "repo": "goi3bar",
+        "rev": "1dda6a8b3014409f823270990c71b28372c3836f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denbeigh2000",
+        "ref": "denbeigh/tidy",
+        "repo": "goi3bar",
+        "type": "github"
+      }
+    },
     "harmonia-src": {
       "flake": false,
       "locked": {
@@ -338,6 +355,7 @@
         "denbeigh-devtools": "denbeigh-devtools",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
+        "goi3bar-src": "goi3bar-src",
         "harmonia-src": "harmonia-src",
         "home-manager": "home-manager",
         "nixgl": "nixgl",

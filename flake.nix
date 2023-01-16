@@ -60,6 +60,11 @@
       submodules = true;
       type = "git";
     };
+
+    goi3bar-src = {
+      url = "github:denbeigh2000/goi3bar";
+      flake = false;
+    };
   };
 
   outputs =
