@@ -1,7 +1,6 @@
 { goi3bar-src, config, pkgs, lib, ... }:
 
 let
-  # inherit (pkgs) 
   overlay = final: prev: {
     goi3bar = final.callPackage ../../3rdparty/goi3bar {
       inherit goi3bar-src;
@@ -16,6 +15,7 @@ in
   options = {
     goi3bar = {
       enable = mkEnableOption "goi3bar config";
+
       configPath = mkOption {
         type = types.path;
         default = "${config.home.homeDirectory}/.config/i3/config.json";
