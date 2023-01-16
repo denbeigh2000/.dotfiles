@@ -50,7 +50,7 @@ in
 
       services = {
         dunst.enable = graphical;
-        noisetorch.enable = graphical;
+        noisetorch.enable = graphical && isLinux;
         redshift = {
           enable = enableRedshift;
           temperature = {
