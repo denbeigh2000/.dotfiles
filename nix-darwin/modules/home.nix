@@ -50,10 +50,8 @@ in
 
       users.${cfg.user.username} = {
         denbeigh = {
-          inherit (cfg.machine) graphical hostname;
+          inherit (cfg.machine) graphical hostname work;
           inherit (cfg.user) username keys;
-
-          isNixDarwin = true;
         };
 
         imports = [

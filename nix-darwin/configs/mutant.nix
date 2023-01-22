@@ -9,6 +9,7 @@
       config = {
         denbeigh = {
           machine = {
+            work = true;
             hostname = "mutant";
           };
           user = {

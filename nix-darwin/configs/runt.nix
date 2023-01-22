@@ -8,6 +8,7 @@
       config.denbeigh = {
         machine = {
           hostname = "runt";
+          work = true;
         };
         user = {
           username = "denbeigh.stevens";
