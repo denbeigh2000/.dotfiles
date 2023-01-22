@@ -44,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     cfdyndns-src = {
       url = "github:denbeigh2000/cfdyndns";
       flake = false;
@@ -115,6 +120,7 @@
     {
       inherit nixosConfigurations;
       homeConfigurations = import ./home-manager/configs attrs;
+      darwinConfigurations = import ./nix-darwin/configs attrs;
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
