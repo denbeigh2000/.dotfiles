@@ -52,7 +52,7 @@ in
       useUserPackages = true;
 
       extraSpecialArgs = {
-        inherit (inputs) agenix denbeigh-devtools fonts nixgl;
+        inherit (inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
       };
       # TODO: Need to be able to pass user-level config in here
       # Create an option in this module and combine?
