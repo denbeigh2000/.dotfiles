@@ -105,9 +105,7 @@ in
     # paths it should manage.
     home = {
       inherit username;
-      homeDirectory = mkIf
-        (!config.denbeigh.isNixDarwin)
-        (if isDarwin then "/Users/${username}" else "/home/${username}");
+      homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 
       packages = with pkgs; [ ripgrep ];
 
