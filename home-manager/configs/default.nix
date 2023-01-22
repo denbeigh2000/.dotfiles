@@ -10,10 +10,12 @@
 # NixOS home-manager configurations are loaded in nixos/configs/default.nix
 
 let
+  localLib = import ../../lib { inherit (nixpkgs) lib; };
   inherit (builtins) mapAttrs;
+  inherit (localLib) loadDir;
   inherit (nixpkgs.lib) recursiveUpdate;
 
-  hosts = import ./hosts.nix;
+  hosts = loadDir ./.;
 in
 mapAttrs
   (_: host: (
