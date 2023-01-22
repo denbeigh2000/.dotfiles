@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.denbeigh;
@@ -8,9 +8,22 @@ in
     ./base.nix
     ./use-nix-cache.nix
     ./home.nix
+    ./system-options.nix
   ];
 
   config = {
+    nixpkgs = {
+      config.allowUnfree = true;
+    };
+
+    environment.systemPackages = with pkgs; [
+      # Maybe some other time
+      # https://github.com/NixOS/nixpkgs/issues/71689
+      # firefox
+
+      discord-canary
+    ];
+
     programs.zsh = {
       enable = true;
       promptInit = "";
