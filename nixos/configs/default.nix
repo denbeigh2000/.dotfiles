@@ -18,12 +18,7 @@ let
     {
       nixpkgs.overlays = [
         fonts.overlays.default
-        (final: prev: {
-          # These are very far apart, and have large feature gaps
-          inherit (pkgs-unstable) radarr sonarr prowlarr;
-          # This is only built for aarch64-linux in unstable
-          inherit (pkgs-unstable) delve;
-        })
+        (import ../../unstable-overlay.nix { inherit pkgs-unstable; })
       ];
       system.stateVersion = "22.05"; #  Did you read the comment?
     };

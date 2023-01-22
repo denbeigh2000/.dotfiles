@@ -130,10 +130,7 @@
         overlays = [
           agenix.overlay
           fonts.overlays.default
-          (next: prev: {
-            # These are very far apart, and have large feature gaps
-            inherit (pkgs-unstable) radarr sonarr prowlarr;
-          })
+          (import ./unstable-overlay.nix { inherit pkgs-unstable; })
         ];
       };
       tf-providers = import terraform-providers-bin { inherit system; };

@@ -1,27 +1,36 @@
-{ nixpkgs, darwin, home-manager, ... }@inputs:
+{ nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs:
 
 let
   localLib = import ../../lib { inherit (nixpkgs) lib; };
   inherit (nixpkgs.lib) mapAttrs;
   inherit (localLib) loadDir;
 
+  unstable-overlay = system:
+    let
+      pkgs-unstable = import nixpkgs-unstable { inherit system; };
+    in
+    import ../../unstable-overlay.nix { inherit pkgs-unstable; };
+
   hosts = loadDir ./.;
 
   buildConfig = _: cfg:
     let
       inherit (darwin.lib) darwinSystem;
-      hostConfig = cfg inputs;
-      modules = hostConfig.modules ++ [
+      overlay = unstable-overlay cfg.system;
+
+      extraModules = [
+        { nixpkgs.overlays = [ overlay ]; }
         home-manager.darwinModules.home-manager
       ];
-      attrs = hostConfig // {
-        inherit modules;
 
-        specialArgs = {
-          inherit (inputs) denbeigh-devtools agenix fonts nixgl;
-        };
-      };
+      modules = extraModules ++ cfg.modules;
     in
-    darwinSystem attrs;
+    darwinSystem (cfg // {
+      inherit modules;
+
+      specialArgs = {
+        inherit (inputs) denbeigh-devtools agenix fonts nixgl;
+      };
+    });
 in
 mapAttrs buildConfig hosts
