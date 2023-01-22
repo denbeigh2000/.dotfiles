@@ -119,11 +119,11 @@ in
       aria2.enable = true;
       fzf.enable = true;
       gh.enable = true;
-      jq.enable = true;
+      jq.enable = !config.denbeigh.work;
       tmux.enable = true;
 
       keychain = {
-        enable = (builtins.length config.denbeigh.keys) > 0 && isLinux;
+        enable = (builtins.length config.denbeigh.keys) > 0;
         inherit (config.denbeigh) keys;
       };
     };

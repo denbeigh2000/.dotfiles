@@ -20,6 +20,7 @@ mapAttrs
     let
       inherit (host) system config;
       inherit (pkgs.stdenv.hostPlatform) isDarwin;
+      inherit (pkgs.lib) setPrio;
 
       pkgs = import nixpkgs {
         inherit (host) system;
@@ -37,8 +38,11 @@ mapAttrs
         then "/Users/${username}"
         else "/home/${username}"
       );
+
+      # Ensure we avoid conflicting with any work-provided packages
+      priority = if config.denbeigh.work then 10 else 5;
     in
-    home-manager.lib.homeManagerConfiguration {
+    setPrio priority (home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       # Pass flake inputs, host config to modules
@@ -53,6 +57,6 @@ mapAttrs
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
-    }
+    })
   ))
   hosts
