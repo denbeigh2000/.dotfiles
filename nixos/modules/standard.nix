@@ -49,26 +49,20 @@ in
       '';
     };
 
-    location = mkOption {
-      type = types.submodule {
-        options = {
-          timezone = mkOption {
-            default = "UTC";
-            type = types.str;
-          };
-          coordinates = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                latitude = mkOption {
-                  type = types.float;
-                };
+    location =
+      let
+        defaultTimezone = "UTC";
 
-                longitude = mkOption {
-                  type = types.float;
-                };
-              };
-            });
-            default = null;
+        coordinatesShape = {
+          options = {
+            latitude = mkOption {
+              type = types.float;
+            };
+
+            longitude = mkOption {
+              type = types.float;
+            };
+
             description = ''
               Coordinates of the machine.
               Currently only used for redshift.
@@ -78,8 +72,22 @@ in
             '';
           };
         };
+      in
+      mkOption {
+        type = types.submodule {
+          options = {
+            timezone = mkOption {
+              default = defaultTimezone;
+              type = types.str;
+            };
+            coordinates = mkOption {
+              type = types.nullOr (types.submodule coordinatesShape);
+              default = null;
+            };
+          };
+        };
+        default = { timezone = defaultTimezone; };
       };
-    };
   };
 
   config = {
