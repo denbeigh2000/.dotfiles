@@ -51,7 +51,6 @@ in
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      # TODO: Verify this is even necessary
       extraSpecialArgs = {
         inherit (inputs) agenix denbeigh-devtools fonts nixgl;
       };

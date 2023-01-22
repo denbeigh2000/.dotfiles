@@ -44,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     cfdyndns-src = {
       url = "github:denbeigh2000/cfdyndns";
       flake = false;
@@ -72,6 +77,7 @@
     , agenix
     , terraform-providers-bin
     , nixos-generators
+    , darwin
     , ...
     }@attrs:
     let
@@ -115,6 +121,7 @@
     {
       inherit nixosConfigurations;
       homeConfigurations = import ./home-manager/configs attrs;
+      darwinConfigurations = import ./nix-darwin/configs attrs;
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
@@ -149,6 +156,7 @@
             agenix.packages.${system}.agenix
             home-manager.packages.${system}.default
             secret-tools
+            darwin.packages.${system}.default
           ];
         };
         terraform = terraform.devShell;

@@ -10,7 +10,7 @@
 
 
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkIf mkOption types;
   inherit (config.denbeigh) username;
   inherit (pkgs.stdenvNoCC.hostPlatform) isDarwin isLinux;
 in
@@ -75,6 +75,14 @@ in
       '';
     };
 
+    isNixDarwin = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether the machine being provisioned is managed by nix-darwin.
+      '';
+    };
+
     work = mkOption {
       type = types.bool;
       default = false;
@@ -97,7 +105,9 @@ in
     # paths it should manage.
     home = {
       inherit username;
-      homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+      homeDirectory = mkIf
+        (!config.denbeigh.isNixDarwin)
+        (if isDarwin then "/Users/${username}" else "/home/${username}");
 
       packages = with pkgs; [ ripgrep ];
 
