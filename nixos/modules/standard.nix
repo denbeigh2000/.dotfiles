@@ -1,6 +1,7 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
+  inherit (pkgs) nix;
   inherit (lib) mkOption types;
   cfg = config.denbeigh;
 in
@@ -95,6 +96,7 @@ in
       inherit (cfg.machine) domain;
     };
 
+    environment.systemPackages = [ nix ];
     time.timeZone = cfg.machine.location.timezone;
     services.chrony.enable = true;
   };
