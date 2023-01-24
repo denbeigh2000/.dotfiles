@@ -7,7 +7,7 @@
       imports = [ ../modules/standard.nix ];
       config.denbeigh = {
         machine = {
-          hostname = "shoenice";
+          hostname = "lucifer";
         };
         user = {
           username = "denbeigh";
