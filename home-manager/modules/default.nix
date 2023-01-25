@@ -13,6 +13,11 @@ let
   inherit (lib) mkOption types;
   inherit (config.denbeigh) username;
   inherit (pkgs.stdenvNoCC.hostPlatform) isDarwin isLinux;
+
+  htopFields = with config.lib.htop.fields;
+    if isDarwin
+    then [ PID USER PRIORITY M_SIZE M_RESIDENT PERCENT_CPU PERCENT_MEM TIME COMM ]
+    else [ PID USER PRIORITY NICE M_SIZE M_RESIDENT STATE PERCENT_CPU PERCENT_MEM IO_RATE TIME COMM ];
 in
 {
   imports = [
@@ -119,6 +124,21 @@ in
       aria2.enable = true;
       fzf.enable = true;
       gh.enable = true;
+      htop = {
+        enable = true;
+        settings = {
+          # fields = htopFields;
+        } // (with config.lib.htop; leftMeters [
+          (bar "AllCPUs2")
+          (bar "Memory")
+          (bar "Swap")
+          (text "Zram")
+        ]) // (with config.lib.htop; rightMeters ([
+          (text "Tasks")
+          (text "LoadAverage")
+          (text "Uptime")
+        ] ++ (if !isDarwin then [ (text "Systemd") ] else [ ])));
+      };
       jq.enable = !config.denbeigh.work;
       tmux.enable = true;
 
