@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   system = "aarch64-darwin";
   modules = [
