@@ -21,6 +21,7 @@ in
       # https://github.com/NixOS/nixpkgs/issues/71689
       # firefox
 
+      alacritty
       discord-canary
     ];
 
