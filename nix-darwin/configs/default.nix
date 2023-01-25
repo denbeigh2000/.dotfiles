@@ -9,7 +9,7 @@ let
     let
       pkgs-unstable = import nixpkgs-unstable { inherit system; };
     in
-    import ../../unstable-overlay.nix { inherit pkgs-unstable; };
+    import ../../unstable-overlay.nix (inputs // { inherit pkgs-unstable; });
 
   hosts = loadDir ./.;
 

@@ -14,11 +14,12 @@ let
     let
       inherit (pkgs.stdenv.hostPlatform) system;
       pkgs-unstable = import nixpkgs-unstable { inherit system; };
+      attrs = inputs // { inherit pkgs-unstable; };
     in
     {
       nixpkgs.overlays = [
         fonts.overlays.default
-        (import ../../unstable-overlay.nix { inherit pkgs-unstable; })
+        ((import ../../unstable-overlay.nix) attrs)
       ];
       system.stateVersion = "22.05"; #  Did you read the comment?
     };

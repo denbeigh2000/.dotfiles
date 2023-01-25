@@ -78,12 +78,12 @@
     , terraform-providers-bin
     , nixos-generators
     , ...
-    }@attrs:
+    }@inputs:
     let
       inherit (builtins) mapAttrs pathExists;
       inherit (nixpkgs.lib) nixosSystem mapAttrs';
       inherit (nixos-generators) nixosGenerate;
-      nixosSystemConfigs = import ./nixos/configs attrs;
+      nixosSystemConfigs = import ./nixos/configs inputs;
 
       hwModule = name: config:
         let
@@ -119,8 +119,8 @@
     in
     {
       inherit nixosConfigurations;
-      homeConfigurations = import ./home-manager/configs attrs;
-      darwinConfigurations = import ./nix-darwin/configs attrs;
+      homeConfigurations = import ./home-manager/configs inputs;
+      darwinConfigurations = import ./nix-darwin/configs inputs;
       nixosModules = import ./nixos/modules;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
@@ -130,7 +130,7 @@
         overlays = [
           agenix.overlay
           fonts.overlays.default
-          (import ./unstable-overlay.nix { inherit pkgs-unstable; })
+          (import ./unstable-overlay.nix (inputs // { inherit pkgs-unstable; }))
         ];
       };
       tf-providers = import terraform-providers-bin { inherit system; };

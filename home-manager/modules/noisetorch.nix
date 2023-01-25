@@ -1,14 +1,10 @@
-{ noisetorch-src, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkOption types;
-  inherit (pkgs) callPackage libcap writeShellScriptBin;
+  inherit (pkgs) libcap noisetorch writeShellScriptBin;
   inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
   inherit (config.denbeigh) graphical;
-
-  noisetorch = callPackage ../../3rdparty/noisetorch {
-    inherit noisetorch-src;
-  };
 
   # This cannot be run on a remote build machine, and setcap wrappers don't
   # really make sense with this as they'll just make our systemd service fail.
