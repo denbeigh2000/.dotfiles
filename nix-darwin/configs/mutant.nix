@@ -6,6 +6,7 @@
     {
       config = {
         denbeigh = {
+          nix-cache.enable = false;
           machine = {
             work = true;
             hostname = "mutant";

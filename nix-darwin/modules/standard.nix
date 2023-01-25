@@ -24,6 +24,7 @@ in
       discord-canary
     ];
 
+    services.nix-daemon.enable = true;
     programs.zsh = {
       enable = true;
       promptInit = "";

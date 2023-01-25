@@ -40,10 +40,10 @@ in
       connect-timeout = 3;
       # For some reason, we don't make use of our own resolver by default if we
       # only make use of extra-substituters here
-      # (cache.nixos.org is added to substituters and trusted-substituters by default)
-      substituters = [ cfg.url ];
-      trusted-substituters = [ cfg.url ];
-      trusted-public-keys = [ cfg.publicKey ];
+      substituters = [ "https://cache.nixos.org" ];
+      trusted-substituters = [ "https://cache.nixos.org" ];
+      extra-trusted-substituters = [ cfg.url ];
+      extra-trusted-public-keys = [ cfg.publicKey ];
     };
   };
 }
