@@ -23,6 +23,7 @@ in
 
       alacritty
       discord-canary
+      git
     ];
 
     services.nix-daemon.enable = true;
