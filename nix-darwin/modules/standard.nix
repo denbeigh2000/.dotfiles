@@ -24,6 +24,7 @@ in
       alacritty
       discord-canary
       git
+      spotify
     ];
 
     services.nix-daemon.enable = true;
