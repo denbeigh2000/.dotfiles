@@ -15,8 +15,4 @@ final: prev: {
   # Various 3rdparty packages
   # goi3bar = final.callPackage ./3rdparty/goi3bar { inherit goi3bar-src; };
   noisetorch = final.callPackage ./3rdparty/noisetorch { inherit noisetorch-src; };
-  harmonia = import ./3rdparty/harmonia {
-    inherit harmonia-src;
-    pkgs = final;
-  };
 }

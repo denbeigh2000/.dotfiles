@@ -2,7 +2,6 @@
 
 let
   inherit (lib) mkIf mkOption types;
-  inherit (config.services.nix-serve) port;
   cfg = config.denbeigh.services.nix-cache;
 
   tailscaleConfig =
@@ -13,6 +12,14 @@ in
 {
 
   options.denbeigh.services.nix-cache = {
+    domain = mkOption {
+      type = types.str;
+      default = "nix-cache.denbeigh.cloud";
+      description = ''
+        DNS record to direct to the Nix store.
+      '';
+    };
+
     tailscaleOnly = mkOption {
       type = types.bool;
       default = true;
@@ -25,7 +32,7 @@ in
   config = mkIf cfg.enable {
     services.nginx.virtualHosts."nix-cache" = {
       serverName = cfg.domain;
-      locations."/".proxyPass = "http://localhost:${toString port}";
+      locations."/".proxyPass = "http://localhost:5000";
     } // tailscaleConfig;
   };
 }
