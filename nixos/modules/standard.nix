@@ -98,6 +98,7 @@ in
     };
 
     environment.systemPackages = [ nix ];
+    programs.zsh.enable = true;
     time.timeZone = cfg.machine.location.timezone;
     services.chrony.enable = true;
   };
