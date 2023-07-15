@@ -19,6 +19,7 @@ in
       (mod "standard.nix")
       (mod "tailscale.nix")
       (mod "terraform.nix")
+      (mod "update-fonts.nix")
       {
         denbeigh = {
           machine = {

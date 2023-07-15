@@ -9,7 +9,6 @@ in
       (mod "standard.nix")
       (mod "development.nix")
       (mod "gaming.nix")
-      (mod "update-fonts.nix")
       {
         boot.loader.grub = {
           enable = true;
