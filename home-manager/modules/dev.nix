@@ -9,7 +9,7 @@ let
   python-packages = if !work then [ python.python310 ] else [ ];
   go-packages = if !work then go.all else [ go.gopls ];
   extra-node-packages = if !work then [ node.yarn ] else [ ];
-  node-packages = node.allNode18 ++ extra-node-packages;
+  node-packages = if !work then node.allNode18 ++ extra-node-packages else [];
   nix-packages = [ nix.rnix-lsp ];
 in
 
