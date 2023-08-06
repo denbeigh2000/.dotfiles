@@ -21,9 +21,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    nix.settings = {
-      # Remote-build key from personal machines
-      trusted-public-keys = [ "remote-build:gmaC+UE4JxbR6wcMtuZ6WZF0nL1Jh2D3REY9zdwZFWg=" ];
+    users.users.nix-copy-receiver = {
+      openssh.authorizedKeys.keys = [
+        # SSH Key to permit remote build uploads to service user
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHn3tzQJW1Fwt3n5xSK+V6MhS7ULddEW0mTNcrigHbp0"
+      ];
     };
 
     services.harmonia = {
