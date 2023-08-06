@@ -1,7 +1,6 @@
 { pkgs-unstable
 # , goi3bar-src
 , noisetorch-src
-, harmonia-src
 , ...
 }:
 

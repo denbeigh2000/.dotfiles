@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs:
+{ nixpkgs, nixpkgs-unstable, darwin, home-manager, upload-daemon, ... }@inputs:
 
 let
   localLib = import ../../lib { inherit (nixpkgs) lib; };
@@ -29,7 +29,7 @@ let
       inherit modules;
 
       specialArgs = {
-        inherit (inputs) denbeigh-devtools agenix fonts nixgl;
+        inherit (inputs) denbeigh-devtools agenix fonts nixgl upload-daemon;
       };
     });
 in

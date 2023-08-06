@@ -18,6 +18,7 @@ let
 
   commonHosts = (attrValues hosts) ++ [ servers.bruce ];
   allHosts = (attrValues hosts) ++ (attrValues servers);
+  personalHosts = with hosts; [ benson feliccia lucifer martha servers.faye ];
 in
 {
   "secrets/cloudflareAPIToken.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
@@ -29,4 +30,6 @@ in
   "secrets/vpnPrivateKey.age".publicKeys = commonHosts;
   "secrets/dhcpDnsAuthKey.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/fontDeployKey.age".publicKeys = allHosts;
+  "secrets/remoteBuildSignKey.age".publicKeys = personalHosts;
+  "secrets/remoteBuildUploadKey.age".publicKeys = personalHosts;
 }

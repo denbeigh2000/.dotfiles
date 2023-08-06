@@ -10,8 +10,9 @@
     };
 
     agenix = {
-      url = "github:ryantm/agenix/0.12.0";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "darwin";
     };
 
     fonts = {
@@ -49,13 +50,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cfdyndns-src = {
-      url = "github:denbeigh2000/cfdyndns";
-      flake = false;
+    upload-daemon = {
+      url = "github:denbeigh2000/upload-daemon";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    harmonia-src = {
-      url = "github:helsinki-systems/harmonia";
+    cfdyndns-src = {
+      url = "github:denbeigh2000/cfdyndns";
       flake = false;
     };
 
@@ -128,7 +129,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          agenix.overlay
+          agenix.overlays.default
           fonts.overlays.default
           (import ./unstable-overlay.nix (inputs // { inherit pkgs-unstable; }))
         ];
@@ -149,6 +150,7 @@
         default = pkgs.mkShell {
           name = "dotfiles-dev-shell";
           packages = [
+            pkgs.age
             agenix.packages.${system}.agenix
             home-manager.packages.${system}.default
             secret-tools

@@ -2,21 +2,24 @@
   "nodes": {
     "agenix": {
       "inputs": {
+        "darwin": [
+          "darwin"
+        ],
+        "home-manager": "home-manager",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1662046976,
-        "narHash": "sha256-BrTReGRhkVm/Kmmf4zQrL+oYWy0sds/BDBgXNX1CL3c=",
+        "lastModified": 1690228878,
+        "narHash": "sha256-9Xe7JV0krp4RJC9W9W9WutZVlw6BlHTFMiUP/k48LQY=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "9f136ecfa5bf954538aed3245e4408cf87c85097",
+        "rev": "d8c973fd228949736dedf61b7f8cc1ece3236792",
         "type": "github"
       },
       "original": {
         "owner": "ryantm",
-        "ref": "0.12.0",
         "repo": "agenix",
         "type": "github"
       }
@@ -141,6 +144,21 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1629481132,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "997f7efcb746a9c140ce1f13c72263189225f482",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "fonts": {
       "inputs": {
         "flake-utils": [
@@ -164,23 +182,28 @@
         "type": "github"
       }
     },
-    "harmonia-src": {
-      "flake": false,
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "agenix",
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1684918569,
-        "narHash": "sha256-3rIgSZSEAqD1FvT7Js53BpPAxvextiX5ckWJPgds+fo=",
-        "owner": "helsinki-systems",
-        "repo": "harmonia",
-        "rev": "ceffc7b9fa020e0dd042a5f05673479167376c53",
+        "lastModified": 1691225770,
+        "narHash": "sha256-O5slH8nW8msTAqVAS5rkvdHSkjmrO+JauuSDzZCmv2M=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "0a014a729cdd54d9919ff36b714d047909d7a4c8",
         "type": "github"
       },
       "original": {
-        "owner": "helsinki-systems",
-        "repo": "harmonia",
+        "owner": "nix-community",
+        "repo": "home-manager",
         "type": "github"
       }
     },
-    "home-manager": {
+    "home-manager_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -361,14 +384,14 @@
         "denbeigh-devtools": "denbeigh-devtools",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
-        "harmonia-src": "harmonia-src",
-        "home-manager": "home-manager",
+        "home-manager": "home-manager_2",
         "nixgl": "nixgl",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noisetorch-src": "noisetorch-src",
-        "terraform-providers-bin": "terraform-providers-bin"
+        "terraform-providers-bin": "terraform-providers-bin",
+        "upload-daemon": "upload-daemon"
       }
     },
     "rust-overlay": {
@@ -428,6 +451,27 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs-terraform-providers-bin",
+        "type": "github"
+      }
+    },
+    "upload-daemon": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1631544396,
+        "narHash": "sha256-l+7uFSEBEhAKbqiL67KTCdQzAJJaNPd9Mr/NFvDDsT0=",
+        "owner": "denbeigh2000",
+        "repo": "upload-daemon",
+        "rev": "738fbb07e938b5344eac2fb638f2a2edd31b7453",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denbeigh2000",
+        "repo": "upload-daemon",
         "type": "github"
       }
     },

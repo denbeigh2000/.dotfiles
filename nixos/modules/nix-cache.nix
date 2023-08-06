@@ -21,6 +21,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    nix.settings = {
+      # Remote-build key from personal machines
+      trusted-public-keys = [ "remote-build:gmaC+UE4JxbR6wcMtuZ6WZF0nL1Jh2D3REY9zdwZFWg=" ];
+    };
+
     services.harmonia = {
       enable = true;
       signKeyPath = cfg.keyFile;
