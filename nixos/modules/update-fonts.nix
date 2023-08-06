@@ -9,7 +9,7 @@
   config = let
     user = "font-updater";
   in {
-    nixpkgs.overlays = [ agenix.overlay ];
+    nixpkgs.overlays = [ agenix.overlays.default ];
 
     age.secrets.fontDeployKey = {
       file = ../../secrets/fontDeployKey.age;

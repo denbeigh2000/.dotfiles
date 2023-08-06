@@ -3,7 +3,7 @@
 {
   imports = [ ./docker.nix ];
 
-  nixpkgs.overlays = [ agenix.overlay ];
+  nixpkgs.overlays = [ agenix.overlays.default ];
 
   environment.systemPackages = with pkgs; [
     # Force use of agenix from overlay, not function argument
