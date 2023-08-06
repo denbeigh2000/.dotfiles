@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, agenix, ... }:
 
 let
   cfg = config.denbeigh;
@@ -9,6 +9,7 @@ in
     ./use-nix-cache.nix
     ./home.nix
     ./system-options.nix
+    ./upload-daemon.nix
   ];
 
   config = {

@@ -10,8 +10,9 @@
     };
 
     agenix = {
-      url = "github:ryantm/agenix/0.12.0";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "darwin";
     };
 
     fonts = {
@@ -25,6 +26,7 @@
     nixgl = {
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     denbeigh-devtools = {
@@ -36,7 +38,6 @@
     terraform-providers-bin = {
       url = "github:nix-community/nixpkgs-terraform-providers-bin";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     nixos-generators = {
@@ -49,13 +50,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cfdyndns-src = {
-      url = "github:denbeigh2000/cfdyndns";
-      flake = false;
+    nix-upload-daemon = {
+      url = "github:denbeigh2000/nix-upload-daemon";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
-    harmonia-src = {
-      url = "github:helsinki-systems/harmonia";
+    cfdyndns-src = {
+      url = "github:denbeigh2000/cfdyndns";
       flake = false;
     };
 
@@ -128,7 +130,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          agenix.overlay
+          agenix.overlays.default
           fonts.overlays.default
           (import ./unstable-overlay.nix (inputs // { inherit pkgs-unstable; }))
         ];
@@ -149,6 +151,7 @@
         default = pkgs.mkShell {
           name = "dotfiles-dev-shell";
           packages = [
+            pkgs.age
             agenix.packages.${system}.agenix
             home-manager.packages.${system}.default
             secret-tools
