@@ -9,7 +9,6 @@ in
 {
   services.tailscale = {
     enable = true;
-    domain = "denbeigh2000.github";
   };
 
   # TODO: Add support for automatic login with secret using launchd
