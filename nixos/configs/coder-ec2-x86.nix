@@ -1,5 +1,4 @@
 {
-  system = "x86_64-linux";
   config = {
     modules = [
       ../modules/standard.nix
@@ -7,6 +6,7 @@
       ../modules/cloud
       {
         denbeigh.machine.hostname = "dev";
+        nixpkgs.hostPlatform = "x86_64-linux";
       }
     ];
   };
