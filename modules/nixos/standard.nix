@@ -8,6 +8,7 @@ in
 
 {
   imports = [
+    ../common/variables.nix
     ./denbeigh.nix
     ./flakes.nix
     ./utils.nix
@@ -19,34 +20,11 @@ in
   ];
 
   options.denbeigh.machine = {
-    hostname = mkOption {
-      type = types.str;
-      description = ''
-        Hostname of the machine.
-      '';
-    };
-
     domain = mkOption {
       type = types.str;
       default = "sfo.denbeigh.cloud";
       description = ''
         Networking domain of the machine.
-      '';
-    };
-
-    graphical = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether this machine will be used interactively.
-      '';
-    };
-
-    work = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether this machine will be used for "work" purposes.
       '';
     };
 

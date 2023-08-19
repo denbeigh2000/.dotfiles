@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    ./base.nix
+    ../common/variables.nix
     ./use-nix-cache.nix
     ./home.nix
     ./system-options.nix
