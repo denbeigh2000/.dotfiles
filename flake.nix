@@ -82,27 +82,11 @@
     , ...
     }@inputs:
     let
-      inherit (builtins) mapAttrs pathExists;
+      inherit (builtins) mapAttrs;
       inherit (nixpkgs.lib) nixosSystem mapAttrs';
       inherit (nixos-generators) nixosGenerate;
-      nixosSystemConfigs = import ./nixos/configs inputs;
-
-      hwModule = name: config:
-        let
-          hwPath = ./nixos/configs/hardware/${name}.nix;
-        in
-        if (pathExists hwPath) then (import hwPath) else { };
-
-      patchHardware = name: config:
-        let
-          hardware = hwModule name config;
-          modules = (if config ? modules then config.modules else [ ]) ++ [ hardware ];
-        in
-        (config // { inherit modules; });
-
-      nixosConfigurations = mapAttrs
-        (n: v: nixosSystem (patchHardware n v))
-        nixosSystemConfigs;
+      nixosSystemConfigs = import ./configs/nixos inputs;
+      nixosConfigurations = mapAttrs (_: cfg: nixosSystem cfg) nixosSystemConfigs;
 
       buildVm =
         (configName: config: {
@@ -121,9 +105,9 @@
     in
     {
       inherit nixosConfigurations;
-      homeConfigurations = import ./home-manager/configs inputs;
-      darwinConfigurations = import ./nix-darwin/configs inputs;
-      nixosModules = import ./nixos/modules;
+      darwinConfigurations = import ./configs/darwin inputs;
+      homeConfigurations = import ./configs/home-manager inputs;
+      nixosModules = import ./modules/nixos;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs-unstable = import nixpkgs-unstable { inherit system; };

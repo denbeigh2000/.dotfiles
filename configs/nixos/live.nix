@@ -6,8 +6,8 @@
         services.openssh.enable = true;
         networking.firewall.allowedTCPPorts = [ 22 ];
       }
-      ../modules/cloud
-      ../modules/standard.nix
+      ../../modules/nixos/cloud
+      ../../modules/nixos/standard.nix
       ({ modulesPath, ... }: {
         imports = [
           "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"

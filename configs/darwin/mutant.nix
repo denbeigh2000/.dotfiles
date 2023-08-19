@@ -1,8 +1,8 @@
 {
   system = "aarch64-darwin";
   modules = [
-    ../modules/standard.nix
-    ../modules/tailscale.nix
+    ../../modules/darwin/standard.nix
+    ../../modules/darwin/tailscale.nix
     {
       config = {
         denbeigh = {

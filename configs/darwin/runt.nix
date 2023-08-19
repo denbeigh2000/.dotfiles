@@ -4,7 +4,9 @@
   system = "x86_64-darwin";
   modules = [
     {
-      imports = [ ../modules/standard.nix ];
+      imports = [
+        ../../modules/darwin/standard.nix
+      ];
       config.denbeigh = {
         machine = {
           hostname = "runt";

@@ -5,7 +5,7 @@ let
     inherit (nixpkgs) lib;
   };
 
-  inherit (builtins) mapAttrs path;
+  inherit (builtins) mapAttrs path pathExists;
   inherit (localLib) loadDir;
 
   configs = loadDir ./.;
@@ -24,13 +24,21 @@ let
       system.stateVersion = "22.05"; #  Did you read the comment?
     };
 
-  buildConfig = cfg:
+  hwModule = name:
+    let
+      hwPath = ./hardware/${name}.nix;
+    in
+    if (pathExists hwPath) then (import hwPath) else { };
+
+  buildConfig = name: cfg:
     let
       inherit (nixpkgs.lib) nixosSystem recursiveUpdate;
       config = recursiveUpdate cfg { host.isNixOS = true; };
       hostConfig = config.config;
 
-      modules = (if hostConfig ? modules then hostConfig.modules else [ ]) ++ [ defaults ];
+      oldModules = if hostConfig ? modules then hostConfig.modules else [ ]; 
+      modules = oldModules ++ [ defaults (hwModule name) ];
+
     in
 
     (hostConfig // {
@@ -39,4 +47,4 @@ let
     });
 
 in
-mapAttrs (_: config: (buildConfig config)) configs
+mapAttrs buildConfig configs

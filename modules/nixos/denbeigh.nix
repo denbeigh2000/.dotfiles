@@ -66,7 +66,7 @@ in
         };
 
         imports = [
-          ../../home-manager/modules/default.nix
+          ../home-manager/default.nix
         ];
       };
     };

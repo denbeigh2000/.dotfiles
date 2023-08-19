@@ -1,5 +1,5 @@
 let
-  mod = location: ../modules/${location};
+  mod = location: ../../modules/nixos/${location};
 in
 {
   config = {

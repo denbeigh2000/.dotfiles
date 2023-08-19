@@ -2,9 +2,9 @@
 
 {
   /*
-   * Given a path to a directory, return all .nix files in said directory
-   * except default.nix, and return them as an attribute set by their filename.
-   */
+    * Given a path to a directory, return all .nix files in said directory
+    * except default.nix, and return them as an attribute set by their filename.
+  */
   loadDir = rawPath:
     let
       inherit (builtins) path readDir stringLength substring;
