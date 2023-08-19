@@ -12,63 +12,18 @@ let
   inherit (lib) mkOption types;
 
   cfg = config.denbeigh;
-
 in
 {
-  imports = [ home-manager.nixosModules.home-manager ];
-
-  options.denbeigh.user = {
-    username = mkOption {
-      type = types.str;
-      default = "denbeigh";
-      description = ''
-        Username of the user to provision on the system.
-      '';
-    };
-
-    shell = mkOption {
-      type = types.package;
-      default = pkgs.zsh;
-      description = ''
-        Shell to use for the environment.
-      '';
-    };
-
-    # TODO: Rename this?
-    keys = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        The SSH key paths to expect to use.
-      '';
-    };
-  };
+  imports = [
+    home-manager.nixosModules.home-manager
+    ../common/denbeigh.nix
+  ];
 
   config = {
     nixpkgs.overlays = [ denbeigh-devtools.overlays.default ];
 
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-
-      extraSpecialArgs = {
-        inherit (inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
-      };
-      # TODO: Need to be able to pass user-level config in here
-      # Create an option in this module and combine?
-      users.${cfg.user.username} = {
-        denbeigh = {
-          isNixOS = true;
-          inherit (cfg) webcam;
-          inherit (cfg.machine) graphical hostname;
-          inherit (cfg.user) username keys;
-          location = cfg.machine.location.coordinates;
-        };
-
-        imports = [
-          ../home-manager/default.nix
-        ];
-      };
+    home-manager.extraSpecialArgs = {
+      inherit (inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
     };
 
     users.users.${cfg.user.username} = {
