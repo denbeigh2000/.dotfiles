@@ -10,11 +10,12 @@ let
 in
 {
   imports = [
+    ../common/denbeigh.nix
     ../common/graphical.nix
+    ../common/variables.nix
   ];
 
   config = mkIf graphical {
-    nixpkgs.config.allowUnfree = true;
     users = {
       mutableUsers = true;
 

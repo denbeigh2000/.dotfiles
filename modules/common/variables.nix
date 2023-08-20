@@ -13,14 +13,6 @@ in
       '';
     };
 
-    graphical = mkOption {
-      type = types.bool;
-      default = isDarwin;
-      description = ''
-        Whether this machine will be used interactively.
-      '';
-    };
-
     work = mkOption {
       type = types.bool;
       default = false;

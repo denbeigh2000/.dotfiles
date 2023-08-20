@@ -5,7 +5,10 @@ let
 in
 {
   imports = [
+    ../common/standard.nix
     ../common/variables.nix
+
+    ./graphical.nix
     ./use-nix-cache.nix
     ./home.nix
     ./system-options.nix
@@ -13,26 +16,7 @@ in
   ];
 
   config = {
-    nixpkgs = {
-      config.allowUnfree = true;
-    };
-
-    environment.systemPackages = with pkgs; [
-      # Maybe some other time
-      # https://github.com/NixOS/nixpkgs/issues/71689
-      # firefox
-
-      alacritty
-      discord-canary
-      git
-      spotify
-    ];
-
     services.nix-daemon.enable = true;
-    programs.zsh = {
-      enable = true;
-      promptInit = "";
-    };
 
     users.users.${cfg.user.username} = {
       name = cfg.user.username;
