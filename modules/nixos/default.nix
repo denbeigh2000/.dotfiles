@@ -12,7 +12,6 @@ let
     gaming = ./gaming.nix;
     nix-cache = ./nix-cache.nix;
     router = ./router;
-    secrets = ./secrets.nix;
     standard = ./standard.nix;
     tailscale = ./tailscale.nix;
     terraform = ./terraform.nix;

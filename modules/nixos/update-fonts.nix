@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./secrets.nix
+    self.inputs.agenix.nixosModules.default
     self.inputs.fonts.nixosModules.update-tool
   ];
 

@@ -1,5 +1,4 @@
 { standard
-, secrets
 , router
 }:
 
@@ -11,7 +10,6 @@ in
     system = "x86_64-linux";
     modules = [
       standard
-      secrets
       router
       {
         boot = {

@@ -3,7 +3,6 @@
 , ahoy
 , ci
 , nix-cache
-, secrets
 , standard
 , tailscale
 , terraform
@@ -27,7 +26,6 @@ in
       ahoy
       ci
       nix-cache
-      secrets
       standard
       tailscale
       terraform

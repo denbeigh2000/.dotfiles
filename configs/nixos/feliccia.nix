@@ -1,7 +1,7 @@
-{ secrets
-, standard
+{ standard
 , development
 , gaming
+, ...
 }:
 let
   mod = location: ../../modules/nixos/${location};
@@ -10,7 +10,6 @@ in
   config = {
     system = "x86_64-linux";
     modules = [
-      secrets
       standard
       development
       gaming
