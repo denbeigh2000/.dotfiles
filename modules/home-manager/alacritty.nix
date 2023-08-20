@@ -12,10 +12,10 @@ let
 
   # We only need to explicitly wrap if we're on linux and we are _not_ on NixOS
   inherit (config.denbeigh.alacritty) shouldGlWrap fontSize fontFamily;
-  glWrap = import ../tools/gl.nix { inherit pkgs; };
+  tools = pkgs.callPackage ./lib { };
   package = (
     if shouldGlWrap
-    then (glWrap pkgs.alacritty "alacritty")
+    then (tools.glWrap pkgs.alacritty "alacritty")
     else pkgs.alacritty
   );
 in

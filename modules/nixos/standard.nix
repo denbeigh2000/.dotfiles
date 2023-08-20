@@ -8,9 +8,10 @@ in
 
 {
   imports = [
+    ../common/standard.nix
     ../common/variables.nix
+    # TODO: Expose these as top-level modules, import them through `self.nixosModules`
     ./denbeigh.nix
-    ./flakes.nix
     ./utils.nix
     ./graphical.nix
     ./use-nix-cache.nix
@@ -75,8 +76,6 @@ in
       inherit (cfg.machine) domain;
     };
 
-    environment.systemPackages = [ nix ];
-    programs.zsh.enable = true;
     time.timeZone = cfg.machine.location.timezone;
     services.chrony.enable = true;
 

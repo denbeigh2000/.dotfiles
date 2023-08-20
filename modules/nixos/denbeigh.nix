@@ -1,27 +1,28 @@
 { config
 , lib
-, pkgs
 , home-manager
-, host
 , denbeigh-devtools
 , ...
 }@inputs:
 
 # TODO: May be missing some imports form lib
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkIf mkOption types;
 
   cfg = config.denbeigh;
 in
 {
   imports = [
     home-manager.nixosModules.home-manager
+    # NOTE: This has to be defined before we import common/denbeigh.nix
+    { denbeigh.machine.isNixOS = true; }
     ../common/denbeigh.nix
   ];
 
   config = {
     nixpkgs.overlays = [ denbeigh-devtools.overlays.default ];
 
+  } // (mkIf cfg.user.enable {
     home-manager.extraSpecialArgs = {
       inherit (inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
     };
@@ -41,5 +42,5 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBrWuq0cLFKo4KKLYKF/SG3U/6/7U0o7JDHDeJOwadAf"
       ];
     };
-  };
+  });
 }

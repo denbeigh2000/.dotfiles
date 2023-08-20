@@ -51,7 +51,7 @@ mapAttrs
       extraSpecialArgs = inputs;
 
       modules = [
-        ../modules/default.nix
+        ../../modules/home-manager
         (recursiveUpdate config {
           denbeigh.isNixOS = false;
         })
