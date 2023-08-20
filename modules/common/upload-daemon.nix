@@ -1,4 +1,4 @@
-{ config, lib, nix-upload-daemon, ... }:
+{ self, config, lib, ... }:
 
 let
   inherit (config.denbeigh) machine;
@@ -44,7 +44,7 @@ in
       }
     ];
   } // mkIf cfg.enable ({
-    nixpkgs.overlays = [ nix-upload-daemon.overlays.default ];
+    nixpkgs.overlays = [ self.inputs.nix-upload-daemon.overlays.default ];
 
     age.secrets.remoteBuildSignKey = {
       file = ../../secrets/remoteBuildSignKey.age;

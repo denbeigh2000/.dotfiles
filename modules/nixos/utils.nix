@@ -1,13 +1,12 @@
-{ pkgs, agenix, ... }:
+{ self, pkgs, ... }:
 
 {
   imports = [ ./docker.nix ];
 
-  nixpkgs.overlays = [ agenix.overlays.default ];
+  nixpkgs.overlays = [ self.inputs.agenix.overlays.default ];
 
   environment.systemPackages = with pkgs; [
-    # Force use of agenix from overlay, not function argument
-    pkgs.agenix
+    agenix
     jq
     git
     htop

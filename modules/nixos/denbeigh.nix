@@ -1,9 +1,9 @@
-{ config
+{ self
+, config
 , lib
 , home-manager
-, denbeigh-devtools
 , ...
-}@inputs:
+}:
 
 # TODO: May be missing some imports form lib
 let
@@ -20,11 +20,11 @@ in
   ];
 
   config = {
-    nixpkgs.overlays = [ denbeigh-devtools.overlays.default ];
+    nixpkgs.overlays = [ self.inputs.denbeigh-devtools.overlays.default ];
 
   } // (mkIf cfg.user.enable {
     home-manager.extraSpecialArgs = {
-      inherit (inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
+      inherit (self.inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
     };
 
     users.users.${cfg.user.username} = {

@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-unstable, nixos-generators, fonts, ... }@inputs:
+{ self, nixpkgs, nixpkgs-unstable, nixos-generators, ... }@inputs:
 
 let
   localLib = import ../../lib {
@@ -18,7 +18,7 @@ let
     in
     {
       nixpkgs.overlays = [
-        fonts.overlays.default
+        self.inputs.fonts.overlays.default
         ((import ../../unstable-overlay.nix) attrs)
       ];
       system.stateVersion = "22.05"; #  Did you read the comment?

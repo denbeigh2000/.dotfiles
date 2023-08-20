@@ -1,15 +1,15 @@
-{ config, pkgs, agenix, fonts, ... }:
+{ self, config, pkgs, ... }:
 
 {
   imports = [
     ./secrets.nix
-    fonts.nixosModules.update-tool
+    self.inputs.fonts.nixosModules.update-tool
   ];
 
   config = let
     user = "font-updater";
   in {
-    nixpkgs.overlays = [ agenix.overlays.default ];
+    nixpkgs.overlays = [ self.inputs.agenix.overlays.default ];
 
     age.secrets.fontDeployKey = {
       file = ../../secrets/fontDeployKey.age;

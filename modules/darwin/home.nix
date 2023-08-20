@@ -1,16 +1,16 @@
-{ config, lib, pkgs, agenix, denbeigh-devtools, fonts, ... }@inputs:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [ ../common/denbeigh.nix ];
   config = {
     nixpkgs.overlays = [
-      agenix.overlays.default
-      denbeigh-devtools.overlays.default
-      fonts.overlays.default
+      self.inputs.agenix.overlays.default
+      self.inputs.denbeigh-devtools.overlays.default
+      self.inputs.fonts.overlays.default
     ];
 
     home-manager.extraSpecialArgs = {
-      inherit (inputs) agenix denbeigh-devtools fonts nixgl;
+      inherit (self.inputs) agenix denbeigh-devtools fonts nixgl;
     };
   };
 }
