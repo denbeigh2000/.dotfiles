@@ -28,12 +28,13 @@ let
     let
       hwPath = ./hardware/${name}.nix;
     in
-    if (pathExists hwPath) then (import hwPath self.nixosModules) else { };
+    if (pathExists hwPath) then (import hwPath) else { };
 
   buildConfig = name: cfg:
     let
-      inherit (nixpkgs.lib) nixosSystem recursiveUpdate;
-      config = recursiveUpdate cfg { host.isNixOS = true; };
+      inherit (self.inputs.nixpkgs.lib) nixosSystem recursiveUpdate;
+      cfg' = (cfg self.nixosModules);
+      config = recursiveUpdate cfg' { host.isNixOS = true; };
       hostConfig = config.config;
 
       oldModules = if hostConfig ? modules then hostConfig.modules else [ ]; 

@@ -8,4 +8,6 @@
       }];
     }
   ];
+
+  denbeigh.nix-cache.enable = false;
 }

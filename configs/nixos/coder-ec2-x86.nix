@@ -1,6 +1,7 @@
 { standard
 , aws
 , cloud
+, ...
 }:
 
 {

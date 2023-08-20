@@ -6,7 +6,7 @@
     system = "aarch64-linux";
     modules = [
       standard
-      aws-aws-aarch64
+      aws-aarch64
       {
         denbeigh.machine.hostname = "dev";
       }

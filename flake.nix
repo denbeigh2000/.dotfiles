@@ -97,18 +97,17 @@
           });
         });
 
-      nixosModules = import ./modules/nixos;
 
-      # TODO: Why are these giving infinite recursion errors?
-      # vms = mapAttrs' buildVm nixosSystemConfigs;
-      # TODO: Fix this so that it works correctly when injecting nixosModules
-      # liveusb = nixosGenerate ((nixosSystemConfigs.live nixosModules) // {
-      #   system = "x86_64-linux";
-      #   format = "iso";
-      # });
+      vms = mapAttrs' buildVm nixosSystemConfigs;
+      liveusb = nixosGenerate (nixosSystemConfigs.live // {
+        system = "x86_64-linux";
+        format = "iso";
+        specialArgs = inputs;
+      });
     in
     {
-      inherit nixosConfigurations nixosModules;
+      inherit nixosConfigurations;
+      nixosModules = import ./modules/nixos;
       darwinConfigurations = import ./configs/darwin inputs;
       homeConfigurations = import ./configs/home-manager inputs;
     } // flake-utils.lib.eachDefaultSystem (system:
@@ -131,9 +130,9 @@
     mkFlake {
       packages = {
         inherit (terraform.packages) terraform terraform-config;
-        # inherit liveusb;
+        inherit liveusb;
         inherit secret-tools;
-      };
+      } // vms;
       devShells = {
         default = pkgs.mkShell {
           name = "dotfiles-dev-shell";

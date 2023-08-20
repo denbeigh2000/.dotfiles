@@ -1,4 +1,4 @@
-{ cloud, standard }:
+{ cloud, standard, ... }:
 
 {
   config = {
