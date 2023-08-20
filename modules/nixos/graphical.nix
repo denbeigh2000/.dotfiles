@@ -9,9 +9,12 @@ let
 
 in
 {
+  imports = [
+    ../common/graphical.nix
+  ];
+
   config = mkIf graphical {
     nixpkgs.config.allowUnfree = true;
-
     users = {
       mutableUsers = true;
 
@@ -25,20 +28,13 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      alacritty
-      discord-canary
       firefox
-      nix
       openssh
       pavucontrol
       scrot
-      spotify
-      vim
     ];
 
-    console = {
-      enable = true;
-    };
+    console.enable = true;
 
     nixpkgs.config.pulseaudio = true;
     hardware.pulseaudio = {
@@ -48,9 +44,8 @@ in
       support32Bit = true;
     };
 
-
     # NOTE: We explicitly don't use provide a config here, and defer to the
-    # config populated by home-manager (see home-manager/modules/i3)
+    # config populated by home-manager (see ../home-manager/i3)
     services.xserver = {
       enable = true;
       displayManager.sddm.enable = true;
