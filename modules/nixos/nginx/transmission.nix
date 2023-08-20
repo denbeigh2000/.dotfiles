@@ -1,6 +1,5 @@
-{
-  services.nginx.virtualHosts."transmission" = {
-    serverName = "transmission.denbeigh.cloud";
-    locations."/".proxyPass = "http://localhost:9091";
-  } // (import ./utils).withTailscale;
+import ./service.nix {
+  name = "transmission";
+  backend = "http://localhost:9091";
+  tailscale = true;
 }

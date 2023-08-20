@@ -1,6 +1,5 @@
-{
-  services.nginx.virtualHosts."prowlarr" = {
-    serverName = "prowlarr.denbeigh.cloud";
-    locations."/".proxyPass = "http://localhost:9696";
-  } // (import ./utils).withTailscale;
+import ./service.nix {
+  name = "prowlarr";
+  backend = "http://localhost:9696";
+  tailscale = true;
 }

@@ -1,18 +1,19 @@
 let
-  host = "localhost:8096";
+  backend = "localhost:8096";
 in
-{
-  services.nginx.virtualHosts.jellyfin = {
-    serverName = "jellyfin.denbeigh.cloud";
+import ./service.nix {
+  name = "jellyfin";
+  inherit backend;
+  tailscale = true;
 
+  extraConfig = {
     locations = {
-      "= /web/".proxyPass = "http://${host}/web/index.html";
+      "= /web/".proxyPass = "http://${backend}/web/index.html";
       "= /".return = "302 http://$host/web/";
 
       " = socket".proxyWebsockets = true;
 
       "/" = {
-        proxyPass = "http://${host}";
         extraConfig = ''
           client_max_body_size 20M;
           proxy_buffering off;
@@ -26,5 +27,6 @@ in
         '';
       };
     };
-  } // (import ./utils).withTailscale;
+
+  };
 }

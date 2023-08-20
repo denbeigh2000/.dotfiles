@@ -26,11 +26,15 @@ in
             domain = "denbeigh.cloud";
           };
 
-          services.nix-cache = {
-            enable = true;
-            domain = "nix-cache.denbeigh.cloud";
-            keyFile = "/var/lib/denbeigh/nix-cache/serve-key";
+          services = {
+            www.enable = true;
+            nix-cache = {
+              enable = true;
+              keyFile = "/var/lib/denbeigh/nix-cache/serve-key";
+            };
           };
+
+          ahoy.enable = true;
         };
 
         # TODO: Use a more DRY setup for this

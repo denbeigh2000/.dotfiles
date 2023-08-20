@@ -1,8 +1,5 @@
-{
-  services.nginx.virtualHosts."radarr" = {
-    serverName = "radarr.denbeigh.cloud";
-    locations."/".proxyPass = "http://localhost:7878";
-  } // (import ./utils).withTailscale;
+import ./service.nix {
+  name = "radarr";
+  backend = "http://localhost:7878";
+  tailscale = true;
 }
-
-
