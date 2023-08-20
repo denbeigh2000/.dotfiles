@@ -97,11 +97,12 @@
           });
         });
 
-      vms = mapAttrs' buildVm nixosSystemConfigs;
-      liveusb = nixosGenerate (nixosSystemConfigs.live // {
-        system = "x86_64-linux";
-        format = "iso";
-      });
+      # TODO: Why are these giving infinite recursion errors?
+      # vms = mapAttrs' buildVm nixosSystemConfigs;
+      # liveusb = nixosGenerate (nixosSystemConfigs.live // {
+      #   system = "x86_64-linux";
+      #   format = "iso";
+      # });
     in
     {
       inherit nixosConfigurations;
@@ -128,9 +129,9 @@
     mkFlake {
       packages = {
         inherit (terraform.packages) terraform terraform-config;
-        inherit liveusb;
+        # inherit liveusb;
         inherit secret-tools;
-      } // vms;
+      };
       devShells = {
         default = pkgs.mkShell {
           name = "dotfiles-dev-shell";
