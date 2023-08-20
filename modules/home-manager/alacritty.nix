@@ -1,7 +1,7 @@
-{ config
+{ self
+, config
 , pkgs
 , lib
-, nixgl
 , ...
 }:
 
@@ -56,7 +56,7 @@ in
   };
 
   config = {
-    nixpkgs.overlays = [ nixgl.overlay ];
+    nixpkgs.overlays = [ self.inputs.nixgl.overlays.default ];
 
     programs.alacritty = {
       enable = true;

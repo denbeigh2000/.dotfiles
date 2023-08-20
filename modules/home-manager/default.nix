@@ -1,10 +1,7 @@
-{ config
+{ self
+, config
 , pkgs
 , lib
-, fonts
-, agenix
-, denbeigh-devtools
-, nixgl
 , ...
 }:
 
@@ -90,7 +87,7 @@ in
   };
 
   config = {
-    nixpkgs.overlays = [
+    nixpkgs.overlays = with self.inputs; [
       agenix.overlays.default
       denbeigh-devtools.overlays.default
       fonts.overlays.default

@@ -1,5 +1,5 @@
-{ denbeigh-devtools, ... }:
+{ self, ... }:
 
 {
-  nixpkgs.overlays = [ denbeigh-devtools.overlays.default ];
+  nixpkgs.overlays = [ self.inputs.denbeigh-devtools.overlays.default ];
 }

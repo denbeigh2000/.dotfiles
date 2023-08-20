@@ -1,4 +1,4 @@
-{ config, denbeigh-devtools, pkgs, ... }:
+{ self, config, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;

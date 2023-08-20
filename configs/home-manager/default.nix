@@ -1,4 +1,5 @@
-{ nixpkgs
+{ self
+, nixpkgs
 , home-manager
 , fonts
 , denbeigh-devtools
@@ -10,9 +11,8 @@
 # NixOS home-manager configurations are loaded in nixos/configs/default.nix
 
 let
-  localLib = import ../../lib { inherit (nixpkgs) lib; };
   inherit (builtins) mapAttrs;
-  inherit (localLib) loadDir;
+  inherit (self.lib) loadDir;
   inherit (nixpkgs.lib) recursiveUpdate;
 
   hosts = loadDir ./.;
@@ -48,7 +48,7 @@ mapAttrs
       inherit pkgs;
 
       # Pass flake inputs, host config to modules
-      extraSpecialArgs = inputs;
+      extraSpecialArgs = { inherit self; };
 
       modules = [
         ../../modules/home-manager
