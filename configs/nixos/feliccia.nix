@@ -1,3 +1,8 @@
+{ secrets
+, standard
+, development
+, gaming
+}:
 let
   mod = location: ../../modules/nixos/${location};
 in
@@ -5,11 +10,10 @@ in
   config = {
     system = "x86_64-linux";
     modules = [
-      (mod "secrets.nix")
-      (mod "standard.nix")
-      (mod "development.nix")
-      (mod "gaming.nix")
-      (mod "update-fonts.nix")
+      secrets
+      standard
+      development
+      gaming
       {
         boot.loader.grub = {
           enable = true;

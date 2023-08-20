@@ -1,3 +1,8 @@
+{ standard
+, secrets
+, router
+}:
+
 let
   mod = location: ../../modules/nixos/${location};
 in
@@ -5,9 +10,9 @@ in
   config = {
     system = "x86_64-linux";
     modules = [
-      (mod "standard.nix")
-      (mod "secrets.nix")
-      (mod "router")
+      standard
+      secrets
+      router
       {
         boot = {
           loader.grub = {

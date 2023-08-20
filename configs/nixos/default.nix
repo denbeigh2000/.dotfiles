@@ -28,7 +28,7 @@ let
     let
       hwPath = ./hardware/${name}.nix;
     in
-    if (pathExists hwPath) then (import hwPath) else { };
+    if (pathExists hwPath) then (import hwPath self.nixosModules) else { };
 
   buildConfig = name: cfg:
     let

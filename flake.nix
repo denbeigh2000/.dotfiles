@@ -97,18 +97,20 @@
           });
         });
 
+      nixosModules = import ./modules/nixos;
+
       # TODO: Why are these giving infinite recursion errors?
       # vms = mapAttrs' buildVm nixosSystemConfigs;
-      # liveusb = nixosGenerate (nixosSystemConfigs.live // {
+      # TODO: Fix this so that it works correctly when injecting nixosModules
+      # liveusb = nixosGenerate ((nixosSystemConfigs.live nixosModules) // {
       #   system = "x86_64-linux";
       #   format = "iso";
       # });
     in
     {
-      inherit nixosConfigurations;
+      inherit nixosConfigurations nixosModules;
       darwinConfigurations = import ./configs/darwin inputs;
       homeConfigurations = import ./configs/home-manager inputs;
-      nixosModules = import ./modules/nixos;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs-unstable = import nixpkgs-unstable { inherit system; };

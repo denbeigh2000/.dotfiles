@@ -1,3 +1,15 @@
+{ cloud
+, www
+, ahoy
+, ci
+, nix-cache
+, secrets
+, standard
+, tailscale
+, terraform
+, ...
+}:
+
 let
   mod = location: ../../modules/nixos/${location};
 in
@@ -10,15 +22,15 @@ in
         services.openssh.enable = true;
         networking.firewall.allowedTCPPorts = [ 22 ];
       }
-      (mod "cloud")
-      (mod "nginx")
-      (mod "ahoy.nix")
-      (mod "ci.nix")
-      (mod "nix-cache.nix")
-      (mod "secrets.nix")
-      (mod "standard.nix")
-      (mod "tailscale.nix")
-      (mod "terraform.nix")
+      cloud
+      www
+      ahoy
+      ci
+      nix-cache
+      secrets
+      standard
+      tailscale
+      terraform
       {
         denbeigh = {
           machine = {

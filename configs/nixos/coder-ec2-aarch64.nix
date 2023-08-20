@@ -1,10 +1,12 @@
+{ standard, aws-aarch64, cloud, ... }:
+
 {
   # General config to pass to nixosSystem
   config = {
     system = "aarch64-linux";
     modules = [
-      ../../modules/nixos/standard.nix
-      ../../modules/nixos/cloud/aws/aarch64.nix
+      standard
+      aws-aws-aarch64
       {
         denbeigh.machine.hostname = "dev";
       }

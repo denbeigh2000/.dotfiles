@@ -1,12 +1,19 @@
+{ standard
+, cloud
+, aws-aarch64
+, ...
+}:
+
 {
   config = {
     system = "aarch64-linux";
     modules = [
-      ../../modules/nixos/standard.nix
-      ../../modules/nixos/cloud/aws/aarch64.nix
-      ../../modules/nixos/cloud
+      standard
+      cloud
+      aws-aarch64
       {
         denbeigh.machine.hostname = "plain";
+        denbeigh.user.enable = false;
       }
     ];
   };
