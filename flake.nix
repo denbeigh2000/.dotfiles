@@ -75,8 +75,8 @@
     , nixpkgs-unstable
     , home-manager
     , flake-utils
-    , fonts
     , agenix
+    , fonts
     , terraform-providers-bin
     , nixos-generators
     , ...
@@ -85,7 +85,7 @@
       inherit (builtins) mapAttrs;
       inherit (nixpkgs.lib) nixosSystem mapAttrs';
       inherit (nixos-generators) nixosGenerate;
-      nixosSystemConfigs = import ./configs/nixos inputs;
+      nixosSystemConfigs = import ./configs/nixos { inherit self; };
       nixosConfigurations = mapAttrs (_: cfg: nixosSystem cfg) nixosSystemConfigs;
 
       buildVm =
@@ -104,12 +104,20 @@
         format = "iso";
         specialArgs = inputs;
       });
+
+      unstable-overlay = (import ./unstable-overlay.nix {
+        inherit (inputs) nixpkgs-unstable noisetorch-src;
+      });
     in
     {
       inherit nixosConfigurations;
       nixosModules = import ./modules/nixos;
+
       darwinConfigurations = import ./configs/darwin inputs;
+
       homeConfigurations = import ./configs/home-manager inputs;
+
+      overlays.unstable-pkgs = unstable-overlay;
     } // flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs-unstable = import nixpkgs-unstable { inherit system; };
@@ -118,7 +126,7 @@
         overlays = [
           agenix.overlays.default
           fonts.overlays.default
-          (import ./unstable-overlay.nix (inputs // { inherit pkgs-unstable; }))
+          unstable-overlay
         ];
       };
       tf-providers = import terraform-providers-bin { inherit system; };
@@ -138,7 +146,7 @@
           name = "dotfiles-dev-shell";
           packages = [
             pkgs.age
-            agenix.packages.${system}.agenix
+            pkgs.agenix
             home-manager.packages.${system}.default
             secret-tools
           ];

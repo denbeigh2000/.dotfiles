@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ self, config, pkgs, lib, ... }:
 
 let
   inherit (pkgs) nix;
@@ -8,6 +8,8 @@ in
 
 {
   imports = [
+    self.inputs.agenix.nixosModules.default
+
     ../common/standard.nix
     ../common/variables.nix
     # TODO: Expose these as top-level modules, import them through `self.nixosModules`

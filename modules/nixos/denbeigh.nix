@@ -1,7 +1,6 @@
 { self
 , config
 , lib
-, home-manager
 , ...
 }:
 

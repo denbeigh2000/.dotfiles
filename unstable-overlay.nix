@@ -1,10 +1,16 @@
-{ pkgs-unstable
+{ nixpkgs-unstable
 # , goi3bar-src
 , noisetorch-src
 , ...
 }:
 
-final: prev: {
+final: prev:
+let
+  pkgs-unstable = import nixpkgs-unstable {
+    inherit (prev.stdenvNoCC.hostPlatform) system;
+  };
+in
+{
   # These are very far apart, and have large feature gaps
   inherit (pkgs-unstable) radarr sonarr prowlarr;
 
