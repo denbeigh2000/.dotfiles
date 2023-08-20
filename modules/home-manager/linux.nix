@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ self, config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf mkOption types;
@@ -8,7 +8,7 @@ in
 {
   imports = [ ./noisetorch.nix ./i3 ./autorandr ];
 
-  options.denbeigh.location = lib.options.location;
+  options.denbeigh.location = self.lib.options.location;
 
   config = mkIf isLinux (
     let
@@ -16,7 +16,7 @@ in
       enableRedshift = graphical && isLinux && location != null;
       graphicalPackages = with pkgs; [ nitrogen ];
 
-      coords = if location != null then location else { };
+      coords = if location != null then location.coordinates else { };
     in
     {
       home = {
