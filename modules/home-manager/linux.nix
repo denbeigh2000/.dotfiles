@@ -8,27 +8,7 @@ in
 {
   imports = [ ./noisetorch.nix ./i3 ./autorandr ];
 
-  options.denbeigh.location = mkOption {
-    type = types.nullOr (types.submodule {
-      options = {
-        latitude = mkOption {
-          type = types.float;
-        };
-
-        longitude = mkOption {
-          type = types.float;
-        };
-      };
-    });
-    default = { };
-    description = ''
-      Coordinates of the machine.
-      Currently only used for redshift.
-
-      redshift will be disabled on graphical machines where this is not
-      provided.
-    '';
-  };
+  options.denbeigh.location = lib.options.location;
 
   config = mkIf isLinux (
     let

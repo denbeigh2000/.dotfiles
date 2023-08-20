@@ -110,6 +110,8 @@
       });
     in
     {
+      lib = import ./lib { inherit (nixpkgs) lib; };
+
       inherit nixosConfigurations;
       nixosModules = import ./modules/nixos;
 

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, agenix, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.denbeigh;

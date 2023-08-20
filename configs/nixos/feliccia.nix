@@ -20,13 +20,7 @@
               machine = {
                 hostname = "feliccia";
                 graphical = true;
-                location = {
-                  timezone = "America/Los_Angeles";
-                  coordinates = {
-                    latitude = 37.7749;
-                    longitude = -122.4194;
-                  };
-                };
+                location = self.lib.locations.sf;
               };
 
               webcam = {

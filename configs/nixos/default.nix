@@ -1,14 +1,7 @@
 { self }:
 
 let
-  localLib = import ../../lib {
-    inherit (self.inputs.nixpkgs) lib;
-  };
-
   inherit (builtins) mapAttrs path pathExists;
-  inherit (localLib) loadDir;
-
-  configs = loadDir ./.;
 
   defaults = {
     nixpkgs.overlays = [
@@ -41,4 +34,4 @@ let
     });
 
 in
-mapAttrs buildConfig configs
+mapAttrs buildConfig (self.lib.loadDir ./.)

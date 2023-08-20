@@ -1,12 +1,12 @@
-{ pkgs, lib, config, agenix, nix-upload-daemon, ... }:
+{ self, pkgs, lib, config, ... }:
 
 let
   inherit (config.denbeigh) machine;
 in
 {
   imports = [
-    agenix.darwinModules.default
-    nix-upload-daemon.darwinModules.default
+    self.inputs.agenix.darwinModules.default
+    self.inputs.nix-upload-daemon.darwinModules.default
     ../common/upload-daemon.nix
   ];
 

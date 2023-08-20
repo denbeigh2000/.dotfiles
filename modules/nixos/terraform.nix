@@ -1,8 +1,12 @@
-{ config, pkgs, terraform-providers-bin, ... }:
+{ self, config, pkgs, ... }:
 
 let
-  tf-providers = import terraform-providers-bin { inherit (pkgs.stdenv) system; };
-  tf = (import ../../terraform { inherit pkgs tf-providers; }).packages;
+  tf-providers = import self.inputs.terraform-providers-bin {
+    inherit (pkgs.stdenv) system;
+  };
+  tf = (import ../../terraform {
+    inherit pkgs tf-providers;
+  }).packages;
 
   applyTerraform = pkgs.writeShellScriptBin "apply-terraform" ''
     set -euo pipefail

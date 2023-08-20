@@ -40,7 +40,7 @@
 
               machine = {
                 hostname = "faye";
-                location.timezone = "America/Los_Angeles";
+                location = self.lib.locations.sf;
               };
             };
 

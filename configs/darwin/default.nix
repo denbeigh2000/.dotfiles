@@ -1,11 +1,7 @@
-{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager, nix-upload-daemon, ... }@inputs:
-
+{ self, nixpkgs, darwin, home-manager, ... }:
 let
   localLib = import ../../lib { inherit (nixpkgs) lib; };
   inherit (nixpkgs.lib) mapAttrs;
-  inherit (localLib) loadDir;
-
-  hosts = loadDir ./.;
 
   buildConfig = _: cfg:
     let
@@ -19,9 +15,7 @@ let
     darwinSystem (cfg // {
       modules = extraModules ++ cfg.modules;
 
-      specialArgs = {
-        inherit (inputs) self denbeigh-devtools agenix fonts nixgl nix-upload-daemon;
-      };
+      specialArgs = { inherit self; };
     });
 in
-mapAttrs buildConfig hosts
+mapAttrs buildConfig (self.lib.loadDir ./.)
