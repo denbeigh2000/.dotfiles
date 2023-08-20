@@ -15,13 +15,12 @@ let
         home-manager.darwinModules.home-manager
       ];
 
-      modules = extraModules ++ cfg.modules;
     in
     darwinSystem (cfg // {
-      inherit modules;
+      modules = extraModules ++ cfg.modules;
 
       specialArgs = {
-        inherit (inputs) denbeigh-devtools agenix fonts nixgl nix-upload-daemon;
+        inherit (inputs) self denbeigh-devtools agenix fonts nixgl nix-upload-daemon;
       };
     });
 in

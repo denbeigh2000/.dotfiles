@@ -1,5 +1,3 @@
-{ cloud, standard, ... }:
-
 {
   config = {
     system = "x86_64-linux";
@@ -8,10 +6,10 @@
         services.openssh.enable = true;
         networking.firewall.allowedTCPPorts = [ 22 ];
       }
-      cloud
-      standard
-      ({ modulesPath, ... }: {
+      ({ self, modulesPath, ... }: {
         imports = [
+          self.nixosModules.cloud
+          self.nixosModules.standard
           "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
         ];
       })

@@ -1,11 +1,13 @@
 {
   system = "aarch64-darwin";
   modules = [
+    { self, ... }:
     {
-      imports = [
-        ../../modules/darwin/standard.nix
-        ../../modules/darwin/tailscale.nix
+      imports = with self.nixosModules; [
+        standard
+        tailscale
       ];
+
       config.denbeigh = {
         machine = {
           hostname = "lucifer";

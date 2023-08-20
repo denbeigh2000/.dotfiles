@@ -1,9 +1,12 @@
 {
   system = "aarch64-darwin";
   modules = [
-    ../../modules/darwin/standard.nix
-    ../../modules/darwin/tailscale.nix
+    { self, ... }:
     {
+      imports = with self.nixosModules; [
+        standard
+        tailscale
+      ];
       config = {
         denbeigh = {
           nix-cache.enable = false;

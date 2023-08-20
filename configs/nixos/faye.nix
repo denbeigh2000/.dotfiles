@@ -1,56 +1,53 @@
-{ standard
-, router
-, ...
-}:
-
-let
-  mod = location: ../../modules/nixos/${location};
-in
 {
   config = {
     system = "x86_64-linux";
     modules = [
-      standard
-      router
-      {
-        boot = {
-          loader.grub = {
-            enable = true;
-            version = 2;
-            device = "/dev/sda";
-          };
-          kernelParams = [
-            "console=ttyS0,115200"
-            "console=tty1"
+      ({ self, ... }:
+        {
+          imports = with self.nixosModules; [
+            standard
+            router
           ];
-        };
-
-        services.openssh = {
-          enable = true;
-          openFirewall = false;
-        };
-
-        denbeigh = {
-          services = {
-            router = {
-              enable = true;
-              interfaces = {
-                lan = "eno4";
-                wan = "eno2";
+          config = {
+            boot = {
+              loader.grub = {
+                enable = true;
+                version = 2;
+                device = "/dev/sda";
               };
-              ddns.enable = true;
+              kernelParams = [
+                "console=ttyS0,115200"
+                "console=tty1"
+              ];
             };
-          };
 
-          machine = {
-            hostname = "faye";
-            location.timezone = "America/Los_Angeles";
-          };
-        };
+            services.openssh = {
+              enable = true;
+              openFirewall = false;
+            };
 
-        # TODO: Use a more DRY setup for this
-        age.identityPaths = [ "/var/lib/denbeigh/host_key" ];
-      }
+            denbeigh = {
+              services = {
+                router = {
+                  enable = true;
+                  interfaces = {
+                    lan = "eno4";
+                    wan = "eno2";
+                  };
+                  ddns.enable = true;
+                };
+              };
+
+              machine = {
+                hostname = "faye";
+                location.timezone = "America/Los_Angeles";
+              };
+            };
+
+            # TODO: Use a more DRY setup for this
+            age.identityPaths = [ "/var/lib/denbeigh/host_key" ];
+          };
+        })
     ];
   };
 }

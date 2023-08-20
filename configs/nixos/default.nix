@@ -28,10 +28,8 @@ let
 
   buildConfig = name: cfg:
     let
-      inherit (self.inputs.nixpkgs.lib) nixosSystem recursiveUpdate;
-      config = (recursiveUpdate
-        (cfg self.nixosModules)
-        { host.isNixOS = true; });
+      inherit (self.inputs.nixpkgs.lib) recursiveUpdate;
+      config = recursiveUpdate cfg { host.isNixOS = true; };
       hostConfig = config.config;
 
       oldModules = if hostConfig ? modules then hostConfig.modules else [ ];
