@@ -51,6 +51,17 @@ in
           };
 
           tailscale = mkEnableOption "tailscale proxy serving";
+
+          tailscaleIP = mkOption {
+            # NOTE: This defaults bruce's tailscale IP
+            # TODO: Use interface name instead somehow?
+            default = "100.110.24.108";
+            type = types.str;
+            description = ''
+              Tailscale IP to serve tailscale services on.
+            '';
+          };
+
           ssl = mkOption {
             default = true;
             type = types.bool;
@@ -96,9 +107,6 @@ in
       } // (
         # Build our dynamic list of hosts from configuration
         let
-          # TODO: Bind this to the interface name instead somehow?
-          tailscaleIP = "100.110.24.108";
-
           buildService = service:
             let
               enableSSL = service.ssl || service.tailscale;
@@ -110,7 +118,7 @@ in
                 acmeRoot = null;
               };
 
-              tailscale = mkIf service.tailscale (import ./tailscale.nix tailscaleIP);
+              tailscale = mkIf service.tailscale (import ./tailscale.nix cfg.tailscaleIP);
 
               config = recursiveUpdate service.extraConfig {
                 serverName = "${service.name}.${cfg.baseDomain}";
