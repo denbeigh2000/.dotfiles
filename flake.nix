@@ -116,6 +116,7 @@
       nixosModules = import ./modules/nixos;
 
       darwinConfigurations = import ./configs/darwin inputs;
+      darwinModules = import ./modules/darwin;
 
       homeConfigurations = import ./configs/home-manager inputs;
 

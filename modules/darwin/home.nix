@@ -3,10 +3,10 @@
 {
   imports = [ ../common/denbeigh.nix ];
   config = {
-    nixpkgs.overlays = [
-      self.inputs.agenix.overlays.default
-      self.inputs.denbeigh-devtools.overlays.default
-      self.inputs.fonts.overlays.default
+    nixpkgs.overlays = with self.inputs; [
+      agenix.overlays.default
+      denbeigh-devtools.overlays.default
+      fonts.overlays.default
     ];
 
     home-manager.extraSpecialArgs = {

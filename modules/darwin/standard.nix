@@ -1,18 +1,18 @@
-{ config, pkgs, lib, ... }:
+{ self, config, pkgs, lib, ... }:
 
 let
   cfg = config.denbeigh;
 in
 {
-  imports = [
+  imports = (with self.darwinModules; [
+    graphical
+    use-nix-cache
+    home
+    system-options
+    upload-daemon
+  ]) ++ [
     ../common/standard.nix
     ../common/variables.nix
-
-    ./graphical.nix
-    ./use-nix-cache.nix
-    ./home.nix
-    ./system-options.nix
-    ./upload-daemon.nix
   ];
 
   config = {
