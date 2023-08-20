@@ -6,7 +6,7 @@ let
   cfg = config.denbeigh.services.nix-cache;
 in
 {
-  imports = [ ./nginx/nix-cache.nix ];
+  imports = [ ./nginx ];
 
   # NOTE: Subtly different from denbeigh.nix-cache (adds .services)
   options.denbeigh.services.nix-cache = {

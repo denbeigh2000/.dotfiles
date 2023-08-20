@@ -11,7 +11,6 @@ let
   inherit (lib) mkEnableOption mkIf mkOption types;
 in
 {
-  imports = [ ./default.nix ];
   options.denbeigh.services.www.${name} = {
     enable = mkEnableOption "${name} web service";
 

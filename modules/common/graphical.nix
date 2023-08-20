@@ -1,12 +1,17 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkOption types;
   cfg = config.denbeigh.machine;
 in
 {
-  # NOTE: We split this into a separate import because Nix has an infinite
-  # recursion if we use pkgs in graphical-inner
-  imports = [ ./graphical-inner.nix ];
+  options.denbeigh.machine.graphical = mkOption {
+    type = types.bool;
+    default = false;
+    description = ''
+      Whether this machine will be used interactively.
+    '';
+  };
+
   config = mkIf cfg.graphical {
     environment.systemPackages = with pkgs; [
       alacritty

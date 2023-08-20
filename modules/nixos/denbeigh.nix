@@ -12,22 +12,24 @@ let
 in
 {
   imports = [
-    home-manager.nixosModules.home-manager
-    # NOTE: This has to be defined before we import common/denbeigh.nix
-    { denbeigh.machine.isNixOS = true; }
+    self.inputs.home-manager.nixosModules.home-manager
+    # NOTE: These have to be defined before we import common/denbeigh.nix
+    {
+      denbeigh.machine.isNixOS = true;
+      users.users.${cfg.user.username}.isNormalUser = true;
+    }
     ../common/denbeigh.nix
   ];
 
   config = {
     nixpkgs.overlays = [ self.inputs.denbeigh-devtools.overlays.default ];
-
   } // (mkIf cfg.user.enable {
     home-manager.extraSpecialArgs = {
       inherit (self.inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
     };
 
     users.users.${cfg.user.username} = {
-      isNormalUser = true;
+      # isNormalUser is defined in imports above, see comment
       extraGroups = [ "docker" "wheel" ];
       shell = cfg.user.shell;
 
