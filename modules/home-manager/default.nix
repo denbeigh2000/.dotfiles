@@ -91,10 +91,10 @@ in
 
   config = {
     nixpkgs.overlays = [
-      agenix.overlay
+      agenix.overlays.default
       denbeigh-devtools.overlays.default
       fonts.overlays.default
-      nixgl.overlay
+      nixgl.overlays.default
     ];
 
 
