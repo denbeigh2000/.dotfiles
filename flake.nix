@@ -113,12 +113,12 @@
       lib = import ./lib { inherit (nixpkgs) lib; };
 
       inherit nixosConfigurations;
-      nixosModules = import ./modules/nixos;
-
       darwinConfigurations = import ./configs/darwin inputs;
-      darwinModules = import ./modules/darwin;
-
       homeConfigurations = import ./configs/home-manager inputs;
+
+      nixosModules = import ./modules/nixos;
+      darwinModules = import ./modules/darwin;
+      homeManagerModules = import ./modules/home-manager;
 
       overlays.unstable-pkgs = unstable-overlay;
     } // flake-utils.lib.eachDefaultSystem (system:

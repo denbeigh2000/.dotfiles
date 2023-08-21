@@ -26,7 +26,7 @@ rec {
 
   locations = rec {
     sf = {
-      coodinates = {
+      coordinates = {
         latitude = 37.773972;
         longitude = -122.431297;
       };
@@ -99,16 +99,18 @@ rec {
       inherit (lib.types) submodule float str;
     in
     rec {
-      coordinates = submodule {
-        options = {
-          inherit (options) latitude longitude;
-        };
-      };
 
       location = submodule {
         options = {
           inherit (options) coordinates timeZone;
         };
       };
+
+      coordinates = submodule {
+        options = {
+          inherit (options) latitude longitude;
+        };
+      };
     };
+
 }

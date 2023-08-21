@@ -8,15 +8,18 @@ in
 {
   imports = [ ./noisetorch.nix ./i3 ./autorandr ];
 
-  options.denbeigh.location = self.lib.options.location;
-
   config = mkIf isLinux (
     let
       inherit (config.denbeigh) graphical isNixOS location;
-      enableRedshift = graphical && isLinux && location != null;
+
+      hasCoordinates = (
+        location != null &&
+        location ? coordinates
+      );
+      enableRedshift = graphical && isLinux && hasCoordinates;
       graphicalPackages = with pkgs; [ nitrogen ];
 
-      coords = if location != null then location.coordinates else { };
+      coords = if hasCoordinates then location.coordinates else { };
     in
     {
       home = {
