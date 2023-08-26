@@ -35,6 +35,12 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    denbeigh-neovim = {
+      url = "github:denbeigh2000/neovim-nix/nixos-23.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     terraform-providers-bin = {
       url = "github:nix-community/nixpkgs-terraform-providers-bin";
       inputs.nixpkgs.follows = "nixpkgs";
