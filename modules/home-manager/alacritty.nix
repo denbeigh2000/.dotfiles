@@ -6,12 +6,12 @@
 }:
 
 let
-  inherit (lib) types mkOption;
+  inherit (lib) mkIf mkOption types;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.denbeigh) hostname isNixOS;
 
   # We only need to explicitly wrap if we're on linux and we are _not_ on NixOS
-  inherit (config.denbeigh.alacritty) shouldGlWrap fontSize fontFamily;
+  inherit (config.denbeigh.alacritty) enable shouldGlWrap fontSize fontFamily;
   tools = pkgs.callPackage ./lib { };
   package = (
     if shouldGlWrap
@@ -23,7 +23,7 @@ in
   options.denbeigh.alacritty = {
     enable = mkOption {
       type = types.bool;
-      default = config.denbeigh.machine.graphical;
+      default = config.denbeigh.graphical;
       description = ''
         Whether to install and manage Alacritty.
       '';
@@ -54,7 +54,7 @@ in
     };
   };
 
-  config = {
+  config = mkIf enable {
     nixpkgs.overlays = [ self.inputs.nixgl.overlays.default ];
 
     programs.alacritty = {
