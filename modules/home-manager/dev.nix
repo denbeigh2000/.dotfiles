@@ -4,32 +4,40 @@
   options =
     let
       inherit (lib) mkOption types;
-      isWork = config.denbeigh.work;
+
+      cfg = config.denbeigh.dev;
     in
     {
-      denbeigh.dev.languages = {
-        go.enable = mkOption {
-          description = "Install Golang build tools";
+      denbeigh.dev = {
+        enable = mkOption {
+          description = "Whether to manage the default set of build tools";
           type = types.bool;
-          default = !isWork;
+          default = !config.denbeigh.work;
         };
+        languages = {
+          go.enable = mkOption {
+            description = "Install Golang build tools";
+            type = types.bool;
+            default = cfg.enable;
+          };
 
-        rust.enable = mkOption {
-          description = "Install Rust build tools";
-          type = types.bool;
-          default = !isWork;
-        };
+          rust.enable = mkOption {
+            description = "Install Rust build tools";
+            type = types.bool;
+            default = cfg.enable;
+          };
 
-        node.enable = mkOption {
-          description = "Install NodeJS build tools";
-          type = types.bool;
-          default = !isWork;
-        };
+          node.enable = mkOption {
+            description = "Install NodeJS build tools";
+            type = types.bool;
+            default = cfg.enable;
+          };
 
-        python.enable = mkOption {
-          description = "Install Python build tools";
-          type = types.bool;
-          default = !isWork;
+          python.enable = mkOption {
+            description = "Install Python build tools";
+            type = types.bool;
+            default = cfg.enable;
+          };
         };
       };
     };
