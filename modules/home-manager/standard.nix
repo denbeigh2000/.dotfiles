@@ -20,6 +20,7 @@ in
   imports = with self.homeManagerModules; [
     dev
     git
+    htop
     zsh
     linux
     graphical
@@ -115,21 +116,6 @@ in
       aria2.enable = true;
       fzf.enable = true;
       gh.enable = true;
-      htop = {
-        enable = true;
-        settings = {
-          # fields = htopFields;
-        } // (with config.lib.htop; leftMeters [
-          (bar "AllCPUs2")
-          (bar "Memory")
-          (bar "Swap")
-          (text "Zram")
-        ]) // (with config.lib.htop; rightMeters ([
-          (text "Tasks")
-          (text "LoadAverage")
-          (text "Uptime")
-        ] ++ (if !isDarwin then [ (text "Systemd") ] else [ ])));
-      };
       jq.enable = !config.denbeigh.work;
       tmux.enable = true;
 

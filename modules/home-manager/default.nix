@@ -4,6 +4,7 @@ let
   paths = {
     dev = ./dev.nix;
     git = ./git.nix;
+    htop = ./htop.nix;
     zsh = ./zsh;
     linux = ./linux.nix;
     graphical = ./graphical.nix;
@@ -13,4 +14,4 @@ let
     webcam = ./webcam.nix;
   };
 in
-mapAttrs(_: path: import path) paths
+mapAttrs (_: path: import path) paths
