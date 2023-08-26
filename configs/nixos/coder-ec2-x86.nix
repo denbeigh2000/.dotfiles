@@ -4,7 +4,11 @@
     modules = [
       ({ self, ... }:
         {
-          imports = with self.nixosModules; [ standard aws cloud ];
+          imports = [
+            ../../modules/nixos/standard.nix
+            ../../modules/nixos/cloud/aws
+            ../../modules/nixos/cloud
+          ];
           config = {
             denbeigh.machine.hostname = "dev";
           };

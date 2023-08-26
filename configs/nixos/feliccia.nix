@@ -4,10 +4,10 @@
     modules = [
       ({ self, ... }:
         {
-          imports = with self.nixosModules; [
-            standard
-            development
-            gaming
+          imports = [
+            ../../modules/nixos/standard.nix
+            ../../modules/nixos/development.nix
+            ../../modules/nixos/gaming.nix
           ];
           config = {
             boot.loader.grub = {

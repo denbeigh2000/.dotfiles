@@ -8,7 +8,10 @@ in
 {
   # Ensures services.nix-cache options are defined
   # (but they're disabled by default)
-  imports = [ ./nix-cache.nix ../common/use-nix-cache.nix ];
+  imports = [
+    ./nix-cache.nix
+    ../common/use-nix-cache.nix
+  ];
 
   config.denbeigh.nix-cache.enable = mkDefault (!config.denbeigh.services.nix-cache.enable);
 }

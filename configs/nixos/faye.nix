@@ -4,9 +4,9 @@
     modules = [
       ({ self, ... }:
         {
-          imports = with self.nixosModules; [
-            standard
-            router
+          imports = [
+            ../../modules/nixos/standard.nix
+            ../../modules/nixos/router
           ];
           config = {
             boot = {

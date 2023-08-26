@@ -8,8 +8,8 @@
       }
       ({ self, modulesPath, ... }: {
         imports = [
-          self.nixosModules.cloud
-          self.nixosModules.standard
+          ../../modules/nixos/cloud
+          ../../modules/nixos/standard.nix
           "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
         ];
       })

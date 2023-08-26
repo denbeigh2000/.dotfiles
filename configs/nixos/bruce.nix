@@ -9,15 +9,19 @@
       }
       ({ self, ... }:
         {
-          imports = with self.nixosModules; [
-            cloud
-            www
-            ahoy
-            ci
-            nix-cache
-            standard
-            tailscale
-            terraform
+          imports = [
+            # NOTE: Deduping imports from flake modules is broken(?)
+            # https://github.com/NixOS/nix/issues/7270
+            # Can't easily re-use from self.nixosModules (either here
+            # or within) until resolved
+            ../../modules/nixos/cloud
+            ../../modules/nixos/nginx
+            ../../modules/nixos/ahoy.nix
+            ../../modules/nixos/ci.nix
+            ../../modules/nixos/nix-cache.nix
+            ../../modules/nixos/standard.nix
+            ../../modules/nixos/tailscale.nix
+            ../../modules/nixos/terraform.nix
           ];
           config = {
             denbeigh = {

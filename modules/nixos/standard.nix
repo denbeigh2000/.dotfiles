@@ -12,7 +12,6 @@ in
 
     ../common/standard.nix
     ../common/variables.nix
-    # TODO: Expose these as top-level modules, import them through `self.nixosModules`
     ./denbeigh.nix
     ./utils.nix
     ./graphical.nix
