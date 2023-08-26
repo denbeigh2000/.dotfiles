@@ -30,21 +30,30 @@ rec {
         latitude = 37.773972;
         longitude = -122.431297;
       };
-      timeZone = "America/Los_Angeles";
+      timezone = "America/Los_Angeles";
     };
     sydney = {
       coordinates = {
         latitude = -33.865143;
         longitude = 151.209900;
       };
-      timeZone = "Australia/Sydney";
+      timezone = "Australia/Sydney";
     };
     utc = {
       coordinates = {
         latitude = 0.0;
         longitude = 0.0;
       };
-      timeZone = "UTC";
+      timezone = "UTC";
+    };
+
+    # travelling
+    milwaukee = {
+      coordinates = {
+        latitude = 43.0389025;
+        longitude = -87.9064736;
+      };
+      timezone = "America/Central";
     };
 
     default = utc;
@@ -81,9 +90,9 @@ rec {
         '';
       };
 
-      timeZone = mkOption {
+      timezone = mkOption {
         type = str;
-        default = locations.default.timeZone;
+        default = locations.default.timezone;
         description = ''
           Time zone of the machine.
           Used for setting system time.
@@ -102,7 +111,7 @@ rec {
 
       location = submodule {
         options = {
-          inherit (options) coordinates timeZone;
+          inherit (options) coordinates timezone;
         };
       };
 
