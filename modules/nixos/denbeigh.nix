@@ -24,9 +24,7 @@ in
   config = {
     nixpkgs.overlays = [ self.inputs.denbeigh-devtools.overlays.default ];
   } // (mkIf cfg.user.enable {
-    home-manager.extraSpecialArgs = {
-      inherit (self.inputs) agenix denbeigh-devtools fonts nixgl noisetorch-src;
-    };
+    home-manager.extraSpecialArgs = { inherit self; };
 
     users.users.${cfg.user.username} = {
       # isNormalUser is defined in imports above, see comment

@@ -8,7 +8,6 @@ let
       inherit (darwin.lib) darwinSystem;
       extraModules = [
         { nixpkgs.overlays = [ self.overlays.unstable-pkgs ]; }
-        home-manager.darwinModules.home-manager
       ];
 
     in

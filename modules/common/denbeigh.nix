@@ -56,7 +56,7 @@ in
       useUserPackages = true;
 
       users.${cfg.user.username} = {
-        imports = [ ../home-manager ];
+        imports = [ self.homeManagerModules.standard ];
 
         denbeigh = {
           inherit (cfg.machine) graphical hostname work isNixOS;
