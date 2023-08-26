@@ -39,6 +39,7 @@
               };
 
               ahoy.enable = true;
+              tailscale.enable = true;
             };
 
             # TODO: Use a more DRY setup for this

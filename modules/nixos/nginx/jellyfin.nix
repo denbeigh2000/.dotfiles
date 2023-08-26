@@ -1,5 +1,5 @@
 let
-  backend = "localhost:8096";
+  backend = "http://localhost:8096";
 in
 import ./service.nix {
   name = "jellyfin";
@@ -8,7 +8,7 @@ import ./service.nix {
 
   extraConfig = {
     locations = {
-      "= /web/".proxyPass = "http://${backend}/web/index.html";
+      "= /web/".proxyPass = "${backend}/web/index.html";
       "= /".return = "302 http://$host/web/";
 
       " = socket".proxyWebsockets = true;
