@@ -13,6 +13,7 @@ in
   };
 
   config = mkIf cfg.graphical {
+    # NOTE: Not compatible with home-manager
     environment.systemPackages = with pkgs; [
       alacritty
       discord-canary

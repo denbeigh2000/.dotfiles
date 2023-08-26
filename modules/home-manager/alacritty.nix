@@ -23,7 +23,7 @@ in
   options.denbeigh.alacritty = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = config.denbeigh.machine.graphical;
       description = ''
         Whether to install and manage Alacritty.
       '';
@@ -31,7 +31,6 @@ in
 
     shouldGlWrap = mkOption {
       type = types.bool;
-      # NOTE: Will this be OK?
       default = (isLinux && !isNixOS);
       description = ''
         Whether to wrap Alacritty in NixGL.
