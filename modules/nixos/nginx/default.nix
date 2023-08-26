@@ -109,26 +109,32 @@ in
         let
           buildService = service:
             let
+              addr = (if service.tailscale
+              then service.tailscaleIP
+              else "0.0.0.0");
+
               enableSSL = service.ssl || service.tailscale;
-
-              ssl = mkIf enableSSL {
-                enableACME = true;
-                forceSSL = true;
-                # Must be null to enforce using DNS challenge default
-                acmeRoot = null;
-              };
-
-              tailscale = mkIf service.tailscale (import ./tailscale.nix service.tailscaleIP);
-
-              config = recursiveUpdate service.extraConfig {
-                serverName = "${service.name}.${cfg.baseDomain}";
-                locations."/".proxyPass = service.backend;
-              };
             in
             {
               inherit (service) name;
-              value = config // ssl // tailscale;
+              # value = config // ssl // tailscale;
+              value = (recursiveUpdate service.extraConfig {
+                serverName = "${service.name}.${cfg.baseDomain}";
+                locations."/".proxyPass = service.backend;
+
+                enableACME = enableSSL;
+                forceSSL = enableSSL;
+                # Must be null to enforce using DNS challenge default
+                acmeRoot = mkIf enableSSL null;
+
+                listen = [{ inherit addr; port = 80; }] ++
+                  (if enableSSL
+                  then [{ inherit addr; port = 443; ssl = true; }]
+                  else [ ]);
+              });
             };
+
+          # buildService = s: builtins.trace (buildService' s).value (buildService' s);
         in
         listToAttrs (map buildService cfg.services)
       );
