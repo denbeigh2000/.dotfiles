@@ -89,14 +89,6 @@ in
   };
 
   config = {
-    nixpkgs.overlays = with self.inputs; [
-      agenix.overlays.default
-      denbeigh-devtools.overlays.default
-      fonts.overlays.default
-      nixgl.overlays.default
-    ];
-
-
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
     home = {

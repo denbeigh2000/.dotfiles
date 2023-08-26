@@ -2,7 +2,6 @@
 
 let
   inherit (pkgs) alacritty writeShellScriptBin;
-  inherit (pkgs.denbeigh.fonts) sf-mono;
   inherit (lib) mkIf;
   inherit (config.denbeigh.user) username;
   inherit (config.denbeigh.machine) graphical;
