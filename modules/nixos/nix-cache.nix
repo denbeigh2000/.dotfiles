@@ -30,7 +30,7 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHn3tzQJW1Fwt3n5xSK+V6MhS7ULddEW0mTNcrigHbp0"
       ];
     };
-    users.groups.nix-copy-receiver = {};
+    users.groups.nix-copy-receiver = { };
 
     services.harmonia = {
       enable = true;

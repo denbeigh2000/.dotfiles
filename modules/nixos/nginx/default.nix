@@ -118,7 +118,7 @@ in
                 acmeRoot = null;
               };
 
-              tailscale = mkIf service.tailscale (import ./tailscale.nix cfg.tailscaleIP);
+              tailscale = mkIf service.tailscale (import ./tailscale.nix service.tailscaleIP);
 
               config = recursiveUpdate service.extraConfig {
                 serverName = "${service.name}.${cfg.baseDomain}";

@@ -51,6 +51,13 @@ in
   };
 
   config = {
+    nixpkgs.overlays = [
+      self.inputs.agenix.overlays.default
+      self.inputs.nixgl.overlays.default
+      self.inputs.denbeigh-neovim.overlays.default
+      self.inputs.denbeigh-devtools.overlays.default
+    ];
+
     home-manager = mkIf cfg.user.enable {
       useGlobalPkgs = true;
       useUserPackages = true;
