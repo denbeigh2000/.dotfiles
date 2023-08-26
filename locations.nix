@@ -1,4 +1,12 @@
 {
+  # travelling
+  milwaukee = {
+    tz = "America/Central";
+    coords = {
+      latitude = 43.0389025;
+      longitude = -87.9064736;
+    };
+  };
   sf = {
     tz = "America/Los_Angeles";
     coords = {
