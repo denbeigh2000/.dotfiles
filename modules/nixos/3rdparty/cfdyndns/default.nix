@@ -1,10 +1,10 @@
-{ config, lib, pkgs, cfdyndns-src, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   overlay = final: prev: {
-    cfdyndns = prev.callPackage ../../../../3rdparty/cfdyndns {
-      inherit cfdyndns-src;
-    };
+    # cfdyndns = prev.callPackage ../../../../3rdparty/cfdyndns {
+    #   inherit cfdyndns-src;
+    # };
   };
 
   inherit (lib) concatStringsSep escapeShellArg mkEnableOption mkIf mkOption types;
