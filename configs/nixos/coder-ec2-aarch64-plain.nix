@@ -7,7 +7,7 @@
           imports = [
             ../../modules/nixos/standard.nix
             ../../modules/nixos/cloud
-            ../../modules/nixos/cloud/aws-aarch64
+            ../../modules/nixos/cloud/aws/aarch64.nix
           ];
           config = {
             denbeigh.machine.hostname = "plain";
