@@ -1,7 +1,7 @@
 { self, config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkIf mkDefault mkOption types;
   inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
 in
 
@@ -32,8 +32,7 @@ in
       targets.genericLinux.enable = isLinux && !isNixOS;
 
       services = {
-        dunst.enable = graphical;
-        noisetorch.enable = graphical && isLinux;
+        dunst.enable = mkDefault graphical;
         redshift = {
           enable = enableRedshift;
           temperature = {
