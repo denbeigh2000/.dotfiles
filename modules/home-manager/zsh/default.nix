@@ -9,6 +9,12 @@ let
 
   shellAliases = {
     vim = "nvim";
+    fuck =
+      let
+        sedBin = "${pkgs.gnused}/bin/sed";
+        sedCmd = "s/^\\(.*\\)/sudo \\1/g";
+      in
+      "fc -e \"${sedBin} -i '${sedCmd}'\"";
   } // (if hostPlatform.isLinux then linuxAliases else { });
 
 in

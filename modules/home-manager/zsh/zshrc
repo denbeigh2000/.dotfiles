@@ -1,9 +1,5 @@
 export GOPATH='/home/denbeigh/dev/go'
 
-SED_CMD='s/^\(.*\)/sudo \1/g' 
-alias fuck="fc -e \"sed -i '$SED_CMD'\""
-unset SED_CMD
-
 bindkey -v
 
 ZSH_SYNTAX_FILES=(
