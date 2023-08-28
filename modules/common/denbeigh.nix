@@ -56,6 +56,7 @@ in
       self.inputs.nixgl.overlays.default
       self.inputs.denbeigh-neovim.overlays.default
       self.inputs.denbeigh-devtools.overlays.default
+      self.inputs.fonts.overlays.default
     ];
 
     home-manager = mkIf cfg.user.enable {

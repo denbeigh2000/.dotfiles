@@ -36,37 +36,40 @@ in
       };
   };
 
-  config = {
-    assertions = [
-      {
-        assertion = !(machine.work && cfg.enable);
-        message = "Do **NOT** upload work packages to personal nix store";
-      }
-    ];
-  } // mkIf cfg.enable ({
-    nixpkgs.overlays = [ self.inputs.nix-upload-daemon.overlays.default ];
+  config =
+    let
+      inherit (lib) mkIf;
+    in
+    mkIf cfg.enable ({
+      assertions = [
+        {
+          assertion = !machine.work;
+          message = "Do **NOT** upload work packages to personal nix store";
+        }
+      ];
+      nixpkgs.overlays = [ self.inputs.nix-upload-daemon.overlays.default ];
 
-    age.secrets.remoteBuildSignKey = {
-      file = ../../secrets/remoteBuildSignKey.age;
-      owner = cfg.username;
-      mode = "600";
-    };
-
-    age.secrets.remoteBuildUploadKey = {
-      file = ../../secrets/remoteBuildUploadKey.age;
-      owner = cfg.username;
-      mode = "600";
-    };
-
-    services.nix-upload-daemon = {
-      inherit (cfg) enable username workers target binding;
-
-      post-build-hook = {
-        enable = true;
-        secretKey = config.age.secrets.remoteBuildSignKey.path;
+      age.secrets.remoteBuildSignKey = {
+        file = ../../secrets/remoteBuildSignKey.age;
+        owner = cfg.username;
+        mode = "600";
       };
-    };
 
-    nix.settings.trusted-users = [ config.denbeigh.user.username ];
-  });
+      age.secrets.remoteBuildUploadKey = {
+        file = ../../secrets/remoteBuildUploadKey.age;
+        owner = cfg.username;
+        mode = "600";
+      };
+
+      services.nix-upload-daemon = {
+        inherit (cfg) enable username workers target binding;
+
+        post-build-hook = {
+          enable = true;
+          secretKey = config.age.secrets.remoteBuildSignKey.path;
+        };
+      };
+
+      nix.settings.trusted-users = [ config.denbeigh.user.username ];
+    });
 }

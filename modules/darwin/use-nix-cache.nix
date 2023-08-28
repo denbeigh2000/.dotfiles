@@ -1,11 +1,15 @@
-{ pkgs, lib, config, ... }:
+{ self, pkgs, lib, config, ... }:
 
 let
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkDefault;
 
   cfg = config.denbeigh.nix-cache;
 in
 {
-  imports = [ ../common/use-nix-cache.nix ];
-  options.denbeigh.nix-cache.enable.default = true;
+  imports = [
+    self.inputs.nix-upload-daemon.darwinModules.default
+    ../common/use-nix-cache.nix
+  ];
+
+  config.denbeigh.nix-cache.enable = mkDefault true;
 }

@@ -10,8 +10,8 @@ in
   options.denbeigh.nix-cache = {
     enable = mkOption {
       type = types.bool;
-      # Don't configure if this is the machine hosting the nix cache
-      default = !config.denbeigh.services.nix-cache.enable;
+      # This is overridden in OS-specific modules that import this module.
+      default = false;
       description = ''
         Whether to enable personal nix cache.
       '';

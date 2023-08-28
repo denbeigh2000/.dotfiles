@@ -1,24 +1,24 @@
 {
   system = "aarch64-darwin";
   modules = [
-    { self, ... }:
-    {
-      imports = with self.nixosModules; [
-        standard
-        tailscale
-      ];
+    ({ self, ... }:
+      {
+        imports = with self.darwinModules; [
+          standard
+          tailscale
+        ];
 
-      config.denbeigh = {
-        machine = {
-          hostname = "lucifer";
-          # travelling
-          location = self.lib.locations.milwaukee;
+        config.denbeigh = {
+          machine = {
+            hostname = "lucifer";
+            # travelling
+            location = self.lib.locations.milwaukee;
+          };
+          user = {
+            username = "denbeigh";
+            keys = [ "id_ed25519" ];
+          };
         };
-        user = {
-          username = "denbeigh";
-          keys = [ "id_ed25519" ];
-        };
-      };
-    }
+      })
   ];
 }

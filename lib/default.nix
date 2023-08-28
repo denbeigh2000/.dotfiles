@@ -53,7 +53,7 @@ rec {
         latitude = 43.0389025;
         longitude = -87.9064736;
       };
-      timezone = "America/Central";
+      timezone = "America/Chicago";
     };
 
     default = utc;
