@@ -1,7 +1,7 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkEnableOption mkOption;
+  inherit (lib) mkEnableOption mkIf;
 
   cfg = config.denbeigh.tailscale;
 in
@@ -10,7 +10,9 @@ in
     enable = mkEnableOption "tailscale daemon";
   };
 
-  config = {
-    services.tailscale.enable = cfg.enable;
+  config = mkIf cfg.enable {
+    services.tailscale.enable = true;
+
+    environment.systemPackages = [ pkgs.tailscale ];
   };
 }
