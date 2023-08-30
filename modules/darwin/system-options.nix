@@ -30,7 +30,7 @@
       NSNavPanelExpandedStateForSaveMode2 = true;
 
       # Hide navbar automatically
-      _HIHideMenuBar = true;
+      _HIHideMenuBar = false;
 
       # Old-school scroll direction
       "com.apple.swipescrolldirection" = false;
