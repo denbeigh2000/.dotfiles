@@ -18,6 +18,7 @@ in
       alacritty
       discord-canary
       spotify
+      mpv
       # Maybe some other time
       # https://github.com/NixOS/nixpkgs/issues/71689
       # firefox
