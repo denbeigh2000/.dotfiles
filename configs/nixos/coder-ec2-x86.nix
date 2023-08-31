@@ -11,6 +11,7 @@
           ];
           config = {
             denbeigh.machine.hostname = "dev";
+            system.stateVersion = "23.05";
           };
         })
     ];
