@@ -11,8 +11,7 @@
         config.denbeigh = {
           machine = {
             hostname = "lucifer";
-            # travelling
-            location = self.lib.locations.milwaukee;
+            location = self.lib.locations.sf;
           };
           user = {
             username = "denbeigh";
