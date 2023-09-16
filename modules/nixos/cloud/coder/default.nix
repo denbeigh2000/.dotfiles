@@ -6,4 +6,6 @@
     fsType = "ext4";
     autoFormat = true;
   };
+
+  system.stateVersion = "23.05";
 }

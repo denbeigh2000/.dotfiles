@@ -1,6 +1,5 @@
 {
   config = {
-    system = "x86_64-linux";
     modules = [
       {
         services.openssh.enable = true;
@@ -14,6 +13,8 @@
         ];
       })
       {
+        nixpkgs.hostPlatform = "x86_64-linux";
+
         denbeigh.machine.hostname = "live";
         denbeigh.user.enable = false;
       }

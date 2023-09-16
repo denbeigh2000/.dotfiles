@@ -1,6 +1,5 @@
 {
   config = {
-    system = "x86_64-linux";
     modules = [
       ({ self, ... }:
         {
@@ -10,6 +9,9 @@
             ../../modules/nixos/gaming.nix
           ];
           config = {
+            nixpkgs.hostPlatform = "x86_64-linux";
+            system.stateVersion = "22.05";
+
             boot.loader.grub = {
               enable = true;
               version = 2;

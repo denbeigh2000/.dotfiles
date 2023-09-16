@@ -1,6 +1,5 @@
 {
   config = {
-    system = "aarch64-linux";
     modules = [
       ({ self, ... }:
         {
@@ -13,7 +12,6 @@
           config = {
             denbeigh.machine.hostname = "plain";
             denbeigh.user.enable = false;
-            system.stateVersion = "23.05";
           };
         })
     ];

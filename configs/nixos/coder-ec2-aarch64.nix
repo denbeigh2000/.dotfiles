@@ -1,7 +1,6 @@
 {
   # General config to pass to nixosSystem
   config = {
-    system = "aarch64-linux";
     modules = [
       ({ self, ... }:
         {
@@ -12,7 +11,6 @@
           ];
           config = {
             denbeigh.machine.hostname = "dev";
-            system.stateVersion = "23.05";
           };
         })
     ];

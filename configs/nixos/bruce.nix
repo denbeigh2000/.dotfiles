@@ -1,7 +1,6 @@
 {
   # NOTE: Hardware is auto-detected by matching filenames in ./hardware
   config = {
-    system = "x86_64-linux";
     modules = [
       {
         services.openssh.enable = true;
@@ -24,6 +23,9 @@
             ../../modules/nixos/terraform.nix
           ];
           config = {
+            nixpkgs.hostPlatform = "x86_64-linux";
+            system.stateVersion = "22.05";
+
             denbeigh = {
               machine = {
                 hostname = "bruce";
@@ -44,7 +46,6 @@
 
             # TODO: Use a more DRY setup for this
             age.identityPaths = [ "/var/lib/denbeigh/host_key" ];
-
           };
         })
     ];

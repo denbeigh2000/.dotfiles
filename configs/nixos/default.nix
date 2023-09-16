@@ -8,9 +8,6 @@ let
       self.inputs.fonts.overlays.default
       self.overlays.unstable-pkgs
     ];
-    # TODO: Move this to system-specific files...so we can say we've actually
-    # read the comment
-    system.stateVersion = lib.mkDefault "22.05"; #  Did you read the comment?
   });
 
   hwModule = name:
