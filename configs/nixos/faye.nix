@@ -47,6 +47,8 @@
             # TODO: Use a more DRY setup for this
             age.identityPaths = [ "/var/lib/denbeigh/host_key" ];
           };
+
+          system.stateVersion = "22.05";
         })
     ];
   };

@@ -25,6 +25,8 @@
             # TODO: Use a more DRY setup for this
             age.identityPaths = [ "/home/denbeigh/.ssh/id_rsa" ];
           };
+
+          system.stateVersion = "23.05";
         })
     ];
   };
