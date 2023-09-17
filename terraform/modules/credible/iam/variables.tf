@@ -8,6 +8,11 @@ variable "allow_writes" {
   nullable = false
 }
 
+variable "bucket_name" {
+  type     = string
+  nullable = false
+}
+
 variable "devices" {
   type = list(object({
     name   = string,

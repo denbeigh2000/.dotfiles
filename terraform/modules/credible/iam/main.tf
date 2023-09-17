@@ -1,6 +1,7 @@
 locals {
   // Name for resources
-  group_name = var.allow_writes ? "read-write" : "read-only"
+  cat_name = var.allow_writes ? "read-write" : "read-only"
+  name     = "credible-${var.env}-${local.cat_name}"
 
   // Map of device_name => device for iteration
   device_map = {
@@ -22,7 +23,7 @@ locals {
       "s3:ListBucket"
     ],
     Effect   = "Allow",
-    Resource = "arn:aws:s3:::denbeigh-secrets",
+    Resource = "arn:aws:s3:::${var.bucket_name}",
   }
 
   get_items_statement = {
@@ -31,7 +32,7 @@ locals {
       "s3:GetObject"
     ],
     Effect   = "Allow",
-    Resource = "arn:aws:s3:::denbeigh-secrets/*",
+    Resource = "arn:aws:s3:::${var.bucket_name}",
   }
 
   read_write_statement = {
@@ -42,7 +43,7 @@ locals {
       "s3:GetObject",
       "s3:DeleteObject"
     ],
-    Resource = "arn:aws:s3:::denbeigh-secrets/*",
+    Resource = "arn:aws:s3:::${var.bucket_name}/*",
   }
 
   // IAM policies
@@ -65,20 +66,15 @@ locals {
 
 // Group that awards members privileges
 resource "aws_iam_group" "iam_group" {
-  name = local.group_name
+  name = local.name
   path = "/credible/${var.env}/"
-
-  tags = {
-    Use = "credible"
-    Env = var.env
-  }
 }
 
 // Policy that defines necessry privileges
 resource "aws_iam_policy" "iam_policy" {
-  name        = local.group_name
+  name        = local.name
   path        = "/credible/${var.env}/"
-  description = "Terraform-managed access policy for Credible (${var.group_name})"
+  description = "Terraform-managed access policy for Credible (${local.cat_name})"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -94,7 +90,7 @@ resource "aws_iam_group_policy_attachment" "policy_attachment" {
 resource "aws_iam_user" "users" {
   for_each = local.device_map
 
-  name = "credible-${self.env}-device-${each.value.name}"
+  name = "credible-${var.env}-device-${each.value.name}"
 }
 
 // Add users to groups
@@ -112,5 +108,5 @@ resource "aws_iam_user_group_membership" "group_membership" {
 // Define access keys to bucket (so they can be revoked if necessary)
 resource "aws_iam_access_key" "access_key" {
   for_each = local.filtered_device_map
-  user     = each.value.name
+  user     = aws_iam_user.users[each.value.name].name
 }

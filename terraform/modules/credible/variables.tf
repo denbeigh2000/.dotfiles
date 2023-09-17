@@ -9,11 +9,17 @@ variable "s3_bucket" {
 }
 
 variable "read_devices" {
-  type     = list(object({ user_name = string, key_id = string }))
+  type = list(object({
+    name   = string,
+    key_id = string,
+  }))
   nullable = false
 }
 
 variable "write_devices" {
-  type     = list(object({ user_name = string, key_id = string }))
+  type = list(object({
+    name   = string,
+    key_id = string,
+  }))
   nullable = false
 }

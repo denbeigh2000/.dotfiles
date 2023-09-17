@@ -1,6 +1,5 @@
-resource "aws_s3_bucket" "credible" {
-  bucket = "denbeigh-secrets"
-  region = "us-east-1"
+resource "aws_s3_bucket" "bucket" {
+  bucket = "denbeigh-credible-${var.env}"
 
   tags = {
     Use = "credible"
@@ -13,6 +12,7 @@ module "iam_read_only" {
 
   env          = var.env
   devices      = var.read_devices
+  bucket_name  = aws_s3_bucket.bucket.id
   allow_writes = false
 }
 
@@ -21,25 +21,6 @@ module "iam_read_write" {
 
   env          = var.env
   devices      = var.write_devices
+  bucket_name  = aws_s3_bucket.bucket.id
   allow_writes = true
-}
-
-resource "aws_iam_group" "read-only" {
-  name = "read-only"
-  path = "/credible/${var.env}/"
-
-  tags = {
-    Use = "credible"
-    Env = var.env
-  }
-}
-
-resource "aws_iam_group" "read-write" {
-  name = "read-write"
-  path = "/credible/${var.env}/"
-
-  tags = {
-    Use = "credible"
-    Env = var.env
-  }
 }
