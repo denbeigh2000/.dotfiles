@@ -1,6 +1,5 @@
 {
   config = {
-    system = "x86_64-linux";
     modules = [
       ({ self, ... }:
         {
@@ -9,10 +8,9 @@
             ../../modules/nixos/development.nix
           ];
           config = {
-            boot.loader.grub = {
-              enable = true;
-              device = "/dev/sda";
-            };
+            nixpkgs.hostPlatform = "x86_64-linux";
+            system.stateVersion = "23.05";
+            boot.loader.systemd-boot.enable = true;
 
             denbeigh = {
               machine = {
@@ -25,8 +23,6 @@
             # TODO: Use a more DRY setup for this
             age.identityPaths = [ "/home/denbeigh/.ssh/id_rsa" ];
           };
-
-          system.stateVersion = "23.05";
         })
     ];
   };
