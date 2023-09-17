@@ -18,6 +18,7 @@ in
     ./use-nix-cache.nix
 
     # Disabled by default
+    ./ssh.nix
     ./webcam.nix
   ];
 

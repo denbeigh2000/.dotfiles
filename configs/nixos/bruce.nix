@@ -2,10 +2,6 @@
   # NOTE: Hardware is auto-detected by matching filenames in ./hardware
   config = {
     modules = [
-      {
-        services.openssh.enable = true;
-        networking.firewall.allowedTCPPorts = [ 22 ];
-      }
       ({ self, ... }:
         {
           imports = [
@@ -30,6 +26,11 @@
               machine = {
                 hostname = "bruce";
                 domain = "denbeigh.cloud";
+              };
+
+              ssh = {
+                enable = true;
+                sshPort = 4742;
               };
 
               services = {
