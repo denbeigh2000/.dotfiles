@@ -6,6 +6,10 @@ resource "aws_iam_user" "user" {
   name = local.name
 }
 
+resource "aws_iam_access_key" "access_key" {
+  user = aws_iam_user.user.name
+}
+
 // Group that awards members privileges
 resource "aws_iam_group" "iam_group" {
   name = local.name
@@ -76,4 +80,22 @@ resource "aws_iam_policy" "iam_policy" {
     ]
   })
 
+}
+
+resource "aws_key_pair" "key_pair" {
+  for_each = {
+    for idx, region in var.regions :
+    region.region => region
+    if region.public_key != ""
+  }
+
+  key_name   = "pixelstorm-${var.env}-${each.value.region}"
+  public_key = each.value.public_key
+
+  lifecycle {
+    ignore_changes = [
+      # NOTE: Required to import a key
+      public_key
+    ]
+  }
 }
