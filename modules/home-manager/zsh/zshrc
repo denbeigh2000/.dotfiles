@@ -1,4 +1,4 @@
-export GOPATH='/home/denbeigh/dev/go'
+export GOPATH="$HOME/dev/go"
 
 bindkey -v
 
