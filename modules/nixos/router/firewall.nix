@@ -41,6 +41,11 @@ in
       # NOTE: We're using NFTables here primarily so we can add a second NAT for Tailscale.
       nftables = {
         enable = true;
+        # There appears to be resolution-ordering issues related to this which
+        # lead to (either of) the networking device or the nf_flow_table kernel
+        # module not being loaded. Skip validating ruleset to overcome this.
+        # https://discourse.nixos.org/t/nftables-could-not-process-rule-no-such-file-or-directory/33031
+        checkRuleset = false;
         ruleset = ''
           table inet filter {
             # enable flow offloading for better throughput

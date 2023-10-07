@@ -1,12 +1,6 @@
-{ config, lib, pkgs, cfdyndns-src, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  overlay = final: prev: {
-    cfdyndns = prev.callPackage ../../../../3rdparty/cfdyndns {
-      inherit cfdyndns-src;
-    };
-  };
-
   inherit (lib) concatStringsSep escapeShellArg mkEnableOption mkIf mkOption types;
   cfg = config.denbeigh.services.cfdyndns;
 in
@@ -55,8 +49,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ overlay ];
-
     users = {
       users.${cfg.user} = {
         group = cfg.group;

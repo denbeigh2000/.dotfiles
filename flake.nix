@@ -62,11 +62,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    cfdyndns-src = {
-      url = "github:denbeigh2000/cfdyndns";
-      flake = false;
-    };
-
     noisetorch-src = {
       url = "ssh://git@github.com/noisetorch/NoiseTorch.git";
       flake = false;

@@ -48,22 +48,6 @@
         "type": "github"
       }
     },
-    "cfdyndns-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1672353684,
-        "narHash": "sha256-T1QEvP5Nd2ZY2U76s1Gy9tpLs39ddfGN6JnqBMK8AgU=",
-        "owner": "denbeigh2000",
-        "repo": "cfdyndns",
-        "rev": "df0ed916c387f766fba246a761709fd8ca2836af",
-        "type": "github"
-      },
-      "original": {
-        "owner": "denbeigh2000",
-        "repo": "cfdyndns",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -548,7 +532,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "cfdyndns-src": "cfdyndns-src",
         "darwin": "darwin",
         "denbeigh-devtools": "denbeigh-devtools",
         "denbeigh-neovim": "denbeigh-neovim",
