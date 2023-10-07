@@ -17,6 +17,7 @@
             ../../modules/nixos/standard.nix
             ../../modules/nixos/tailscale.nix
             ../../modules/nixos/terraform.nix
+            ../../modules/nixos/update-fonts.nix
           ];
           config = {
             nixpkgs.hostPlatform = "x86_64-linux";

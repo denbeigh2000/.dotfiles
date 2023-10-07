@@ -15,7 +15,7 @@ let
     standard = ./standard.nix;
     tailscale = ./tailscale.nix;
     terraform = ./terraform.nix;
-    update-fonts = ./update-fonts;
+    update-fonts = ./update-fonts.nix;
     www = ./nginx;
   };
 in
