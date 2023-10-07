@@ -6,6 +6,7 @@
           imports = [
             ../../modules/nixos/standard.nix
             ../../modules/nixos/router
+            ../../modules/nixos/tailscale.nix
           ];
           config = {
             nixpkgs.hostPlatform = "x86_64-linux";
@@ -39,6 +40,8 @@
                   ddns.enable = true;
                 };
               };
+
+              tailscale.enable = true;
 
               machine = {
                 hostname = "faye";
