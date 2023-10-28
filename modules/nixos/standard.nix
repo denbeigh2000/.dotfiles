@@ -39,5 +39,6 @@ in
     };
 
     services.chrony.enable = true;
+    environment.wordlist.enable = true;
   };
 }
