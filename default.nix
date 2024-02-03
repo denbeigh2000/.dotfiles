@@ -9,6 +9,7 @@ let
   inherit (pkgs) writeShellScriptBin writeText;
   inherit (pkgs.lib) collect getAttrs recursiveUpdate;
   inherit (pkgs.stdenvNoCC) mkDerivation;
+  inherit (pkgs.stdenvNoCC.hostPlatform) isLinux;
 
   # buildableAttrs = [ "packages" "nixosConfigurations" "devShells" ];
   buildableAttrs = [ "packages" "devShells" ];
@@ -49,10 +50,10 @@ in
         cat ${drvmap}/drvmap.json
       '';
 
-    all = {
-      # packages = { inherit drvmap printDrvmap; };
-      packages = { inherit drvmap printDrvmap; };
-    };
+    all =
+      if isLinux then {
+        packages = { inherit drvmap printDrvmap; };
+      } else { };
 
   in
   recursiveUpdate outputs all)
