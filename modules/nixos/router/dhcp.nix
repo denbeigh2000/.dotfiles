@@ -17,8 +17,9 @@ in
     };
 
     age.secrets.dhcp-dns-update-key = {
-      file = ../../../secrets/dhcpDnsAuthKey.age;
-      owner = "${config.users.users.dhcpd.name}";
+      file = ../../../secrets/dhcpDnsAuthKeyKea.age;
+      # https://github.com/NixOS/nixpkgs/blob/25e3d4c0d3591c99929b1ec07883177f6ea70c9d/nixos/modules/services/networking/kea.nix#L255
+      owner = "kea";
     };
 
     networking = {
@@ -26,49 +27,68 @@ in
     };
 
     services = {
-      dhcpd4 = {
-        enable = true;
-        interfaces = [ interfaces.lan ];
-        extraConfig =
-          let
-            dnsSecretPath = config.age.secrets.dhcp-dns-update-key.path;
-            zoneSnippet = name: ''
-              zone ${name}. {
-                primary 127.0.0.1;
-                key faye-dns-dhcp-key;
+      kea = {
+        dhcp4 = {
+          enable = true;
+          settings = {
+            valid-lifetime = 4000;
+            renew-timer = 1000;
+            rebind-timer = 2000;
+
+            interfaces-config = {
+              interfaces = [ interfaces.lan ];
+            };
+
+            lease-database = {
+              type = "memfile";
+              persist = true;
+              # TODO: do we need to assert this exists?
+              name = "/var/lib/private/kea/dhcp4.leases";
+            };
+
+            subnet4 = [
+              {
+                subnet = "10.69.1.0/24";
+                pools = [
+                  {
+                    pool = "10.69.1.32 - 10.69.1.254";
+                  }
+                ];
               }
-            '';
+            ];
+          };
+        };
 
-          in
-          ''
-            option subnet-mask 255.255.0.0;
-            option domain-name-servers 10.69.1.1;
-
-            ddns-domainname "sfo.denbeigh.cloud.";
-            ddns-rev-domainname "in-addr.arpa.";
-            use-host-decl-names on;
-            ddns-updates on;
-            ddns-update-style standard;
-            authoritative;
-
-            include "${dnsSecretPath}";
-
-            ${zoneSnippet "sfo.denbeigh.cloud"}
-
-            ${zoneSnippet "1.69.10.in-addr.arpa"}
-
-            subnet 10.69.1.0 netmask 255.255.255.0 {
-              range 10.69.1.32 10.69.1.255;
-              option broadcast-address 10.69.1.255;
-              option routers 10.69.1.1;
-              option domain-name "sfo.denbeigh.cloud";
-              option domain-search "sfo.denbeigh.cloud";
-              interface ${interfaces.lan};
-            }
-          '';
+        dhcp-ddns = {
+          enable = true;
+          settings = {
+            forward-ddns = {
+              ddns-domains = [
+                {
+                  name = "sfo.denbeigh.cloud.";
+                  key-name = "local";
+                  dns-servers = [{ "ip-address" = "127.0.0.1"; }];
+                }
+              ];
+            };
+            reverse-ddns = {
+              ddns-domains = [
+                {
+                  name = ".in-addr.arpa.";
+                  key-name = "local";
+                  dns-servers = [{ ip-address = "127.0.0.1"; }];
+                }
+              ];
+            };
+            tsig-keys = {
+              name = "local";
+              algorithm = "HMAC-SHA256";
+              # TODO: test <?include > works from within a string
+              secret = "<?include \"${config.age.secrets.dhcp-dns-update-key.path}\">";
+            };
+          };
+        };
       };
-
-      dhcpd6.enable = false;
     };
   };
 }

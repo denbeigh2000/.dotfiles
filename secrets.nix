@@ -29,6 +29,7 @@ in
   "secrets/terraform.age".publicKeys = commonHosts;
   "secrets/vpnPrivateKey.age".publicKeys = commonHosts;
   "secrets/dhcpDnsAuthKey.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
+  "secrets/dhcpDnsAuthKeyKea.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/fontDeployKey.age".publicKeys = allHosts;
   "secrets/remoteBuildSignKey.age".publicKeys = personalHosts;
   "secrets/remoteBuildUploadKey.age".publicKeys = personalHosts;
