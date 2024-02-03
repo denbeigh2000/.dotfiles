@@ -308,11 +308,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1691359851,
-        "narHash": "sha256-yObY0XQzhTv33x2Hqw3SCZgFDqTsmDfv05gZCcXY3zM=",
+        "lastModified": 1696710859,
+        "narHash": "sha256-SmAw/H9GPTpex8Wy6SJcScXZwgI8Ii/wsscsWA9jliQ=",
         "owner": "denbeigh2000",
         "repo": "nix-upload-daemon",
-        "rev": "8dc7637aebc437cd5122e0fee0635aa453976e1d",
+        "rev": "f6176ce7127ae5cfd037101e9b5011f36255f261",
         "type": "github"
       },
       "original": {

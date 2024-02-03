@@ -13,7 +13,10 @@ in
   options = {
     denbeigh.nix-upload-daemon.enable = lib.mkOption {
       type = lib.types.bool;
-      default = !machine.work;
+      # NOTE: Disabled until a better solution for running ssh on a
+      # non-standard port.
+      default = false;
+      # default = !machine.work;
     };
   };
   config =
