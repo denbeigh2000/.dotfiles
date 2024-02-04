@@ -14,6 +14,9 @@ in
   # These are very far apart, and have large feature gaps
   inherit (pkgs-unstable) radarr sonarr prowlarr;
 
+  # Broken on 23.11?
+  inherit (pkgs-unstable) jackett;
+
   # These aren't backported as frequently as I'd like
   inherit (pkgs-unstable) tailscale cfdyndns;
 
