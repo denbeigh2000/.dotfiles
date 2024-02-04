@@ -30,13 +30,14 @@ in
         hooks.pre-checkout = ''
           set -euo pipefail
 
-          mkdir -p $HOME/.ssh
-          cp -rf /var/lib/denbeigh/host_key $HOME/.ssh/id_ed25519
-          chmod -R go-rwx $HOME/.ssh
+          mkdir -p "$HOME/.ssh"
+          cp -rf /var/lib/denbeigh/host_key "$HOME/.ssh/id_ed25519"
+          chmod -R go-rwx "$HOME/.ssh"
 
-          export BUILDKITE_API_TOKEN="$(cat ${config.age.secrets.buildkiteAPIToken.path})"
+          BUILDKITE_API_TOKEN="$(cat ${config.age.secrets.buildkiteAPIToken.path})"
+          export BUILDKITE_API_TOKEN
         '';
       };
     })
-  (pkgs.lib.range 1 12));
+    (pkgs.lib.range 1 12));
 }
