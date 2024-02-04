@@ -42,7 +42,8 @@
     };
 
     terraform-providers-bin = {
-      url = "github:nix-community/nixpkgs-terraform-providers-bin";
+      # pinned to commit to avoid major upgrades between applies
+      url = "github:nix-community/nixpkgs-terraform-providers-bin/3d9d667c5f669d4b93a86a42650aa78d06df16d5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
