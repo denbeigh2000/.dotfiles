@@ -153,6 +153,7 @@
         # inherit (terraform.packages) terraform terraform-config;
         inherit liveusb;
         inherit secret-tools;
+        ci-tool = denbeigh-ci.packages.${system}.tool;
       } // vms;
       devShells = {
         default = pkgs.mkShell {
