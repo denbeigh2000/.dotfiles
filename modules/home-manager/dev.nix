@@ -50,7 +50,7 @@
 
       rust-pkgs = if cfg.rust.enable then rust.all else [ ];
       go-pkgs = if cfg.go.enable then go.all else [ ];
-      node-pkgs = if cfg.node.enable then node.allNode18 ++ [ node.yarn ] else [ ];
+      node-pkgs = if cfg.node.enable then node.allNode20 ++ [ node.yarn ] else [ ];
       python-pkgs = if cfg.python.enable then [ python.python310 ] else [ ];
     in
     {
