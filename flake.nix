@@ -69,6 +69,12 @@
       submodules = true;
       type = "git";
     };
+
+    denbeigh-ci = {
+      url = "github:denbeigh2000/ci";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
