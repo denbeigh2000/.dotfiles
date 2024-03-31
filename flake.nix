@@ -92,24 +92,28 @@
     }@inputs:
     let
       inherit (builtins) mapAttrs;
-      inherit (nixpkgs.lib) nixosSystem mapAttrs';
+      inherit (nixpkgs.lib) filterAttrs optionalAttrs mapAttrs' nixosSystem;
       inherit (nixos-generators) nixosGenerate;
       nixosSystemConfigs = import ./configs/nixos { inherit self; };
       nixosConfigurations = mapAttrs (_: cfg: nixosSystem cfg) nixosSystemConfigs;
 
-      buildVm =
-        (configName: config: {
-          name = "vm-${configName}";
-          value = nixosGenerate (config // {
-            system = "x86_64-linux";
-            format = "vm";
-          });
+      buildVm = (configName: config: {
+        name = "vm-${configName}";
+        value = nixosGenerate (config // {
+          system = "x86_64-linux";
+          format = "vm";
         });
+      });
 
-
-      vms = mapAttrs' buildVm nixosSystemConfigs;
-      liveusb = nixosGenerate (nixosSystemConfigs.live // {
-        system = "x86_64-linux";
+      # NOTE: Filtering this down to just a few configurations I care about.
+      # Otherwise it gets kind of long to build mostly the same thing (and also
+      # becomes hard to know which arch to build for)
+      # vms = mapAttrs' buildVm nixosSystemConfigs;
+      vms = mapAttrs' buildVm {
+        inherit (nixosSystemConfigs) bruce martha;
+      };
+      buildLiveUsb = system: nixosGenerate (nixosSystemConfigs.live // {
+        inherit system;
         format = "iso";
         specialArgs = inputs;
       });
@@ -147,14 +151,15 @@
     in
     {
       ci = denbeigh-ci.lib.mkCIConfig { inherit self pkgs; };
-      packages = {
+      packages = ({
         # NOTE: avoiding terraform stuff until i address the terraform unfree
         # licensing snafu
         # inherit (terraform.packages) terraform terraform-config;
-        inherit liveusb;
         inherit secret-tools;
         ci-tool = denbeigh-ci.packages.${system}.tool;
-      } // vms;
+      }
+      // (optionalAttrs (system == "x86_64-linux") vms)
+      // (optionalAttrs (pkgs.stdenvNoCC.targetPlatform.isLinux) { liveusb = buildLiveUsb system; }));
       devShells = {
         default = pkgs.mkShell {
           name = "dotfiles-dev-shell";
