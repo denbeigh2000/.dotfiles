@@ -87,6 +87,7 @@
     , fonts
     , terraform-providers-bin
     , nixos-generators
+    , denbeigh-ci
     , ...
     }@inputs:
     let
@@ -143,12 +144,13 @@
       tf-providers = import terraform-providers-bin { inherit system; };
       secret-tools = import ./tools/secrets { inherit pkgs; };
       terraform = import ./terraform { inherit pkgs tf-providers; };
-
-      mkFlake = (import ./. { inherit pkgs flake-utils; });
     in
-    mkFlake {
+    {
+      ci = denbeigh-ci.lib.mkCIConfig { inherit self pkgs; };
       packages = {
-        inherit (terraform.packages) terraform terraform-config;
+        # NOTE: avoiding terraform stuff until i address the terraform unfree
+        # licensing snafu
+        # inherit (terraform.packages) terraform terraform-config;
         inherit liveusb;
         inherit secret-tools;
       } // vms;
@@ -162,7 +164,7 @@
             secret-tools
           ];
         };
-        terraform = terraform.devShell;
+        # terraform = terraform.devShell;
       };
     }
     );
