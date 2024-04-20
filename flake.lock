@@ -135,11 +135,11 @@
         "rust-overlay": "rust-overlay_4"
       },
       "locked": {
-        "lastModified": 1711908364,
-        "narHash": "sha256-q9PxtuL+1s8nUSQzXOa3OiSSq4EcKAXXsygXfCP96hI=",
+        "lastModified": 1712287842,
+        "narHash": "sha256-v76mRppququma1m0Uwy9VsEjsGcWOvX2UKYC/7drlgs=",
         "owner": "denbeigh2000",
         "repo": "ci",
-        "rev": "0d6933a56c23cc227e5c91e810b275213768839a",
+        "rev": "5fdc37c455cbb3c560d733c4c7ff8309089a5ece",
         "type": "github"
       },
       "original": {
@@ -185,11 +185,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1711910950,
-        "narHash": "sha256-H9O4YyNSNnfRqMAYZDVE0YmdmFLANOZDapyndQfCVf8=",
+        "lastModified": 1713635826,
+        "narHash": "sha256-pz2DKSMsvYTQz7A1ds1VCL+lj0lp4HrVlakCTz8xVPg=",
         "owner": "denbeigh2000",
         "repo": "neovim-nix",
-        "rev": "6a2ba51e516fce6d4f183d635856dec019ff4f18",
+        "rev": "386324a729563f9d2b33b8d3547ccb4b28949949",
         "type": "github"
       },
       "original": {
