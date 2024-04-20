@@ -279,11 +279,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705450517,
-        "narHash": "sha256-cHjdxzQLag2GCjkM1XPQ0aNA2HCxlPF0mopyTRJCjf4=",
+        "lastModified": 1713638724,
+        "narHash": "sha256-mwx1jilQE0J0SALLgwSrK8fjhxrZwGcV5JlHBBDGA/c=",
         "owner": "denbeigh2000",
         "repo": "fonts",
-        "rev": "4ef0d31d46fa95650ae873a1c056fb462684b06b",
+        "rev": "dc6c7a9432b8bbaaf6a8b1d064c9c4acceac7e1b",
         "type": "github"
       },
       "original": {
