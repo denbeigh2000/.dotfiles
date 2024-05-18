@@ -146,6 +146,7 @@
         ];
       };
       tf-providers = import terraform-providers-bin { inherit system; };
+      scripts = pkgs.callPackage ./scripts { };
       secret-tools = import ./tools/secrets { inherit pkgs; };
       terraform = import ./terraform { inherit pkgs tf-providers; };
     in
@@ -156,6 +157,7 @@
         # licensing snafu
         # inherit (terraform.packages) terraform terraform-config;
         inherit secret-tools;
+        inherit (scripts) gitignore roulette;
         ci-tool = denbeigh-ci.packages.${system}.tool;
       }
       // (optionalAttrs (system == "x86_64-linux") vms)

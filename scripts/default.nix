@@ -1,9 +1,13 @@
-{ pkgs, ... }:
+{ writeShellApplication
+, symlinkJoin
+, curl
+, gnused
+}:
 
 let
   inherit (builtins) readFile;
-  inherit (pkgs) writeShellApplication writeShellScriptBin;
-
+in
+{
   roulette = writeShellApplication {
     name = "roulette";
 
@@ -13,11 +17,7 @@ let
   gitignore = writeShellApplication {
     name = "gitignore";
 
-    runtimeInputs = with pkgs; [ gnused curl ];
+    runtimeInputs = [ gnused curl ];
     text = readFile ./gitignore.sh;
   };
-in
-{
-  home.packages = [ gitignore roulette ];
 }
-

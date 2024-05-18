@@ -8,7 +8,7 @@ let
     zsh = ./zsh;
     linux = ./linux.nix;
     graphical = ./graphical.nix;
-    scripts = ./scripts;
+    scripts = ./scripts.nix;
     standard = ./standard.nix;
     use-nix-cache = ./use-nix-cache.nix;
     webcam = ./webcam.nix;
