@@ -9,8 +9,15 @@ let
 
     text = readFile ./roulette.sh;
   };
+
+  gitignore = writeShellApplication {
+    name = "gitignore";
+
+    runtimeInputs = with pkgs; [ gnused curl ];
+    text = readFile ./gitignore.sh;
+  };
 in
 {
-  home.packages = [ roulette ];
+  home.packages = [ gitignore roulette ];
 }
 
