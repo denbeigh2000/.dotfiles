@@ -8,6 +8,7 @@
 
     # Remote-build key from personal machines
     trusted-public-keys = [ "remote-build:gmaC+UE4JxbR6wcMtuZ6WZF0nL1Jh2D3REY9zdwZFWg=" ];
+    trusted-users = [ config.denbeigh.user.username ];
   };
 
   time.timeZone = config.denbeigh.machine.location.timezone;
