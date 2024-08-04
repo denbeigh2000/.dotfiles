@@ -2,6 +2,9 @@
 , symlinkJoin
 , curl
 , gnused
+, ripgrep
+, scowl
+, coreutils
 }:
 
 let
@@ -19,5 +22,16 @@ in
 
     runtimeInputs = [ gnused curl ];
     text = readFile ./gitignore.sh;
+  };
+
+  grid = writeShellApplication {
+    name = "grid";
+
+    runtimeInputs = [ ripgrep coreutils ];
+    text = ''
+      WORDLIST_DIR="${scowl}/share/dict"
+
+      ${readFile ./grid.sh}
+    '';
   };
 }

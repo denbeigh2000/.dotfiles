@@ -170,7 +170,7 @@
         # licensing snafu
         # inherit (terraform.packages) terraform terraform-config;
         inherit secret-tools;
-        inherit (scripts) gitignore roulette;
+        inherit (scripts) gitignore roulette grid;
         ci-tool = denbeigh-ci.packages.${system}.tool;
       }
       // (optionalAttrs (system == "x86_64-linux") vms)
