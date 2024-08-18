@@ -40,6 +40,7 @@ in
         prowlarr.enable = true;
         radarr.enable = true;
         sonarr.enable = true;
+        transmission.enable = true;
       };
     };
 
@@ -50,6 +51,7 @@ in
       sonarr = serviceConfig;
       radarr = serviceConfig;
       jackett = serviceConfig;
+      transmission = serviceConfig;
     };
   };
 }

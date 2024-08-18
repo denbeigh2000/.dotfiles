@@ -7,7 +7,7 @@ with builtins;
     with lib.options;
     with lib.types;
     {
-      denbeigh.transmission = {
+      denbeigh.services.transmission = {
         enable = mkEnableOption "Enable Transmission BitTorrent server";
 
         group = mkOption {
@@ -32,11 +32,13 @@ with builtins;
 
   config =
     let
-      cfg = config.denbeigh.transmission;
+      cfg = config.denbeigh.services.transmission;
     in
     lib.mkIf cfg.enable {
       services.transmission = {
         inherit (cfg) enable group performanceNetParameters;
+
+        package = pkgs.transmission_4;
 
         downloadDirPermissions = "770";
 
