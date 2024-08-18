@@ -26,11 +26,10 @@ in
     users.groups."${groupName}".gid = 94;
 
     denbeigh = {
-      transmission = serviceConfig;
-      wireguard = {
-        enable = true;
-        users = [ "transmission" "jackett" ];
-      };
+      # wireguard = {
+      #   enable = false;
+      #   users = [ "transmission" "jackett" ];
+      # };
 
       # Be sure we have access to web-facing services
       services.www = {

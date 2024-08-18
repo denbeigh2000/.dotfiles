@@ -13,6 +13,7 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "darwin";
+      inputs.home-manager.follows = "home-manager";
     };
 
     fonts = {
@@ -33,12 +34,15 @@
       url = "github:denbeigh2000/nix-dev";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.denbeigh-ci.follows = "denbeigh-ci";
+      inputs.rust-overlay.follows = "denbeigh-ci/rust-overlay";
     };
 
     denbeigh-neovim = {
       url = "github:denbeigh2000/neovim-nix/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.denbeigh-ci.follows = "denbeigh-ci";
     };
 
     terraform-providers-bin = {
@@ -61,6 +65,8 @@
       url = "github:denbeigh2000/nix-upload-daemon";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.naersk.follows = "denbeigh-ci/naersk";
+      inputs.rust-overlay.follows = "denbeigh-ci/rust-overlay";
     };
 
     noisetorch-src = {

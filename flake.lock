@@ -5,7 +5,9 @@
         "darwin": [
           "darwin"
         ],
-        "home-manager": "home-manager",
+        "home-manager": [
+          "home-manager"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -94,70 +96,21 @@
         "type": "github"
       }
     },
-    "denbeigh-ci_2": {
-      "inputs": {
-        "flake-utils": [
-          "denbeigh-devtools",
-          "flake-utils"
-        ],
-        "naersk": "naersk_2",
-        "nixpkgs": [
-          "denbeigh-devtools",
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1711908364,
-        "narHash": "sha256-q9PxtuL+1s8nUSQzXOa3OiSSq4EcKAXXsygXfCP96hI=",
-        "owner": "denbeigh2000",
-        "repo": "ci",
-        "rev": "0d6933a56c23cc227e5c91e810b275213768839a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "denbeigh2000",
-        "repo": "ci",
-        "type": "github"
-      }
-    },
-    "denbeigh-ci_3": {
-      "inputs": {
-        "flake-utils": [
-          "denbeigh-neovim",
-          "flake-utils"
-        ],
-        "naersk": "naersk_3",
-        "nixpkgs": [
-          "denbeigh-neovim",
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_4"
-      },
-      "locked": {
-        "lastModified": 1712287842,
-        "narHash": "sha256-v76mRppququma1m0Uwy9VsEjsGcWOvX2UKYC/7drlgs=",
-        "owner": "denbeigh2000",
-        "repo": "ci",
-        "rev": "5fdc37c455cbb3c560d733c4c7ff8309089a5ece",
-        "type": "github"
-      },
-      "original": {
-        "owner": "denbeigh2000",
-        "repo": "ci",
-        "type": "github"
-      }
-    },
     "denbeigh-devtools": {
       "inputs": {
-        "denbeigh-ci": "denbeigh-ci_2",
+        "denbeigh-ci": [
+          "denbeigh-ci"
+        ],
         "flake-utils": [
           "flake-utils"
         ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_3"
+        "rust-overlay": [
+          "denbeigh-ci",
+          "rust-overlay"
+        ]
       },
       "locked": {
         "lastModified": 1711911648,
@@ -175,7 +128,9 @@
     },
     "denbeigh-neovim": {
       "inputs": {
-        "denbeigh-ci": "denbeigh-ci_3",
+        "denbeigh-ci": [
+          "denbeigh-ci"
+        ],
         "flake-utils": [
           "flake-utils"
         ],
@@ -251,24 +206,6 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
-      "inputs": {
-        "systems": "systems_4"
-      },
-      "locked": {
-        "lastModified": 1681202837,
-        "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "cfacdce06f30d2b68473a46042957675eebb3401",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "fonts": {
       "inputs": {
         "flake-utils": [
@@ -318,27 +255,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "agenix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1703113217,
-        "narHash": "sha256-7ulcXOk63TIT2lVDSExj7XzFx09LpdSAPtvgtM7yQPE=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "3bfaacf46133c037bb356193bd2f1765d9dc82c1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager_2": {
-      "inputs": {
-        "nixpkgs": [
           "nixpkgs"
         ]
       },
@@ -378,81 +294,22 @@
         "type": "github"
       }
     },
-    "naersk_2": {
-      "inputs": {
-        "nixpkgs": [
-          "denbeigh-devtools",
-          "denbeigh-ci",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1698420672,
-        "narHash": "sha256-/TdeHMPRjjdJub7p7+w55vyABrsJlt5QkznPYy55vKA=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "aeb58d5e8faead8980a807c840232697982d47b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
-    "naersk_3": {
-      "inputs": {
-        "nixpkgs": [
-          "denbeigh-neovim",
-          "denbeigh-ci",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1698420672,
-        "narHash": "sha256-/TdeHMPRjjdJub7p7+w55vyABrsJlt5QkznPYy55vKA=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "aeb58d5e8faead8980a807c840232697982d47b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
-    "naersk_4": {
-      "inputs": {
-        "nixpkgs": [
-          "nix-upload-daemon",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1690373729,
-        "narHash": "sha256-e136hTT7LqQ2QjOTZQMW+jnsevWwBpMj78u6FRUsH9I=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "d9a33d69a9c421d64c8d925428864e93be895dcc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "nix-upload-daemon": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
         ],
-        "naersk": "naersk_4",
+        "naersk": [
+          "denbeigh-ci",
+          "naersk"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_5"
+        "rust-overlay": [
+          "denbeigh-ci",
+          "rust-overlay"
+        ]
       },
       "locked": {
         "lastModified": 1696710859,
@@ -685,7 +542,7 @@
         "denbeigh-neovim": "denbeigh-neovim",
         "flake-utils": "flake-utils_2",
         "fonts": "fonts",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager",
         "nix-upload-daemon": "nix-upload-daemon",
         "nixgl": "nixgl",
         "nixos-generators": "nixos-generators",
@@ -712,107 +569,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "6529a7975b893c17318cbdd351c771cb8d2c1dcb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
-      "inputs": {
-        "flake-utils": [
-          "denbeigh-devtools",
-          "denbeigh-ci",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "denbeigh-devtools",
-          "denbeigh-ci",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1711159876,
-        "narHash": "sha256-FqulGFAxIdc1Sku4Hm0c47wxri5OE/z5FTsUI9epeJA=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "6529a7975b893c17318cbdd351c771cb8d2c1dcb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_3": {
-      "inputs": {
-        "flake-utils": [
-          "denbeigh-devtools",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "denbeigh-devtools",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1705716951,
-        "narHash": "sha256-Yp4EkRWoXX57a7hDyx6xJDTtl0h1WRFdRlp9SejPPOQ=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "612b6a974cb921fe7aa4cafd54f4f5f899b19173",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_4": {
-      "inputs": {
-        "flake-utils": [
-          "denbeigh-neovim",
-          "denbeigh-ci",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "denbeigh-neovim",
-          "denbeigh-ci",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1711159876,
-        "narHash": "sha256-FqulGFAxIdc1Sku4Hm0c47wxri5OE/z5FTsUI9epeJA=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "6529a7975b893c17318cbdd351c771cb8d2c1dcb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_5": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": [
-          "nix-upload-daemon",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1691201768,
-        "narHash": "sha256-h+QJMpawZoK1+8efF6UjQoY1EHZfHteXVa5OYnlqRWA=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "18ee2a71de24273e4ad4503b5604532f0b53f382",
         "type": "github"
       },
       "original": {
@@ -852,21 +608,6 @@
       }
     },
     "systems_3": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

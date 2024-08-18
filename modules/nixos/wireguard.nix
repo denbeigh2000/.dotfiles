@@ -220,36 +220,37 @@ in
         cfg = config.denbeigh.wireguard;
 
       in
-      {
-        inherit nameservers;
+      { };
+    # {
+    #   inherit nameservers;
 
-        wireguard = {
-          enable = true;
-          interfaces."${vpn.interfaceName}" = {
-            inherit ips;
-            # inherit (vpn) table;
+    #   wireguard = {
+    #     enable = true;
+    #     interfaces."${vpn.interfaceName}" = {
+    #       inherit ips;
+    #       # inherit (vpn) table;
 
-            privateKeyFile = config.age.secrets.vpnPrivateKey.path;
-            allowedIPsAsRoutes = false;
+    #       privateKeyFile = config.age.secrets.vpnPrivateKey.path;
+    #       allowedIPsAsRoutes = false;
 
-            peers = mapAttrsToList
-              (hostname: config: {
-                inherit (config) publicKey endpoint;
-                allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-              })
-              servers;
+    #       peers = mapAttrsToList
+    #         (hostname: config: {
+    #           inherit (config) publicKey endpoint;
+    #           allowedIPs = [ "0.0.0.0/0" "::0/0" ];
+    #         })
+    #         servers;
 
-            postSetup = ''
-              ${setupTable vpn.table}
-              ${routeUsers vpn.users vpn.table}
-            '';
+    #       postSetup = ''
+    #         ${setupTable vpn.table}
+    #         ${routeUsers vpn.users vpn.table}
+    #       '';
 
-            postShutdown = ''
-              ${unRouteUsers vpn.users vpn.table}
-              ${flushTable vpn.table}
-            '';
-          };
-        };
-      };
+    #       postShutdown = ''
+    #         ${unRouteUsers vpn.users vpn.table}
+    #         ${flushTable vpn.table}
+    #       '';
+    #     };
+    #   };
+    # };
   };
 }
