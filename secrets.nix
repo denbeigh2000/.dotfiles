@@ -31,6 +31,7 @@ in
   "secrets/dhcpDnsAuthKey.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/dhcpDnsAuthKeyKea.age".publicKeys = (attrValues hosts) ++ [ servers.faye ];
   "secrets/fontDeployKey.age".publicKeys = allHosts;
+  "secrets/gridderServiceAccount.age".publicKeys = commonHosts;
   "secrets/remoteBuildSignKey.age".publicKeys = personalHosts;
   "secrets/remoteBuildUploadKey.age".publicKeys = personalHosts;
 }

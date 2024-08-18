@@ -69,6 +69,13 @@
       inputs.rust-overlay.follows = "denbeigh-ci/rust-overlay";
     };
 
+    gridder = {
+      url = "github:denbeigh2000/gridder";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.naersk.follows = "denbeigh-ci/naersk";
+    };
+
     noisetorch-src = {
       url = "ssh://git@github.com/noisetorch/NoiseTorch.git";
       flake = false;
