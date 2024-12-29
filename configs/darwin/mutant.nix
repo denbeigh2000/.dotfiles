@@ -19,6 +19,8 @@
               keys = [ "id_ed25519" ];
             };
           };
+
+          system.stateVersion = 5;
         };
       })
   ];

@@ -8,15 +8,19 @@
           tailscale
         ];
 
-        config.denbeigh = {
-          machine = {
-            hostname = "lucifer";
-            location = self.lib.locations.sf;
+        config = {
+          denbeigh = {
+            machine = {
+              hostname = "lucifer";
+              location = self.lib.locations.sf;
+            };
+            user = {
+              username = "denbeigh";
+              keys = [ "id_ed25519" ];
+            };
           };
-          user = {
-            username = "denbeigh";
-            keys = [ "id_ed25519" ];
-          };
+
+          system.stateVersion = 5;
         };
       })
   ];

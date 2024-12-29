@@ -4,15 +4,19 @@
     ({ self, ... }:
       {
         imports = [ self.darwinModules.standard ];
-        config.denbeigh = {
-          machine = {
-            hostname = "runt";
-            work = true;
+        config = {
+          denbeigh = {
+            machine = {
+              hostname = "runt";
+              work = true;
+            };
+            user = {
+              username = "denbeigh.stevens";
+              keys = [ "id_ed25519" ];
+            };
           };
-          user = {
-            username = "denbeigh.stevens";
-            keys = [ "id_ed25519" ];
-          };
+
+          system.stateVersion = 5;
         };
       })
   ];
