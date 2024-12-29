@@ -89,11 +89,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724372672,
-        "narHash": "sha256-/wn6Y86YIwXFxfLAblGPxbE1aFVPWTPP2R9vdFG1X8o=",
+        "lastModified": 1735515160,
+        "narHash": "sha256-nd29RANmYAkm5DG0iM7uH6Zif+tFP32svWCV7lthGzo=",
         "owner": "denbeigh2000",
         "repo": "nix-dev",
-        "rev": "8b832fe8ac29bb09f52d4a9612f040054db62f0d",
+        "rev": "814796bd814af1a103dfe604941f146287be8367",
         "type": "github"
       },
       "original": {
