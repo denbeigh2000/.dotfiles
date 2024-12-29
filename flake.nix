@@ -2,10 +2,10 @@
   description = "Denbeigh's Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,7 +39,7 @@
     };
 
     denbeigh-neovim = {
-      url = "github:denbeigh2000/neovim-nix/nixos-23.11";
+      url = "github:denbeigh2000/neovim-nix/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.denbeigh-ci.follows = "denbeigh-ci";
