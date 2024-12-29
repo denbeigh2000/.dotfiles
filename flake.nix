@@ -30,14 +30,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    denbeigh-devtools = {
-      url = "github:denbeigh2000/nix-dev";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.denbeigh-ci.follows = "denbeigh-ci";
-      inputs.rust-overlay.follows = "denbeigh-ci/rust-overlay";
-    };
-
     denbeigh-neovim = {
       url = "github:denbeigh2000/neovim-nix/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs";

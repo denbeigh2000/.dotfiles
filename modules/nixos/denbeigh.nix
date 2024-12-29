@@ -21,9 +21,7 @@ in
     ../common/denbeigh.nix
   ];
 
-  config = {
-    nixpkgs.overlays = [ self.inputs.denbeigh-devtools.overlays.default ];
-  } // (mkIf cfg.user.enable {
+  config = (mkIf cfg.user.enable {
     home-manager.extraSpecialArgs = { inherit self; };
 
     users.users.${cfg.user.username} = {

@@ -46,18 +46,19 @@
     let
       cfg = config.denbeigh.dev.languages;
 
-      inherit (pkgs.devPackages) python rust go node;
+      # inherit (pkgs.devPackages) python rust go node;
+      inherit (pkgs) python313 go nodejs nodePackages rustc cargo;
+      inherit (pkgs.lib) optionals;
 
-      rust-pkgs = if cfg.rust.enable then rust.all else [ ];
-      go-pkgs = if cfg.go.enable then go.all else [ ];
-      node-pkgs = if cfg.node.enable then node.allNode20 ++ [ node.yarn ] else [ ];
-      python-pkgs = if cfg.python.enable then [ python.python313 ] else [ ];
+      rust-pkgs = optionals cfg.rust.enable (with pkgs; [ rustc cargo ]);
+      go-pkgs = optionals cfg.go.enable [ go ];
+      node-pkgs = optionals cfg.node.enable [ nodejs nodePackages.yarn nodePackages.pnpm ];
+      python-pkgs = optionals cfg.python.enable [ python313 ];
     in
     {
       nixpkgs.overlays = [
         self.inputs.agenix.overlays.default
         self.inputs.denbeigh-neovim.overlays.default
-        self.inputs.denbeigh-devtools.overlays.default
       ];
 
       home.packages = with pkgs; [ agenix neovim ctags direnv ]

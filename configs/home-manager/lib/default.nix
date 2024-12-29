@@ -10,7 +10,6 @@
       pkgs = import self.inputs.nixpkgs {
         inherit system;
         overlays = [
-          self.inputs.denbeigh-devtools.overlays.default
           self.inputs.nixgl.overlays.default
         ];
       };

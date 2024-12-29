@@ -72,36 +72,6 @@
         "type": "github"
       }
     },
-    "denbeigh-devtools": {
-      "inputs": {
-        "denbeigh-ci": [
-          "denbeigh-ci"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": [
-          "denbeigh-ci",
-          "rust-overlay"
-        ]
-      },
-      "locked": {
-        "lastModified": 1735515160,
-        "narHash": "sha256-nd29RANmYAkm5DG0iM7uH6Zif+tFP32svWCV7lthGzo=",
-        "owner": "denbeigh2000",
-        "repo": "nix-dev",
-        "rev": "814796bd814af1a103dfe604941f146287be8367",
-        "type": "github"
-      },
-      "original": {
-        "owner": "denbeigh2000",
-        "repo": "nix-dev",
-        "type": "github"
-      }
-    },
     "denbeigh-neovim": {
       "inputs": {
         "denbeigh-ci": [
@@ -669,7 +639,6 @@
         "agenix": "agenix",
         "darwin": "darwin",
         "denbeigh-ci": "denbeigh-ci",
-        "denbeigh-devtools": "denbeigh-devtools",
         "denbeigh-neovim": "denbeigh-neovim",
         "flake-utils": "flake-utils_2",
         "fonts": "fonts",
