@@ -5,7 +5,6 @@
         {
           imports = [
             ../../modules/nixos/standard.nix
-            ../../modules/nixos/router
             ../../modules/nixos/tailscale.nix
           ];
           config = {
@@ -29,17 +28,6 @@
             };
 
             denbeigh = {
-              services = {
-                router = {
-                  enable = true;
-                  interfaces = {
-                    lan = "eno4";
-                    wan = "eno2";
-                  };
-                  ddns.enable = true;
-                };
-              };
-
               tailscale.enable = true;
 
               machine = {
