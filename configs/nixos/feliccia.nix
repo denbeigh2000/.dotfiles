@@ -17,6 +17,8 @@
               device = "/dev/sda";
             };
 
+            hardware.nvidia.open = true;
+
             denbeigh = {
               machine = {
                 hostname = "feliccia";

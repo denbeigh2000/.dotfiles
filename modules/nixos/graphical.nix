@@ -36,19 +36,11 @@ in
 
     console.enable = true;
 
-    nixpkgs.config.pulseaudio = true;
-    hardware.pulseaudio = {
-      enable = true;
-      extraConfig = "load-module module-combine-sink";
-      package = pkgs.pulseaudioFull;
-      support32Bit = true;
-    };
-
-    # NOTE: We explicitly don't use provide a config here, and defer to the
-    # config populated by home-manager (see ../home-manager/i3)
+    services.displayManager.sddm.enable = true;
     services.xserver = {
       enable = true;
-      displayManager.sddm.enable = true;
+      # NOTE: We explicitly don't use provide a config here, and defer to the
+      # config populated by home-manager (see ../home-manager/i3)
       windowManager.i3 = {
         enable = true;
         extraPackages = with pkgs; [ dmenu i3lock ];
