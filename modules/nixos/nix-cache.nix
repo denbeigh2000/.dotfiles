@@ -35,7 +35,7 @@ in
     denbeigh.services.www.nix-cache.enable = true;
     services.harmonia = {
       enable = true;
-      signKeyPath = cfg.keyFile;
+      signKeyPaths = [ cfg.keyFile ];
       settings = {
         # Nix cache priority
         priority = 50;
