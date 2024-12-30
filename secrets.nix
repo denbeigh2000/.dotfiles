@@ -34,4 +34,5 @@ in
   "secrets/gridderServiceAccount.age".publicKeys = commonHosts;
   "secrets/remoteBuildSignKey.age".publicKeys = personalHosts;
   "secrets/remoteBuildUploadKey.age".publicKeys = personalHosts;
+  "secrets/openWebuiSecrets.age".publicKeys = commonHosts;
 }

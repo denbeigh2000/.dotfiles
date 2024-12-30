@@ -38,6 +38,7 @@
               };
 
               services = {
+                bullshit.enable = true;
                 www.enable = true;
                 nix-cache = {
                   enable = true;
