@@ -12,6 +12,7 @@
             ../../modules/nixos/cloud
             ../../modules/nixos/nginx
             ../../modules/nixos/ahoy.nix
+            ../../modules/nixos/bullshit.nix
             ../../modules/nixos/ci.nix
             ../../modules/nixos/nix-cache.nix
             ../../modules/nixos/standard.nix
@@ -38,6 +39,7 @@
               };
 
               services = {
+                bullshit.enable = true;
                 www.enable = true;
                 nix-cache = {
                   enable = true;
