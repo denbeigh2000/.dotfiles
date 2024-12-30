@@ -39,7 +39,6 @@
 
       denbeigh.services.www.services = [{
         name = cfg.subdomain;
-        enable = true;
         backend = "http://localhost:${toString cfg.port}";
         tailscale = true;
         ssl = true;
