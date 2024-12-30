@@ -7,23 +7,23 @@
       inherit (lib) mkOption types;
     in
     {
-    denbeigh.services.bullshit = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
+      denbeigh.services.bullshit = {
+        enable = mkOption {
+          type = types.bool;
+          default = false;
+        };
 
-      subdomain = mkOption {
-        type = types.str;
-        default = "bullshit";
-      };
+        subdomain = mkOption {
+          type = types.str;
+          default = "bullshit";
+        };
 
-      port = mkOption {
-        type = types.ints.u16;
-        default = 7714;
+        port = mkOption {
+          type = types.ints.u16;
+          default = 7714;
+        };
       };
     };
-  };
 
   config =
     let
