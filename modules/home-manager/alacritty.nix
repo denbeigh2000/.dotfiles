@@ -112,7 +112,7 @@ in
           size = fontSize;
         };
 
-        visual_bell = {
+        bell = {
           animation = "EaseOutExpo";
           duration = 25;
           color = "0x504945";
