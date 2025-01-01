@@ -2,7 +2,7 @@
 , backend
 , tailscale ? true
 , ssl ? true
-, extraConfig ? {}
+, extraConfig ? { }
 }:
 
 { config, lib, ... }:

@@ -20,7 +20,7 @@
           position = "0x0";
           rotate = "right";
         };
-        DP-4= {
+        DP-4 = {
           enable = true;
           mode = "2560x1440";
           position = "4000x0";

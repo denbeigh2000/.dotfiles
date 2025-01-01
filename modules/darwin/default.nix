@@ -13,4 +13,4 @@ let
   };
 
 in
-  mapAttrs (_: path: import path) paths
+mapAttrs (_: path: import path) paths

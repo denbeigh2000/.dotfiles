@@ -13,7 +13,7 @@ let
     };
   };
 
-  terraform = pkgs.terraform.withPlugins(p: [
+  terraform = pkgs.terraform.withPlugins (p: [
     p.random
     p.null
 

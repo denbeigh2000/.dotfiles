@@ -33,17 +33,17 @@ in
       '';
     };
 
-  config = mkIf cfg.enable {
-    nix.settings = {
-      # Sometimes we may not be connected to Tailscale.
-      connect-timeout = 3;
-      # For some reason, we don't make use of our own resolver by default if we
-      # only make use of extra-substituters here
-      # (cache.nixos.org is added to substituters and trusted-substituters by default)
-      substituters = [ cfg.url ];
-      trusted-substituters = [ cfg.url ];
-      trusted-public-keys = [ cfg.publicKey ];
+    config = mkIf cfg.enable {
+      nix.settings = {
+        # Sometimes we may not be connected to Tailscale.
+        connect-timeout = 3;
+        # For some reason, we don't make use of our own resolver by default if we
+        # only make use of extra-substituters here
+        # (cache.nixos.org is added to substituters and trusted-substituters by default)
+        substituters = [ cfg.url ];
+        trusted-substituters = [ cfg.url ];
+        trusted-public-keys = [ cfg.publicKey ];
+      };
     };
-  };
   };
 }

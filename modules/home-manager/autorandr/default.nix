@@ -14,7 +14,7 @@ let
   configFiles = readDir ./configs;
   configs = mapAttrs' fileToConfig configFiles;
   exists = configs ? hostname;
-  config = if exists then configs.${hostname} else {};
+  config = if exists then configs.${hostname} else { };
 in
 {
   # TODO: Define these in host-level configuration directly
