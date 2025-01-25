@@ -6,6 +6,7 @@
           imports = [
             ../../modules/nixos/standard.nix
             ../../modules/nixos/development.nix
+            ../../modules/nixos/gaming.nix
           ];
           config = {
             nixpkgs.hostPlatform = "x86_64-linux";
