@@ -21,7 +21,7 @@
             };
 
             # TODO: Use a more DRY setup for this
-            age.identityPaths = [ "/home/denbeigh/.ssh/id_rsa" ];
+            age.identityPaths = [ "/home/denbeigh/.ssh/id_ed25519" ];
           };
         })
     ];
