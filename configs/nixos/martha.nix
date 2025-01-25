@@ -6,6 +6,7 @@
           imports = [
             ../../modules/nixos/standard.nix
             ../../modules/nixos/development.nix
+            ../../modules/nixos/tailscale.nix
             ../../modules/nixos/gaming.nix
           ];
           config = {
@@ -19,6 +20,7 @@
                 graphical = true;
                 location = self.lib.locations.sf;
               };
+              tailscale.enable = true;
             };
 
             # TODO: Use a more DRY setup for this

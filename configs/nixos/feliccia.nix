@@ -7,6 +7,7 @@
             ../../modules/nixos/standard.nix
             ../../modules/nixos/development.nix
             ../../modules/nixos/gaming.nix
+            ../../modules/nixos/tailscale.nix
           ];
           config = {
             nixpkgs.hostPlatform = "x86_64-linux";
@@ -25,6 +26,8 @@
                 graphical = true;
                 location = self.lib.locations.sf;
               };
+
+              tailscale.enable = true;
 
               webcam = {
                 enable = true;
