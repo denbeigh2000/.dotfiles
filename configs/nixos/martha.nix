@@ -20,6 +20,7 @@
                 graphical = true;
                 location = self.lib.locations.sf;
               };
+              ssh.enable = true;
               tailscale.enable = true;
             };
 
