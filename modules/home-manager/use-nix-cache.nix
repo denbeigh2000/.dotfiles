@@ -40,9 +40,9 @@ in
         # For some reason, we don't make use of our own resolver by default if we
         # only make use of extra-substituters here
         # (cache.nixos.org is added to substituters and trusted-substituters by default)
-        substituters = [ cfg.url ];
-        trusted-substituters = [ cfg.url ];
-        trusted-public-keys = [ cfg.publicKey ];
+        extra-substituters = [ cfg.url ];
+        extra-trusted-substituters = [ cfg.url ];
+        extra-trusted-public-keys = [ cfg.publicKey ];
       };
     };
   };
