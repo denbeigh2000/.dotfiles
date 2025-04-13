@@ -34,6 +34,7 @@ in
 
   config = {
     networking = {
+      useNetworkd = true;
       hostName = cfg.machine.hostname;
       inherit (cfg.machine) domain;
     };

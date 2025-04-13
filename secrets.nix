@@ -35,4 +35,5 @@ in
   "secrets/remoteBuildSignKey.age".publicKeys = personalHosts;
   "secrets/remoteBuildUploadKey.age".publicKeys = personalHosts;
   "secrets/openWebuiSecrets.age".publicKeys = commonHosts;
+  "secrets/wpaSupplicantSecrets.age".publicKeys = with hosts; [ martha lucifer servers.bruce ];
 }
