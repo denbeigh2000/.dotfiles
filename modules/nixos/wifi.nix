@@ -7,7 +7,6 @@ let
     "Sanctum".pskRaw = "ext:home_primary_psk";
   };
 
-
   pluckNetworks = ssids:
     builtins.listToAttrs (
       lib.lists.imap0
@@ -56,5 +55,25 @@ in
           country=US
         '';
       };
+
+      systemd.services =
+        let
+          # Ensure that our wpa_supplicant job starts after our secrets have
+          # been mounted
+          interfaceDeps = iface: {
+            "wpa_supplicant-${iface}".serviceConfig = {
+              requires = [ "run-agenix.d.mount" ];
+              after = [ "run-agenix.d.mount" ];
+            };
+          };
+          defaultDeps = {
+            wpa_supplicant.serviceConfig.requires = [ "run-agenix.d.mount" ];
+            wpa_supplicant.serviceConfig.after = [ "run-agenix.d.mount" ];
+          };
+        in
+        lib.mkMerge [
+          (lib.mkIf (cfg.interfaces == null) defaultDeps)
+          (lib.mkIf (cfg.interfaces != null) (lib.mkMerge (map interfaceDeps cfg.interfaces)))
+        ];
     };
 }
