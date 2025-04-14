@@ -5,9 +5,8 @@
         {
           imports = [
             ../../modules/nixos/standard.nix
-            ../../modules/nixos/development.nix
             ../../modules/nixos/tailscale.nix
-            ../../modules/nixos/gaming.nix
+            ../../modules/nixos/audio-streaming.nix
             ../../modules/nixos/wifi.nix
           ];
           config = {
@@ -18,8 +17,12 @@
             denbeigh = {
               machine = {
                 hostname = "martha";
-                graphical = true;
+                graphical = false;
                 location = self.lib.locations.sf;
+              };
+              audio-streaming = {
+                enable = true;
+                name = "kitchen";
               };
               ssh.enable = true;
               tailscale.enable = true;

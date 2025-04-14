@@ -30,6 +30,9 @@ in
   # These aren't backported as frequently as I'd like
   inherit (pkgs-unstable) tailscale cfdyndns;
 
+  # This segfaults on 24.11
+  inherit (pkgs-unstable) uxplay;
+
   # Various 3rdparty packages
   # goi3bar = final.callPackage ./3rdparty/goi3bar { inherit goi3bar-src; };
   noisetorch = final.callPackage ./3rdparty/noisetorch { inherit noisetorch-src; };
