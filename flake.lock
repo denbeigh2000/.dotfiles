@@ -306,11 +306,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746383259,
-        "narHash": "sha256-p64vfJOXf/cdv/d1RCpWMQGRZIPU89reJ6j8mnlWsDs=",
+        "lastModified": 1749756622,
+        "narHash": "sha256-McbYLpzGyzpKMqhb4rCobYVXQyxVvCHkiz5mvrI8fCY=",
         "owner": "denbeigh2000",
         "repo": "gridder",
-        "rev": "63496e639661845d8522e62761eabdf5ad6dfddd",
+        "rev": "3061fe2b52cc75032af43dcb642d1818a4ce0e83",
         "type": "github"
       },
       "original": {
